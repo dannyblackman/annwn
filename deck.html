@@ -26,13 +26,12 @@
       --dark-gray: #4A4A5A;
       --mid-gray: #8A8A96;
       --white: #FFFFFF;
-      --off-white: #FAFBFA;
       --display: 'Space Grotesk', system-ui, sans-serif;
       --body: 'Inter', system-ui, sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
 
-    html { font-size: 16px; }
+    html { font-size: 16px; scroll-snap-type: y mandatory; overflow-y: scroll; }
 
     body {
       font-family: var(--body);
@@ -43,10 +42,11 @@
       overflow-x: hidden;
     }
 
-    /* ——— 16:9 Slide System with Snap ——— */
+    /* ——— 16:9 enforced slides ——— */
     .slide {
       width: 100vw;
       height: 100vh;
+      max-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -55,360 +55,229 @@
       scroll-snap-align: start;
     }
 
-    html {
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-    }
-
     .slide-inner {
-      width: 100%;
-      max-width: min(1400px, 90vw);
-      margin: 0 auto;
-      padding: clamp(32px, 5vh, 60px) clamp(32px, 5vw, 80px);
+      width: 92vw;
+      max-width: 1440px;
+      height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       position: relative;
       z-index: 2;
     }
 
-    /* ——— Nav dots - adaptive colour ——— */
+    /* ——— Nav dots ——— */
     .slide-nav {
-      position: fixed;
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      position: fixed; right: 20px; top: 50%;
+      transform: translateY(-50%); z-index: 100;
+      display: flex; flex-direction: column; gap: 8px;
     }
-
     .slide-nav a {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: block;
-      transition: all 0.3s ease;
+      width: 10px; height: 10px; border-radius: 50%;
+      display: block; transition: all 0.3s ease;
     }
+    .slide-nav a.dot-dark { background: rgba(30,30,42,0.2); border: 1px solid rgba(30,30,42,0.1); }
+    .slide-nav a.dot-light { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.15); }
+    .slide-nav a:hover, .slide-nav a.active { background: var(--mint) !important; transform: scale(1.3); border-color: var(--mint) !important; }
 
-    .slide-nav a.dot-dark {
-      background: rgba(30,30,42,0.25);
-      border: 1px solid rgba(30,30,42,0.15);
+    /* ——— Download button ——— */
+    .dl-btn {
+      position: fixed; top: 16px; right: 20px; z-index: 101;
+      font-family: var(--display); font-size: 13px; font-weight: 600;
+      padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--charcoal); color: var(--white); transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     }
-    .slide-nav a.dot-light {
-      background: rgba(255,255,255,0.25);
-      border: 1px solid rgba(255,255,255,0.15);
-    }
+    .dl-btn:hover { background: var(--mint); color: var(--charcoal); }
 
-    .slide-nav a:hover,
-    .slide-nav a.active {
-      background: var(--mint) !important;
-      transform: scale(1.3);
-      border-color: var(--mint) !important;
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-      display: inline-block;
-    }
+    .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: inline-block; }
     .tag-light { color: var(--mid-gray); }
     .tag-dark { color: var(--sage); opacity: 0.7; }
     .tag-mint { color: var(--mint); }
 
-    h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.15; }
-
-    .hero-title {
-      font-size: clamp(44px, 5.5vw, 78px);
-      letter-spacing: -0.03em;
-    }
-
-    .slide-title {
-      font-size: clamp(34px, 4.2vw, 56px);
-      letter-spacing: -0.025em;
-      margin-bottom: 20px;
-    }
-
-    .slide-subtitle {
-      font-size: clamp(17px, 2vw, 22px);
-      line-height: 1.6;
-      font-weight: 400;
-      max-width: 720px;
-    }
+    h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.12; }
+    .hero-title { font-size: clamp(44px, 5.5vw, 78px); letter-spacing: -0.03em; }
+    .slide-title { font-size: clamp(34px, 4.2vw, 56px); letter-spacing: -0.025em; margin-bottom: 16px; }
+    .slide-subtitle { font-size: clamp(17px, 1.8vw, 21px); line-height: 1.5; font-weight: 400; max-width: 720px; }
 
     .stat-huge {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(72px, 10vw, 120px);
-      letter-spacing: -0.03em;
-      line-height: 1;
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(72px, 10vw, 120px); letter-spacing: -0.03em; line-height: 1;
     }
 
-    .bg-light { background: var(--sage-lighter); color: var(--charcoal); }
-    .bg-white { background: var(--white); color: var(--charcoal); }
-    .bg-dark { background: var(--charcoal); color: var(--white); }
-    .bg-charcoal-soft { background: var(--charcoal-soft); color: var(--white); }
-    .bg-lavender-mist { background: linear-gradient(160deg, var(--lavender-pale) 0%, var(--sage-lighter) 100%); color: var(--charcoal); }
+    /* ——— SVG Icons ——— */
+    .icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .icon svg { width: 22px; height: 22px; }
 
-    .logo { height: 28px; object-fit: contain; }
-    .logo-dark { filter: brightness(0); }
+    /* ——— Animated orbs ——— */
+    @keyframes orbFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -40px) scale(1.05); }
+      66% { transform: translate(-30px, 30px) scale(0.95); }
+    }
+    @keyframes orbFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-40px, 30px) scale(0.95); }
+      66% { transform: translate(40px, -20px) scale(1.05); }
+    }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+    .orb-1 { animation: orbFloat1 20s ease-in-out infinite; }
+    .orb-2 { animation: orbFloat2 25s ease-in-out infinite; }
 
     /* ——— Grain ——— */
     body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.02;
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.02;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
       background-size: 128px 128px;
     }
 
-    /* ——— Animated orbs ——— */
-    @keyframes orbFloat1 {
-      0%, 100% { transform: translate(0, 0); }
-      25% { transform: translate(40px, -30px); }
-      50% { transform: translate(-20px, 40px); }
-      75% { transform: translate(30px, 20px); }
-    }
-    @keyframes orbFloat2 {
-      0%, 100% { transform: translate(0, 0); }
-      25% { transform: translate(-30px, 20px); }
-      50% { transform: translate(40px, -20px); }
-      75% { transform: translate(-20px, -40px); }
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-    }
-    .orb-1 { animation: orbFloat1 20s ease-in-out infinite; }
-    .orb-2 { animation: orbFloat2 25s ease-in-out infinite; }
-
     /* ——— Reveal ——— */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.2s; }
     .reveal-delay-3 { transition-delay: 0.3s; }
     .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
 
-    /* ——— Count-up animation ——— */
-    .count-up {
-      display: inline-block;
-    }
+    /* ——— Direction reveals ——— */
+    .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ——— Blur reveal ——— */
+    .reveal-blur { opacity: 0; filter: blur(12px); transform: translateY(15px) scale(0.97); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-blur.visible { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+
+    /* ——— Scale reveal ——— */
+    .reveal-scale { opacity: 0; transform: scale(0.88); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    /* ——— Rotate reveal (for circular elements) ——— */
+    .reveal-rotate { opacity: 0; transform: rotate(-6deg) scale(0.92); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-rotate.visible { opacity: 1; transform: rotate(0) scale(1); }
+
+    /* ——— Clip reveal (wipe from bottom) ——— */
+    .reveal-clip { clip-path: inset(100% 0 0 0); opacity: 0; transition: clip-path 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease; }
+    .reveal-clip.visible { clip-path: inset(0 0 0 0); opacity: 1; }
+
+    /* ——— Slide-level entrance ——— */
+    .slide-inner { transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .slide:not(.slide-visible) .slide-inner { opacity: 0.4; transform: scale(0.97); }
+    .slide.slide-visible .slide-inner { opacity: 1; transform: scale(1); }
+
+    /* ——— Workflow animation ——— */
+    .workflow-step { transition: opacity 0.4s, transform 0.4s; }
+    .workflow-step.animate-in { opacity: 0; transform: translateY(12px); }
+    .workflow-step.animate-in.step-visible { opacity: 1; transform: translateY(0); }
 
     .card { border-radius: 16px; padding: 32px; }
-    .card-dark { background: var(--charcoal-soft); color: var(--white); border: 1px solid rgba(255,255,255,0.06); }
-    .card-mint { background: var(--mint-pale); color: var(--charcoal); }
-    .card-lavender { background: var(--lavender-pale); color: var(--charcoal); }
+    .callout { padding: 16px 24px; border-radius: 10px; font-size: 15px; line-height: 1.5; margin-top: 24px; }
+    .callout-mint { background: rgba(123,245,160,0.15); color: var(--mint); border-left: 3px solid var(--mint); }
 
-    .callout { padding: 16px 24px; border-radius: 10px; font-size: 15px; line-height: 1.6; margin-top: 28px; }
-    .callout-mint { background: rgba(123, 245, 160, 0.15); color: var(--mint); border-left: 3px solid var(--mint); }
-
-    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 28px; margin-top: 32px; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 24px; margin-top: 28px; }
     .feature-list li { display: flex; gap: 16px; align-items: flex-start; }
+    .feature-content h4 { font-family: var(--display); font-weight: 600; font-size: 17px; margin-bottom: 3px; }
+    .feature-content p { font-size: 15px; line-height: 1.5; opacity: 0.8; }
 
-    .feature-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: 20px;
-    }
-
-    .feature-content h4 { font-family: var(--display); font-weight: 600; font-size: 17px; margin-bottom: 4px; }
-    .feature-content p { font-size: 15px; line-height: 1.6; opacity: 0.8; }
-
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-    .two-col-wide { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
-    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+    .four-col { display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; }
 
     .mint-badge {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 130px; height: 130px; border-radius: 50%;
+      width: 140px; height: 140px; border-radius: 50%;
       background: var(--mint); color: var(--charcoal);
-      font-family: var(--display); font-weight: 700; font-size: 17px;
+      font-family: var(--display); font-weight: 700; font-size: 18px;
       text-align: center; line-height: 1.3;
     }
 
-    /* ——— Photo cards ——— */
-    .photo-card {
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
+    .logo { height: 28px; object-fit: contain; }
+    .logo-dark { filter: brightness(0); }
+
+    /* ——— Photo with brand overlay ——— */
+    .brand-photo {
+      border-radius: 20px; overflow: hidden; position: relative;
+      background: var(--charcoal);
     }
-    .photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .brand-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .brand-photo .overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(123,245,160,0.15), rgba(184,169,232,0.1));
+      mix-blend-mode: color;
+    }
+    .brand-photo .darken {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(30,30,42,0.7));
     }
 
-    /* ——— TAM circles — FIXED ——— */
-    .tam-container {
-      position: relative;
-      width: 380px;
-      height: 380px;
-    }
-    .tam-circle {
-      position: absolute;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--display);
-      font-weight: 600;
-    }
-    .tam-outer {
-      width: 380px; height: 380px;
-      background: rgba(123,245,160,0.06);
-      border: 2px solid rgba(123,245,160,0.25);
-      top: 0; left: 0;
-    }
-    .tam-mid {
-      width: 220px; height: 220px;
-      background: rgba(123,245,160,0.12);
-      border: 2px solid rgba(123,245,160,0.35);
-      bottom: 10px; left: 50%;
-      transform: translateX(-50%);
-    }
-    .tam-inner {
-      width: 120px; height: 120px;
-      background: var(--mint);
-      color: var(--charcoal);
-      bottom: 20px; right: 40px;
-    }
-    .tam-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.7; }
-    .tam-value { font-size: 28px; font-weight: 700; }
-    .tam-outer .tam-value { font-size: 32px; }
-    .tam-mid .tam-value { font-size: 24px; }
-    .tam-inner .tam-label { opacity: 1; }
-    .tam-inner .tam-value { font-size: 20px; }
+    /* ——— TAM ——— */
+    .tam-wrap { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
+    .tam-svg { width: 100%; max-width: 480px; height: auto; }
 
-    /* ——— Competition matrix — FIXED ——— */
-    .matrix-container {
-      position: relative;
-      width: 440px;
-      height: 440px;
-    }
-    .matrix-axis-v { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.15); }
-    .matrix-axis-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.15); }
-    .matrix-label {
-      position: absolute;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--mid-gray);
-    }
-    .matrix-label-top { top: -24px; left: 50%; transform: translateX(-50%); }
-    .matrix-label-bottom { bottom: -24px; left: 50%; transform: translateX(-50%); }
-    .matrix-label-left { left: -16px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
-    .matrix-label-right { right: -16px; top: 50%; transform: translateY(-50%) rotate(90deg); }
-    .matrix-item {
-      position: absolute;
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-family: var(--display);
-      text-align: center;
-      white-space: nowrap;
-    }
-    .matrix-item-annwn {
-      top: 24px; right: 24px;
-      border: 2px dashed var(--mint);
-      background: rgba(123,245,160,0.08);
-      color: var(--mint);
-      font-weight: 700; padding: 16px 28px; font-size: 16px;
-    }
-    .matrix-item-consultancies {
-      top: 40px; left: 24px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--sage-light);
-    }
-    .matrix-item-saas {
-      bottom: 40px; left: 50%;
-      transform: translateX(-80%);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--sage-light);
-    }
-    .matrix-item-discrete {
-      bottom: 40px; right: 24px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--sage-light);
-    }
-    .matrix-item-inhouse {
-      bottom: 100px; left: 24px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--sage-light);
-    }
+    /* ——— Matrix ——— */
+    .matrix-svg { width: 100%; max-width: 500px; height: auto; }
 
-    /* ——— Logo grid ——— */
-    .logo-grid { display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: center; margin-top: 40px; }
-    .logo-placeholder { font-family: var(--display); font-weight: 700; font-size: 22px; color: rgba(255,255,255,0.5); letter-spacing: 1px; }
+    /* ——— Flywheel ——— */
+    .flywheel-svg { width: 100%; max-width: 400px; height: auto; }
 
-    /* ——— CDP workflow ——— */
-    .workflow-steps { display: flex; gap: 3px; margin: 28px 0; flex-wrap: wrap; }
+    /* ——— Roadmap ——— */
+    .roadmap-table { width: 100%; border-collapse: separate; border-spacing: 8px 0; margin-top: 32px; }
+    .roadmap-table th { font-family: var(--display); font-weight: 600; font-size: 15px; padding: 16px 18px; text-align: left; }
+    .roadmap-table td { padding: 14px 18px; font-size: 14px; vertical-align: top; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .roadmap-table .row-label { font-family: var(--display); font-weight: 500; font-size: 13px; color: var(--dark-gray); white-space: nowrap; }
+
+    /* ——— Logos ——— */
+    .logo-grid { display: flex; flex-wrap: wrap; gap: 28px 44px; align-items: center; margin-top: 36px; }
+    .logo-placeholder { font-family: var(--display); font-weight: 700; font-size: 22px; color: rgba(255,255,255,0.45); letter-spacing: 1px; }
+
+    /* ——— Workflow ——— */
+    .workflow-steps { display: flex; gap: 3px; margin: 24px 0; flex-wrap: wrap; }
     .workflow-step {
-      padding: 14px 16px; border-radius: 8px;
-      font-size: 13px; font-family: var(--display); font-weight: 500;
-      text-align: center; flex: 1; min-width: 100px;
+      padding: 14px 14px; border-radius: 8px; font-size: 13px;
+      font-family: var(--display); font-weight: 500; text-align: center; flex: 1; min-width: 90px;
     }
     .ws-auto { background: var(--mint); color: var(--charcoal); }
     .ws-collab { background: var(--mint-soft); color: var(--charcoal); }
     .ws-human { background: var(--sage); color: var(--charcoal); }
     .ws-external { background: var(--lavender-soft); color: var(--charcoal); }
 
-    .data-sources { display: flex; gap: 16px; margin-bottom: 20px; }
-    .data-source { padding: 16px 20px; border-radius: 10px; font-size: 14px; font-family: var(--display); text-align: center; flex: 1; }
+    .data-sources { display: flex; gap: 14px; margin-bottom: 16px; }
+    .data-source { padding: 14px 16px; border-radius: 10px; font-size: 13px; font-family: var(--display); text-align: center; flex: 1; }
+    .persist-chip { padding: 10px 16px; border-radius: 8px; font-size: 12px; font-family: var(--display); }
 
-    .persist-chip { padding: 10px 16px; border-radius: 8px; font-size: 13px; font-family: var(--display); }
-
-    /* ——— Roadmap table ——— */
-    .roadmap-table { width: 100%; border-collapse: separate; border-spacing: 6px 0; margin-top: 36px; }
-    .roadmap-table th {
-      font-family: var(--display); font-weight: 600; font-size: 15px;
-      padding: 18px 20px; text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .roadmap-table td {
-      padding: 16px 20px; font-size: 15px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      vertical-align: top;
-    }
-    .roadmap-table .row-label {
-      font-family: var(--display); font-weight: 500; font-size: 14px;
-      color: var(--sage); white-space: nowrap;
-    }
-    .phase-header { border-radius: 8px 8px 0 0; }
-
-    /* ——— Links ——— */
     a { color: inherit; }
+
+    /* ——— Print / PDF ——— */
+    @media print {
+      html { scroll-snap-type: none !important; }
+      .slide {
+        height: 100vh !important; page-break-after: always; break-after: page;
+        -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      .slide-nav, .dl-btn { display: none !important; }
+      body::after { display: none !important; }
+      .reveal, .reveal-left, .reveal-right, .reveal-blur, .reveal-scale, .reveal-rotate, .reveal-clip { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
+      .slide-inner { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .orb { animation: none !important; }
+      .workflow-step.animate-in { opacity: 1 !important; transform: none !important; }
+      @page { size: landscape; margin: 0; }
+    }
 
     @media (max-width: 900px) {
       html { scroll-snap-type: none; }
       .slide { height: auto; min-height: 100vh; }
-      .two-col, .two-col-wide { grid-template-columns: 1fr; gap: 32px; }
+      .slide-inner { height: auto; min-height: 80vh; padding: 48px 0; transition: none; }
+      .slide:not(.slide-visible) .slide-inner { opacity: 1; transform: none; }
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
       .four-col { grid-template-columns: 1fr 1fr; }
       .three-col { grid-template-columns: 1fr; }
-      .tam-container { width: 280px; height: 280px; margin: 0 auto; }
-      .tam-outer { width: 280px; height: 280px; }
-      .tam-mid { width: 170px; height: 170px; }
-      .tam-inner { width: 90px; height: 90px; }
-      .matrix-container { width: 100%; max-width: 400px; height: 360px; margin: 0 auto; }
       .slide-nav { display: none; }
     }
     @media (max-width: 600px) {
@@ -420,62 +289,30 @@
 </head>
 <body>
 
-<!-- Download button -->
-<div style="position: fixed; top: 20px; right: 24px; z-index: 101; display: flex; gap: 8px;">
-  <button onclick="window.print()" style="
-    font-family: var(--display); font-size: 12px; font-weight: 500;
-    padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer;
-    background: rgba(255,255,255,0.1); backdrop-filter: blur(12px);
-    color: var(--white); transition: all 0.2s;
-    border: 1px solid rgba(255,255,255,0.1);
-  " onmouseover="this.style.background='var(--mint)';this.style.color='var(--charcoal)'" onmouseout="this.style.background='rgba(255,255,255,0.1)';this.style.color='var(--white)'">
-    Download PDF
-  </button>
-</div>
-
-<style>
-  @media print {
-    html { scroll-snap-type: none !important; }
-    .slide { height: 100vh !important; page-break-after: always; break-after: page; }
-    .slide-nav, div[style*="position: fixed"][style*="top: 20px"] { display: none !important; }
-    body::after { display: none !important; }
-    .reveal { opacity: 1 !important; transform: none !important; }
-    .orb { animation: none !important; }
-    @page { size: landscape; margin: 0; }
-  }
-</style>
+<button class="dl-btn" onclick="window.print()">Download PDF</button>
 
 <nav class="slide-nav" id="slideNav">
-  <a href="#slide-1" title="Title"></a>
-  <a href="#slide-2" title="Summary"></a>
-  <a href="#slide-3" title="Problem"></a>
-  <a href="#slide-4" title="Solution"></a>
-  <a href="#slide-5" title="How it works"></a>
-  <a href="#slide-6" title="Market"></a>
-  <a href="#slide-7" title="Go to Market"></a>
-  <a href="#slide-8" title="Defensibility"></a>
-  <a href="#slide-9" title="Team"></a>
-  <a href="#slide-10" title="Competition"></a>
-  <a href="#slide-11" title="Roadmap"></a>
-  <a href="#slide-12" title="Traction"></a>
-  <a href="#slide-13" title="The Ask"></a>
-  <a href="#slide-14" title="Thank You"></a>
+  <a href="#s1" title="Title"></a><a href="#s2" title="Summary"></a><a href="#s3" title="Problem"></a>
+  <a href="#s4" title="Solution"></a><a href="#s5" title="How it works"></a><a href="#s6" title="Market"></a>
+  <a href="#s7" title="GTM"></a><a href="#s8" title="Defensibility"></a><a href="#s9" title="Team"></a>
+  <a href="#s10" title="Competition"></a><a href="#s11" title="Roadmap"></a><a href="#s12" title="Traction"></a>
+  <a href="#s13" title="The Ask"></a><a href="#s14" title="Thank You"></a>
 </nav>
 
 
-<!-- ====== SLIDE 1: TITLE ====== -->
-<section class="slide bg-light" id="slide-1" data-theme="light">
-  <div class="orb orb-1" style="width: 500px; height: 500px; background: var(--mint); top: -120px; right: -80px; opacity: 0.25;"></div>
-  <div class="orb orb-2" style="width: 400px; height: 400px; background: var(--lavender); bottom: -100px; left: -60px; opacity: 0.2;"></div>
-  <div class="orb orb-1" style="width: 300px; height: 300px; background: var(--sage); top: 40%; left: 30%; opacity: 0.12;"></div>
-  <div class="slide-inner" style="height: 100vh; display: flex; flex-direction: column; justify-content: space-between;">
+<!-- ====== 1: TITLE ====== -->
+<section class="slide slide-visible" id="s1" data-theme="light" style="background: var(--sage-lighter);">
+  <div class="orb orb-1" style="width: 600px; height: 600px; background: var(--mint); top: -150px; right: -100px; opacity: 0.3;"></div>
+  <div class="orb orb-2" style="width: 500px; height: 500px; background: var(--lavender); bottom: -120px; left: -80px; opacity: 0.22;"></div>
+  <div class="orb orb-1" style="width: 350px; height: 350px; background: var(--sage); top: 40%; left: 25%; opacity: 0.15;"></div>
+  <div class="slide-inner" style="justify-content: space-between;">
     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
       <img src="https://annwn.ai/annwn_transparent_white.png" alt="annwn" class="logo logo-dark" style="height: 36px;">
       <div class="mint-badge">Seed<br>round<br>2026</div>
     </div>
     <div style="max-width: 760px;">
-      <h1 class="hero-title reveal" style="color: var(--charcoal); margin-bottom: 24px;">The AI operating system for sustainability consultants</h1>
-      <p class="slide-subtitle reveal reveal-delay-1" style="color: var(--dark-gray); font-size: clamp(18px, 2.2vw, 24px);">Automate the manual. Codify knowledge. Unlock strategic value.</p>
+      <h1 class="hero-title reveal-blur" style="color: var(--charcoal); margin-bottom: 20px;">The AI operating system for sustainability consultants</h1>
+      <p class="slide-subtitle reveal-blur reveal-delay-1" style="color: var(--dark-gray); font-size: clamp(18px, 2.2vw, 24px);">Automate the manual. Codify knowledge. Unlock strategic value.</p>
     </div>
     <div class="reveal reveal-delay-2" style="display: flex; justify-content: space-between; align-items: flex-end;">
       <span style="font-family: var(--mono); font-size: 13px; color: var(--mid-gray);">Q1 2026</span>
@@ -485,59 +322,36 @@
 </section>
 
 
-<!-- ====== SLIDE 2: SUMMARY ====== -->
-<section class="slide bg-white" id="slide-2" data-theme="light">
+<!-- ====== 2: SUMMARY ====== -->
+<section class="slide" id="s2" data-theme="light" style="background: var(--white);">
   <div class="slide-inner">
-    <div class="two-col-wide">
+    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: start;">
       <div>
-        <span class="tag tag-light reveal">Summary</span>
-        <h2 class="slide-title reveal reveal-delay-1" style="font-size: clamp(30px, 3.8vw, 48px);">AI agents that automate enterprise sustainability compliance &mdash; saving hundreds of hours per year.</h2>
-
-        <div class="reveal reveal-delay-2" style="display: flex; flex-direction: column; gap: 14px; margin-top: 24px;">
-          <div>
-            <h4 style="font-family: var(--display); font-weight: 600; font-size: 15px; margin-bottom: 2px;">Problem</h4>
-            <p style="font-size: 15px; color: var(--dark-gray);">Consultants lose margin on manual work, leak knowledge when people leave, and can't sell strategic value.</p>
-          </div>
-          <div>
-            <h4 style="font-family: var(--display); font-weight: 600; font-size: 15px; margin-bottom: 2px;">Solution</h4>
-            <p style="font-size: 15px; color: var(--dark-gray);">End-to-end workflow agents, persistent knowledge graphs, and an innovation engine that surfaces new revenue.</p>
-          </div>
-          <div>
-            <h4 style="font-family: var(--display); font-weight: 600; font-size: 15px; margin-bottom: 2px;">Market</h4>
-            <p style="font-size: 15px; color: var(--dark-gray);">&pound;30bn consulting TAM. We displace labour budgets, not software budgets.</p>
-          </div>
-          <div>
-            <h4 style="font-family: var(--display); font-weight: 600; font-size: 15px; margin-bottom: 2px;">Why now</h4>
-            <p style="font-size: 15px; color: var(--dark-gray);">AI agents have hit the maturity threshold for enterprise deployment. First mover takes the knowledge moat.</p>
-          </div>
-          <div>
-            <h4 style="font-family: var(--display); font-weight: 600; font-size: 15px; margin-bottom: 2px;">Team</h4>
-            <p style="font-size: 15px; color: var(--dark-gray);">50+ years in sustainability. Built and sold Avieco to Accenture (30x EBITDA).</p>
-          </div>
+        <span class="tag tag-light reveal-left">Summary</span>
+        <h2 class="slide-title reveal-left reveal-delay-1" style="font-size: clamp(28px, 3.5vw, 44px);">AI agents that automate enterprise sustainability compliance &mdash; saving hundreds of hours per year.</h2>
+        <div class="reveal-left reveal-delay-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-top: 24px;">
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Problem</h4><p style="font-size: 14px; color: var(--dark-gray);">Consultants lose margin on manual work, leak knowledge, can't sell strategy.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Solution</h4><p style="font-size: 14px; color: var(--dark-gray);">End-to-end workflow agents, persistent knowledge graphs, innovation engine.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Market</h4><p style="font-size: 14px; color: var(--dark-gray);">&pound;30bn consulting TAM. We displace labour budgets, not software.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Why now</h4><p style="font-size: 14px; color: var(--dark-gray);">AI agents hit enterprise maturity. First mover takes the knowledge moat.</p></div>
+          <div style="grid-column: 1/-1;"><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Team</h4><p style="font-size: 14px; color: var(--dark-gray);">50+ years in sustainability. Built and sold Avieco to Accenture (30x EBITDA).</p></div>
         </div>
       </div>
-
-      <div class="reveal reveal-delay-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-        <div class="card card-dark" style="padding: 24px; grid-column: 1 / -1;">
-          <div style="font-size: 11px; color: var(--sage); font-family: var(--mono); margin-bottom: 8px;">Compliance Score</div>
-          <div style="font-family: var(--display); font-size: 48px; font-weight: 700; color: var(--white);">2,025</div>
-          <div style="height: 6px; background: var(--charcoal); border-radius: 3px; margin-top: 12px;">
-            <div style="height: 100%; width: 78%; background: linear-gradient(90deg, var(--mint), var(--lavender)); border-radius: 3px;"></div>
-          </div>
+      <div class="reveal-right reveal-delay-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="grid-column:1/-1; background: var(--charcoal-soft); border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.06);">
+          <div style="font-size: 11px; color: var(--sage); font-family: var(--mono); margin-bottom: 6px;">Compliance Score</div>
+          <div style="font-family: var(--display); font-size: 44px; font-weight: 700; color: var(--white);">2,025</div>
+          <div style="height: 6px; background: var(--charcoal); border-radius: 3px; margin-top: 10px;"><div style="height: 100%; width: 78%; background: linear-gradient(90deg, var(--mint), var(--lavender)); border-radius: 3px;"></div></div>
         </div>
-        <div class="card card-mint" style="padding: 24px;">
-          <div style="font-size: 11px; font-family: var(--mono); margin-bottom: 8px; opacity: 0.6;">Cost saved</div>
-          <div style="font-family: var(--display); font-size: 32px; font-weight: 700;">&pound;15,368</div>
-          <div style="font-size: 13px; margin-top: 4px; opacity: 0.6;">per engagement</div>
+        <div style="background: var(--mint-pale); border-radius: 16px; padding: 20px;">
+          <div style="font-size: 11px; font-family: var(--mono); margin-bottom: 6px; opacity: 0.6;">Cost saved</div>
+          <div style="font-family: var(--display); font-size: 28px; font-weight: 700;">&pound;15,368</div>
+          <div style="font-size: 12px; margin-top: 2px; opacity: 0.6;">per engagement</div>
         </div>
-        <div class="card card-lavender" style="padding: 24px;">
-          <div style="font-size: 11px; font-family: var(--mono); margin-bottom: 8px; opacity: 0.6;">Time reduction</div>
-          <div style="font-family: var(--display); font-size: 32px; font-weight: 700;">76%</div>
-          <div style="font-size: 13px; margin-top: 4px; opacity: 0.6;">6 weeks &rarr; 10 days</div>
-        </div>
-        <!-- Photo -->
-        <div class="photo-card" style="grid-column: 1 / -1; height: 140px;">
-          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Modern office with plants" style="filter: brightness(0.95) saturate(0.9);">
+        <div style="background: var(--lavender-pale); border-radius: 16px; padding: 20px;">
+          <div style="font-size: 11px; font-family: var(--mono); margin-bottom: 6px; opacity: 0.6;">Time reduction</div>
+          <div style="font-family: var(--display); font-size: 28px; font-weight: 700;">76%</div>
+          <div style="font-size: 12px; margin-top: 2px; opacity: 0.6;">6 weeks &rarr; 10 days</div>
         </div>
       </div>
     </div>
@@ -545,45 +359,36 @@
 </section>
 
 
-<!-- ====== SLIDE 3: PROBLEM ====== -->
-<section class="slide bg-dark" id="slide-3" data-theme="dark">
-  <div class="orb orb-1" style="width: 500px; height: 500px; background: #1a3a1a; top: -200px; right: -200px; opacity: 0.5;"></div>
+<!-- ====== 3: PROBLEM ====== -->
+<section class="slide" id="s3" data-theme="dark" style="background: var(--charcoal);">
+  <div class="orb orb-1" style="width: 500px; height: 500px; background: #1a3a1a; top: -200px; right: -150px; opacity: 0.5;"></div>
   <div class="slide-inner">
-    <div class="two-col" style="align-items: center;">
+    <div class="two-col">
       <div>
-        <span class="tag tag-dark reveal">Problem</span>
-        <h2 class="slide-title reveal reveal-delay-1" style="color: var(--white); max-width: 600px;">Sustainability consulting is structurally broken</h2>
-        <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--sage-light); margin-bottom: 40px;">Broad remit, scattered data, poor tools, shifting regulations. Consultants are trapped doing low-value manual work.</p>
-
-        <ul class="feature-list reveal reveal-delay-3">
+        <span class="tag tag-dark reveal-left">Problem</span>
+        <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Sustainability consulting is structurally broken</h2>
+        <p class="slide-subtitle reveal-left reveal-delay-2" style="color: var(--sage-light); margin-bottom: 36px;">Broad remit, scattered data, poor tools, shifting regulations. Consultants are trapped doing low-value manual work.</p>
+        <ul class="feature-list reveal-left reveal-delay-3">
           <li>
-            <div class="feature-icon" style="background: rgba(197,208,192,0.2);">&#9201;</div>
-            <div class="feature-content">
-              <h4 style="color: var(--sage-light);">Slow and expensive</h4>
-              <p style="color: var(--sage);">High-cost manual work that clients won't pay for.</p>
-            </div>
+            <div class="icon" style="background: rgba(197,208,192,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#C5D0C0" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="feature-content"><h4 style="color: var(--sage-light);">Slow and expensive</h4><p style="color: var(--sage);">High-cost manual work that clients won't pay for.</p></div>
           </li>
           <li>
-            <div class="feature-icon" style="background: rgba(184,169,232,0.15);">&#128218;</div>
-            <div class="feature-content">
-              <h4 style="color: var(--sage-light);">Knowledge walks out the door</h4>
-              <p style="color: var(--sage);">Every engagement starts from scratch.</p>
-            </div>
+            <div class="icon" style="background: rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <div class="feature-content"><h4 style="color: var(--sage-light);">Knowledge walks out the door</h4><p style="color: var(--sage);">Every engagement starts from scratch.</p></div>
           </li>
           <li>
-            <div class="feature-icon" style="background: rgba(123,245,160,0.15);">&#128161;</div>
-            <div class="feature-content">
-              <h4 style="color: var(--sage-light);">No room for strategy</h4>
-              <p style="color: var(--sage);">Compliance eats all the bandwidth.</p>
-            </div>
+            <div class="icon" style="background: rgba(123,245,160,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#7BF5A0" stroke-width="1.5"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+            <div class="feature-content"><h4 style="color: var(--sage-light);">No room for strategy</h4><p style="color: var(--sage);">Compliance eats all the bandwidth.</p></div>
           </li>
         </ul>
       </div>
-
-      <div class="reveal reveal-delay-2 photo-card" style="height: 480px; border-radius: 20px;">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" alt="Frustrated consultant at desk" style="filter: brightness(0.7) saturate(0.8);">
-        <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 28px; background: linear-gradient(transparent, rgba(30,30,42,0.95));">
-          <p style="color: var(--mint); font-size: 14px; font-weight: 500;">Budget cuts and regulatory shifts are squeezing consultants harder. They need to do more with less &mdash; now.</p>
+      <div class="reveal-scale reveal-delay-2 brand-photo" style="height: 100%; min-height: 420px;">
+        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80" alt="Dense open office" style="filter: saturate(0.6) brightness(0.5);">
+        <div class="overlay"></div>
+        <div class="darken"></div>
+        <div style="position: absolute; bottom: 24px; left: 24px; right: 24px;">
+          <p style="color: var(--mint); font-size: 14px; font-weight: 500; line-height: 1.5;">Budget cuts and regulatory shifts are squeezing consultants. They need to do more with less &mdash; now.</p>
         </div>
       </div>
     </div>
@@ -591,253 +396,193 @@
 </section>
 
 
-<!-- ====== SLIDE 4: SOLUTION ====== -->
-<section class="slide bg-charcoal-soft" id="slide-4" data-theme="dark">
+<!-- ====== 4: SOLUTION ====== -->
+<section class="slide" id="s4" data-theme="dark" style="background: var(--charcoal-soft);">
   <div class="orb orb-2" style="width: 400px; height: 400px; background: var(--mint); bottom: -150px; left: -100px; opacity: 0.06;"></div>
   <div class="slide-inner">
-    <div class="two-col" style="align-items: center;">
+    <div class="two-col">
       <div>
-        <span class="tag tag-mint reveal">Solution</span>
-        <h2 class="slide-title reveal reveal-delay-1" style="color: var(--white); max-width: 560px;">Three products. One compounding system.</h2>
-
-        <ul class="feature-list reveal reveal-delay-2" style="margin-top: 36px;">
+        <span class="tag tag-mint reveal-left">Solution</span>
+        <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Three products. One compounding system.</h2>
+        <ul class="feature-list reveal-left reveal-delay-2" style="margin-top: 32px;">
           <li>
-            <div class="feature-icon" style="background: var(--mint); color: var(--charcoal); font-size: 20px;">&#9881;</div>
-            <div class="feature-content">
-              <h4 style="color: var(--white);">Automation</h4>
-              <p style="color: var(--sage-light);">End-to-end workflow agents. <span style="color: var(--mint);">CDP: 6 weeks &rarr; 10 days.</span></p>
-            </div>
+            <div class="icon" style="background: var(--mint); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div class="feature-content"><h4 style="color: var(--white);">Automation</h4><p style="color: var(--sage-light);">End-to-end workflow agents. <span style="color: var(--mint);">CDP: 6 weeks &rarr; 10 days.</span></p></div>
           </li>
           <li>
-            <div class="feature-icon" style="background: var(--lavender); color: var(--charcoal); font-size: 20px;">&#128218;</div>
-            <div class="feature-content">
-              <h4 style="color: var(--white);">Knowledge System</h4>
-              <p style="color: var(--sage-light);">Every decision captured, searchable, compounding.</p>
-            </div>
+            <div class="icon" style="background: var(--lavender); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+            <div class="feature-content"><h4 style="color: var(--white);">Knowledge System</h4><p style="color: var(--sage-light);">Every decision captured, searchable, compounding.</p></div>
           </li>
           <li>
-            <div class="feature-icon" style="background: var(--sage); color: var(--charcoal); font-size: 20px;">&#128161;</div>
-            <div class="feature-content">
-              <h4 style="color: var(--white);">Innovation Engine</h4>
-              <p style="color: var(--sage-light);">Surfaces costed strategic opportunities automatically.</p>
-            </div>
+            <div class="icon" style="background: var(--sage); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+            <div class="feature-content"><h4 style="color: var(--white);">Innovation Engine</h4><p style="color: var(--sage-light);">Surfaces costed strategic opportunities automatically.</p></div>
           </li>
         </ul>
-
-        <div class="callout callout-mint reveal reveal-delay-3" style="max-width: 400px;">
-          The more annwn is used, the more powerful it becomes.
-        </div>
+        <div class="callout callout-mint reveal-left reveal-delay-3" style="max-width: 380px;">The more annwn is used, the more powerful it becomes.</div>
       </div>
-
-      <div class="reveal reveal-delay-2 photo-card" style="height: 480px; border-radius: 20px;">
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Team collaborating with technology" style="filter: brightness(0.75) saturate(0.85);">
-        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(30,30,42,0.3), rgba(30,30,42,0.6));"></div>
+      <div class="reveal-scale reveal-delay-2 brand-photo" style="height: 100%; min-height: 420px;">
+        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=900&q=80" alt="Modern bright workspace with plants" style="filter: saturate(0.7) brightness(0.55);">
+        <div class="overlay"></div>
+        <div class="darken"></div>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 5: CDP WORKFLOW ====== -->
-<section class="slide" id="slide-5" style="background: var(--sage-50);" data-theme="light">
+<!-- ====== 5: CDP WORKFLOW ====== -->
+<section class="slide" id="s5" data-theme="light" style="background: var(--sage-50);">
   <div class="slide-inner">
-    <span class="tag tag-light reveal">How it works</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="font-size: clamp(30px, 3.8vw, 48px);">A CDP submission: 6 weeks &rarr; 10 days</h2>
+    <span class="tag tag-light reveal-blur">How it works</span>
+    <h2 class="slide-title reveal-blur reveal-delay-1" style="font-size: clamp(30px, 3.8vw, 48px);">A CDP submission: 6 weeks &rarr; 10 days</h2>
     <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--dark-gray);">Same team. Better output. Full traceability.</p>
 
-    <div class="reveal reveal-delay-2" style="margin-top: 28px;">
+    <div class="reveal-clip reveal-delay-3" style="margin-top: 24px;">
       <div class="data-sources">
-        <div class="data-source" style="background: var(--mint-pale); border: 1px solid var(--mint-soft); color: var(--charcoal);">
-          <strong>annwn Corpus</strong><br>
-          <span style="font-size: 12px; opacity: 0.7;">Prior submissions, benchmarks</span>
-        </div>
-        <div class="data-source" style="background: var(--sage-light); border: 1px solid var(--sage); color: var(--charcoal);">
-          <strong>Enterprise Data</strong><br>
-          <span style="font-size: 12px; opacity: 0.7;">Utility bills, reports, procurement</span>
-        </div>
-        <div class="data-source" style="background: var(--lavender-pale); border: 1px solid var(--lavender-soft); color: var(--charcoal);">
-          <strong>External Risk Data</strong><br>
-          <span style="font-size: 12px; opacity: 0.7;">Regulatory databases, risk models</span>
-        </div>
+        <div class="data-source" style="background: var(--mint-pale); border: 1px solid var(--mint-soft); color: var(--charcoal);"><strong>annwn Corpus</strong><br><span style="font-size: 11px; opacity: 0.7;">Prior submissions, benchmarks</span></div>
+        <div class="data-source" style="background: var(--sage-light); border: 1px solid var(--sage); color: var(--charcoal);"><strong>Enterprise Data</strong><br><span style="font-size: 11px; opacity: 0.7;">Utility bills, reports</span></div>
+        <div class="data-source" style="background: var(--lavender-pale); border: 1px solid var(--lavender-soft); color: var(--charcoal);"><strong>External Risk Data</strong><br><span style="font-size: 11px; opacity: 0.7;">Regulatory databases</span></div>
       </div>
-
-      <div style="text-align: center; color: var(--mid-gray); font-size: 18px; margin: 6px 0;">&#8595;</div>
-
-      <div class="workflow-steps">
-        <div class="workflow-step ws-auto">1. Scoping</div>
-        <div class="workflow-step ws-auto">2. Data Collection</div>
-        <div class="workflow-step ws-collab">3. Gap Analysis</div>
-        <div class="workflow-step ws-collab">4. Framework Map</div>
-        <div class="workflow-step ws-auto">5. Draft</div>
-        <div class="workflow-step ws-collab">6. QA</div>
-        <div class="workflow-step ws-human">7. Client Review</div>
-        <div class="workflow-step ws-auto">8. Submit</div>
-        <div class="workflow-step ws-external">9. Score D&rarr;A</div>
+      <div style="text-align: center; color: var(--mid-gray); font-size: 16px; margin: 4px 0;">&#8595;</div>
+      <div class="workflow-steps" id="workflowSteps">
+        <div class="workflow-step ws-auto animate-in">1. Scoping</div>
+        <div class="workflow-step ws-auto animate-in">2. Data Collection</div>
+        <div class="workflow-step ws-collab animate-in">3. Gap Analysis</div>
+        <div class="workflow-step ws-collab animate-in">4. Framework Map</div>
+        <div class="workflow-step ws-auto animate-in">5. Draft</div>
+        <div class="workflow-step ws-collab animate-in">6. QA</div>
+        <div class="workflow-step ws-human animate-in">7. Client Review</div>
+        <div class="workflow-step ws-auto animate-in">8. Submit</div>
+        <div class="workflow-step ws-external animate-in">9. Score D&rarr;A</div>
       </div>
-
-      <div style="display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap;">
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dark-gray);"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--mint); display: inline-block;"></span> annwn automated</div>
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dark-gray);"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--mint-soft); display: inline-block;"></span> annwn + client</div>
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dark-gray);"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--sage); display: inline-block;"></span> Human</div>
-        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--dark-gray);"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--lavender-soft); display: inline-block;"></span> External</div>
+      <div style="display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--mint);display:inline-block;"></span> annwn automated</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--mint-soft);display:inline-block;"></span> annwn + client</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--sage);display:inline-block;"></span> Human</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--lavender-soft);display:inline-block;"></span> External</div>
       </div>
-
-      <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-        <div class="persist-chip" style="background: var(--sage-light); border: 1px solid var(--sage); color: var(--charcoal);">Persistent scoring model</div>
-        <div class="persist-chip" style="background: var(--sage-light); border: 1px solid var(--sage); color: var(--charcoal);">Assurance-grade audit trail</div>
-        <div class="persist-chip" style="background: var(--sage-light); border: 1px solid var(--sage); color: var(--charcoal);">Knowledge graph (context survives)</div>
+      <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
+        <div class="persist-chip" style="background:var(--sage-light);border:1px solid var(--sage);color:var(--charcoal);">Persistent scoring model</div>
+        <div class="persist-chip" style="background:var(--sage-light);border:1px solid var(--sage);color:var(--charcoal);">Assurance-grade audit trail</div>
+        <div class="persist-chip" style="background:var(--sage-light);border:1px solid var(--sage);color:var(--charcoal);">Knowledge graph</div>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 6: MARKET ====== -->
-<section class="slide bg-dark" id="slide-6" data-theme="dark">
-  <div class="orb orb-1" style="width: 500px; height: 500px; background: var(--mint); top: -200px; left: -200px; opacity: 0.05;"></div>
+<!-- ====== 6: MARKET ====== -->
+<section class="slide" id="s6" data-theme="dark" style="background: var(--charcoal);">
   <div class="slide-inner">
-    <span class="tag tag-dark reveal">Market</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="color: var(--white);">&pound;30bn market. Labour budgets, not software.</h2>
-    <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--sage-light); margin-bottom: 40px;">We displace manual tasks and surface higher-value work. Our addressable market is consulting, not SaaS.</p>
-
-    <div class="two-col" style="align-items: center;">
-      <div class="reveal reveal-delay-3">
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px;">
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); font-size: 14px; margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;"><strong style="color: var(--white);">TAM &pound;30bn</strong> &mdash; Global sustainability consulting by 2030 (16% CAGR)</span>
-          </li>
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); font-size: 14px; margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;"><strong style="color: var(--white);">SAM &pound;2.6bn</strong> &mdash; Sustainability software</span>
-          </li>
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); font-size: 14px; margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;"><strong style="color: var(--white);">SOM &pound;200m</strong> &mdash; ~1,000 firms by 2030</span>
-          </li>
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); font-size: 14px; margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;"><strong style="color: var(--white);">Adjacent: &pound;17tn</strong> sustainable AUM</span>
-          </li>
+    <span class="tag tag-dark reveal-left">Market</span>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">&pound;30bn market. Labour budgets, not software.</h2>
+    <div class="two-col" style="margin-top: 16px;">
+      <div class="reveal-left reveal-delay-2">
+        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 28px;">We displace manual tasks and surface higher-value work. Our addressable market is consulting, not SaaS.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">TAM &pound;30bn</strong> &mdash; Global sustainability consulting 2030 (16% CAGR)</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">SAM &pound;2.6bn</strong> &mdash; Sustainability software</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">SOM &pound;200m</strong> &mdash; ~1,000 firms by 2030</span></li>
         </ul>
-        <div class="callout callout-mint reveal reveal-delay-4" style="margin-top: 24px;">
-          Comp: Harvey (legal AI) &mdash; $11bn valuation. &ldquo;Service-as-Software&rdquo; commands 20x+ ARR. Sustainability is next.
-        </div>
+        <div class="callout callout-mint" style="margin-top: 20px;">Comp: Harvey (legal AI) &mdash; $11bn. &ldquo;Service-as-Software&rdquo; commands 20x+ ARR.</div>
       </div>
-
-      <div class="reveal reveal-delay-3" style="display: flex; justify-content: center;">
-        <div class="tam-container">
-          <div class="tam-circle tam-outer">
-            <span class="tam-label" style="color: var(--sage); position: absolute; top: 40px;">TAM</span>
-            <span class="tam-value" style="color: var(--mint-soft); font-size: 32px; position: absolute; top: 60px;">&pound;30bn</span>
-          </div>
-          <div class="tam-circle tam-mid" style="display: flex; align-items: center; justify-content: center;">
-            <span class="tam-label" style="color: var(--sage);">SAM</span>
-            <span class="tam-value" style="color: var(--mint-soft); font-size: 22px;">&pound;2.6bn</span>
-          </div>
-          <div class="tam-circle tam-inner">
-            <span class="tam-label" style="font-size: 10px;">SOM</span>
-            <span class="tam-value" style="font-size: 18px;">&pound;200m</span>
-          </div>
-        </div>
+      <div class="reveal-scale reveal-delay-3 tam-wrap">
+        <svg class="tam-svg" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- TAM -->
+          <circle cx="220" cy="220" r="210" stroke="rgba(123,245,160,0.3)" stroke-width="2" fill="rgba(123,245,160,0.05)"/>
+          <text x="220" y="100" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">TAM</text>
+          <text x="220" y="135" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#A8F5C0">&pound;30bn</text>
+          <!-- SAM -->
+          <circle cx="240" cy="300" r="130" stroke="rgba(123,245,160,0.4)" stroke-width="2" fill="rgba(123,245,160,0.08)"/>
+          <text x="240" y="280" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="12" letter-spacing="2" fill="#8A8A96">SAM</text>
+          <text x="240" y="310" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
+          <!-- SOM -->
+          <circle cx="340" cy="380" r="65" fill="#7BF5A0"/>
+          <text x="340" y="370" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="2" fill="#1E1E2A" font-weight="600">SOM</text>
+          <text x="340" y="395" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#1E1E2A">&pound;200m</text>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 7: GTM ====== -->
-<section class="slide bg-lavender-mist" id="slide-7" data-theme="light">
+<!-- ====== 7: GTM ====== -->
+<section class="slide" id="s7" data-theme="light" style="background: linear-gradient(160deg, var(--lavender-pale), var(--sage-lighter));">
   <div class="slide-inner">
-    <span class="tag tag-light reveal">Go to market</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="max-width: 820px;">Consultants are the channel. Each one brings 50&ndash;100+ enterprise clients.</h2>
-
-    <div class="two-col reveal reveal-delay-2" style="margin-top: 40px;">
-      <div class="card" style="background: var(--charcoal); color: var(--white); padding: 36px; border-radius: 20px;">
-        <h3 style="font-family: var(--display); font-size: 22px; color: var(--mint); margin-bottom: 20px;">Why consultancies first</h3>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-          <li style="font-size: 15px;"><strong style="color: var(--sage-light);">Distribution multiplier</strong> <span style="color: var(--sage);">&mdash; 1 consultancy = 50&ndash;100+ clients</span></li>
-          <li style="font-size: 15px;"><strong style="color: var(--sage-light);">Fastest data flywheel</strong> <span style="color: var(--sage);">&mdash; denser data, faster</span></li>
-          <li style="font-size: 15px;"><strong style="color: var(--sage-light);">Acute pain</strong> <span style="color: var(--sage);">&mdash; margin pressure drives adoption</span></li>
-          <li style="font-size: 15px;"><strong style="color: var(--sage-light);">Lower threshold</strong> <span style="color: var(--sage);">&mdash; faster trust than enterprise</span></li>
+    <span class="tag tag-light reveal-blur">Go to market</span>
+    <h2 class="slide-title reveal-blur reveal-delay-1" style="max-width: 820px;">Consultants are the channel. Each one brings 50&ndash;100+ enterprise clients.</h2>
+    <div class="two-col" style="margin-top: 32px;">
+      <div class="card reveal-left reveal-delay-2" style="background: var(--charcoal); color: var(--white); padding: 32px; border-radius: 20px;">
+        <h3 style="font-family:var(--display);font-size:20px;color:var(--mint);margin-bottom:16px;">Why consultancies first</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Distribution</strong> <span style="color:var(--sage);">&mdash; 1 consultancy = 50&ndash;100+ clients</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Data flywheel</strong> <span style="color:var(--sage);">&mdash; denser data, faster</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Acute pain</strong> <span style="color:var(--sage);">&mdash; margin pressure drives adoption</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Lower threshold</strong> <span style="color:var(--sage);">&mdash; faster trust than enterprise</span></li>
         </ul>
       </div>
-
-      <div class="card" style="background: var(--white); padding: 36px; border-radius: 20px; border: 1px solid var(--sage-light);">
-        <h3 style="font-family: var(--display); font-size: 22px; color: var(--charcoal); margin-bottom: 20px;">Land and expand</h3>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-          <li style="font-size: 15px; color: var(--dark-gray);"><strong style="color: var(--charcoal);">FDSEs</strong> &mdash; Embedded experts build knowledge from live engagements</li>
-          <li style="font-size: 15px; color: var(--dark-gray);"><strong style="color: var(--charcoal);">Scope &amp; region</strong> &mdash; UK &rarr; EU &rarr; Global</li>
-          <li style="font-size: 15px; color: var(--dark-gray);"><strong style="color: var(--charcoal);">Enterprise direct</strong> &mdash; Client retains knowledge, creating direct relationship</li>
+      <div class="card reveal-right reveal-delay-3" style="background: var(--white); padding: 32px; border-radius: 20px; border: 1px solid var(--sage-light);">
+        <h3 style="font-family:var(--display);font-size:20px;color:var(--charcoal);margin-bottom:16px;">Land and expand</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">FDSEs</strong> &mdash; Embedded experts build knowledge from live engagements</li>
+          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Scope &amp; region</strong> &mdash; UK &rarr; EU &rarr; Global</li>
+          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Enterprise direct</strong> &mdash; Client retains knowledge, direct relationship</li>
         </ul>
-        <!-- Photo inset -->
-        <div class="photo-card" style="height: 100px; border-radius: 12px; margin-top: 20px;">
-          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Team meeting" style="filter: brightness(0.9) saturate(0.85);">
-        </div>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 8: DEFENSIBILITY ====== -->
-<section class="slide bg-dark" id="slide-8" data-theme="dark">
-  <div class="orb orb-2" style="width: 400px; height: 400px; background: var(--sage); bottom: -100px; right: -100px; opacity: 0.06;"></div>
+<!-- ====== 8: DEFENSIBILITY ====== -->
+<section class="slide" id="s8" data-theme="dark" style="background: var(--charcoal);">
   <div class="slide-inner">
-    <span class="tag tag-dark reveal">Defensibility</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="color: var(--white); max-width: 780px;">Gets harder to compete with every day</h2>
-    <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--sage-light); margin-bottom: 40px;">50+ years domain expertise, major consultancy relationships, and FDSEs building the knowledge moat from day one.</p>
-
-    <div class="two-col" style="align-items: start;">
-      <ul class="feature-list reveal reveal-delay-3">
-        <li>
-          <div class="feature-icon" style="background: rgba(184,169,232,0.15); font-size: 18px;">&#128274;</div>
-          <div class="feature-content">
-            <h4 style="color: var(--sage-light);">Encoded expertise</h4>
-            <p style="color: var(--sage);">Disclosure history, methodology, reasoning embedded across sectors.</p>
-          </div>
-        </li>
-        <li>
-          <div class="feature-icon" style="background: rgba(123,245,160,0.12); font-size: 18px;">&#8594;</div>
-          <div class="feature-content">
-            <h4 style="color: var(--sage-light);">Compounding outputs</h4>
-            <p style="color: var(--sage);">More data = better automation. Every use improves the system.</p>
-          </div>
-        </li>
-        <li>
-          <div class="feature-icon" style="background: rgba(197,208,192,0.15); font-size: 18px;">&#128274;</div>
-          <div class="feature-content">
-            <h4 style="color: var(--sage-light);">Institutional lock-in</h4>
-            <p style="color: var(--sage);">Corporate memory that can't be exported. Switching = starting from zero.</p>
-          </div>
-        </li>
-      </ul>
-
-      <div class="reveal reveal-delay-3" style="display: flex; justify-content: center;">
-        <svg width="340" height="340" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="170" cy="170" r="130" stroke="rgba(197,208,192,0.2)" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
-          <g font-family="Space Grotesk, sans-serif" font-size="12" font-weight="500">
-            <rect x="20" y="130" width="110" height="38" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="75" y="153" fill="#DDE3DA" text-anchor="middle">Unfair advantage</text>
-            <rect x="190" y="20" width="130" height="38" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="255" y="43" fill="#DDE3DA" text-anchor="middle">Encoded knowledge</text>
-            <rect x="240" y="155" width="95" height="38" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="287" y="178" fill="#DDE3DA" text-anchor="middle">Better outputs</text>
-            <rect x="195" y="275" width="90" height="38" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="240" y="298" fill="#DDE3DA" text-anchor="middle">More trust</text>
-            <rect x="45" y="240" width="90" height="38" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="90" y="263" fill="#DDE3DA" text-anchor="middle">More users</text>
-            <rect x="20" y="295" width="70" height="38" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="55" y="318" fill="#DDE3DA" text-anchor="middle">Lock-in</text>
+    <span class="tag tag-dark reveal-left">Defensibility</span>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Gets harder to compete with every day</h2>
+    <div class="two-col" style="margin-top: 16px;">
+      <div class="reveal-left reveal-delay-2">
+        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 28px;">50+ years domain expertise, major consultancy relationships, FDSEs building the knowledge moat from day one.</p>
+        <ul class="feature-list">
+          <li>
+            <div class="icon" style="background:rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+            <div class="feature-content"><h4 style="color:var(--sage-light);">Encoded expertise</h4><p style="color:var(--sage);">Disclosure history, methodology, reasoning across sectors.</p></div>
+          </li>
+          <li>
+            <div class="icon" style="background:rgba(123,245,160,0.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#7BF5A0" stroke-width="1.5"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></div>
+            <div class="feature-content"><h4 style="color:var(--sage-light);">Compounding outputs</h4><p style="color:var(--sage);">More data = better automation. Every use improves the system.</p></div>
+          </li>
+          <li>
+            <div class="icon" style="background:rgba(197,208,192,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#C5D0C0" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+            <div class="feature-content"><h4 style="color:var(--sage-light);">Institutional lock-in</h4><p style="color:var(--sage);">Corporate memory that can't be exported. Switching = zero.</p></div>
+          </li>
+        </ul>
+      </div>
+      <div class="reveal-rotate reveal-delay-3" style="display:flex;justify-content:center;">
+        <svg class="flywheel-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="200" r="150" stroke="rgba(197,208,192,0.2)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <g font-family="Space Grotesk,sans-serif" font-size="13" font-weight="500">
+            <rect x="25" y="160" width="120" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+            <text x="85" y="185" fill="#DDE3DA" text-anchor="middle">Unfair advantage</text>
+            <rect x="230" y="25" width="145" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+            <text x="302" y="50" fill="#DDE3DA" text-anchor="middle">Encoded knowledge</text>
+            <rect x="290" y="180" width="105" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+            <text x="342" y="205" fill="#DDE3DA" text-anchor="middle">Better outputs</text>
+            <rect x="240" y="320" width="100" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+            <text x="290" y="345" fill="#DDE3DA" text-anchor="middle">More trust</text>
+            <rect x="55" y="290" width="100" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+            <text x="105" y="315" fill="#DDE3DA" text-anchor="middle">More users</text>
+            <rect x="25" y="350" width="80" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+            <text x="65" y="375" fill="#DDE3DA" text-anchor="middle">Lock-in</text>
           </g>
-          <g stroke="#C5D0C0" stroke-width="1.2" fill="none" marker-end="url(#arrow)">
-            <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C5D0C0"/></marker></defs>
-            <path d="M 130 145 Q 165 90 190 55"/>
-            <path d="M 310 58 Q 330 110 320 155"/>
-            <path d="M 305 193 Q 290 240 270 275"/>
-            <path d="M 195 294 Q 160 285 135 268"/>
-            <path d="M 65 240 Q 45 205 40 170"/>
-            <path d="M 90 295 Q 140 295 195 295"/>
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C5D0C0"/></marker></defs>
+          <g stroke="#C5D0C0" stroke-width="1.2" fill="none" marker-end="url(#arr)">
+            <path d="M145 175Q190 100 230 60"/>
+            <path d="M365 65Q385 130 375 180"/>
+            <path d="M360 220Q340 280 320 320"/>
+            <path d="M240 340Q190 330 155 315"/>
+            <path d="M75 290Q50 245 45 200"/>
+            <path d="M105 350Q170 355 240 350"/>
           </g>
         </svg>
       </div>
@@ -846,145 +591,112 @@
 </section>
 
 
-<!-- ====== SLIDE 9: TEAM ====== -->
-<section class="slide bg-white" id="slide-9" data-theme="light">
+<!-- ====== 9: TEAM ====== -->
+<section class="slide" id="s9" data-theme="light" style="background: var(--white);">
   <div class="slide-inner">
-    <span class="tag tag-light reveal">Team</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="max-width: 780px;">We defined this market.<br><span style="color: var(--mint);">Now we're automating it.</span></h2>
-
-    <div class="four-col reveal reveal-delay-2" style="margin-top: 48px;">
-      <div style="text-align: center;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--mint-pale), var(--sage-light)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-family: var(--display); color: var(--charcoal);">BM</div>
-        <h3 style="font-family: var(--display); font-size: 19px; font-weight: 600;">Ben Murray</h3>
-        <p style="font-size: 12px; color: var(--mint); font-family: var(--mono); margin: 4px 0 12px; text-transform: uppercase; letter-spacing: 1px;">CEO</p>
-        <p style="font-size: 14px; color: var(--dark-gray); line-height: 1.5;">Founded Avieco. Sold to Accenture for 30x EBITDA. Ran their UK sustainability practice. 25 years. Software engineer.</p>
+    <span class="tag tag-light reveal-blur">Team</span>
+    <h2 class="slide-title reveal-blur reveal-delay-1">We defined this market. <span style="color: var(--mint);">Now we're automating it.</span></h2>
+    <div class="four-col" style="margin-top: 40px;">
+      <div class="reveal reveal-delay-2" style="text-align:center;">
+        <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--mint-pale),var(--sage-light));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">BM</div>
+        <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Ben Murray</h3>
+        <p style="font-size:12px;color:var(--mint);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">CEO</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Founded Avieco. Sold to Accenture 30x EBITDA. Ran UK sustainability practice. 25 years. Software engineer.</p>
       </div>
-      <div style="text-align: center;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--lavender-pale), var(--sage-light)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-family: var(--display); color: var(--charcoal);">AB</div>
-        <h3 style="font-family: var(--display); font-size: 19px; font-weight: 600;">Adam Ball</h3>
-        <p style="font-size: 12px; color: var(--lavender); font-family: var(--mono); margin: 4px 0 12px; text-transform: uppercase; letter-spacing: 1px;">CPO</p>
-        <p style="font-size: 14px; color: var(--dark-gray); line-height: 1.5;">Built carbon accounting at Avieco. Led sustainability AI at Accenture. Product lead at NatureTech startup Verna.</p>
+      <div class="reveal reveal-delay-3" style="text-align:center;">
+        <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--lavender-pale),var(--sage-light));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">AB</div>
+        <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Adam Ball</h3>
+        <p style="font-size:12px;color:var(--lavender);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">CPO</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Built carbon accounting at Avieco. Led sustainability AI at Accenture. Product lead at Verna.</p>
       </div>
-      <div style="text-align: center;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--mint-pale), var(--lavender-pale)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-family: var(--display); color: var(--charcoal);">RM</div>
-        <h3 style="font-family: var(--display); font-size: 19px; font-weight: 600;">Rory McCabe</h3>
-        <p style="font-size: 12px; color: var(--mint); font-family: var(--mono); margin: 4px 0 12px; text-transform: uppercase; letter-spacing: 1px;">CRO</p>
-        <p style="font-size: 14px; color: var(--dark-gray); line-height: 1.5;">Senior Manager at Accenture. Led 40-person sustainability data division. Founded consultancy. 15 years.</p>
+      <div class="reveal reveal-delay-4" style="text-align:center;">
+        <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--mint-pale),var(--lavender-pale));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">RM</div>
+        <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Rory McCabe</h3>
+        <p style="font-size:12px;color:var(--mint);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">CRO</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Senior Manager, Accenture. Led 40-person sustainability data division. Founded consultancy. 15 years.</p>
       </div>
-      <div style="text-align: center;">
-        <div style="width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--sage-light), var(--lavender-pale)); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-family: var(--display); color: var(--charcoal);">BP</div>
-        <h3 style="font-family: var(--display); font-size: 19px; font-weight: 600;">Ben Patten</h3>
-        <p style="font-size: 12px; color: var(--lavender); font-family: var(--mono); margin: 4px 0 12px; text-transform: uppercase; letter-spacing: 1px;">COO</p>
-        <p style="font-size: 14px; color: var(--dark-gray); line-height: 1.5;">3 startups, raised &pound;10m+, hired 100. Built The Crowd &mdash; UK's largest sustainability community.</p>
+      <div class="reveal reveal-delay-5" style="text-align:center;">
+        <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--sage-light),var(--lavender-pale));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">BP</div>
+        <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Ben Patten</h3>
+        <p style="font-size:12px;color:var(--lavender);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">COO</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">3 startups, raised &pound;10m+, hired 100. Built The Crowd &mdash; UK's largest sustainability community.</p>
       </div>
     </div>
-
-    <div class="callout reveal reveal-delay-3" style="background: var(--mint-pale); border-left: 3px solid var(--mint); color: var(--charcoal); margin-top: 40px; max-width: 420px; font-size: 15px;">
-      Three of four founders have worked together 7+ years.
-    </div>
+    <div class="callout reveal reveal-delay-6" style="background:var(--mint-pale);border-left:3px solid var(--mint);color:var(--charcoal);margin-top:32px;max-width:420px;font-size:15px;">Three of four founders have worked together 7+ years.</div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 10: COMPETITION ====== -->
-<section class="slide bg-charcoal-soft" id="slide-10" data-theme="dark">
+<!-- ====== 10: COMPETITION ====== -->
+<section class="slide" id="s10" data-theme="dark" style="background: var(--charcoal-soft);">
   <div class="slide-inner">
-    <span class="tag tag-dark reveal">Competition</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="color: var(--white); max-width: 820px;">Only annwn is strategic, tactical, <em>and</em> scalable</h2>
-
-    <div class="two-col reveal reveal-delay-2" style="margin-top: 40px; align-items: center;">
-      <div>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px;">
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;">Consultancies are channel partners, not competitors. We ran one.</span>
-          </li>
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;">Legacy SaaS needs a full rewrite to apply AI.</span>
-          </li>
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;">Point solutions fail without organisational context.</span>
-          </li>
-          <li style="display: flex; gap: 12px; align-items: flex-start;">
-            <span style="color: var(--mint); margin-top: 3px;">&#9679;</span>
-            <span style="color: var(--sage-light); font-size: 16px;">The hard part isn't the AI &mdash; it's knowing what to point it at.</span>
-          </li>
+    <span class="tag tag-dark reveal-left">Competition</span>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color:var(--white);">Only annwn is strategic, tactical, <em>and</em> scalable</h2>
+    <div class="two-col" style="margin-top: 16px;">
+      <div class="reveal-left reveal-delay-2">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Consultancies are channel partners. We ran one.</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Legacy SaaS needs a full rewrite to apply AI.</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Point solutions fail without organisational context.</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">The hard part isn't the AI &mdash; it's knowing what to point it at.</span></li>
         </ul>
       </div>
-
-      <div style="display: flex; justify-content: center;">
-        <div class="matrix-container">
-          <div class="matrix-axis-v"></div>
-          <div class="matrix-axis-h"></div>
-          <span class="matrix-label matrix-label-top">Strategic</span>
-          <span class="matrix-label matrix-label-bottom">Tactical</span>
-          <span class="matrix-label matrix-label-left">Non scalable</span>
-          <span class="matrix-label matrix-label-right">Scalable</span>
-          <div class="matrix-item matrix-item-annwn">annwn</div>
-          <div class="matrix-item matrix-item-consultancies">Consultancies<br><span style="font-size: 10px; opacity: 0.6;">e.g. Accenture</span></div>
-          <div class="matrix-item matrix-item-saas">Sustainability SaaS<br><span style="font-size: 10px; opacity: 0.6;">e.g. Watershed, Persefoni</span></div>
-          <div class="matrix-item matrix-item-discrete">Point AI tools<br><span style="font-size: 10px; opacity: 0.6;">e.g. Unravel, Brink</span></div>
-          <div class="matrix-item matrix-item-inhouse">In-house AI<br><span style="font-size: 10px; opacity: 0.6;">e.g. Unilever</span></div>
-        </div>
+      <div class="reveal-scale reveal-delay-3" style="display:flex;justify-content:center;">
+        <svg class="matrix-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Axes -->
+          <line x1="250" y1="30" x2="250" y2="470" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <line x1="30" y1="250" x2="470" y2="250" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <!-- Labels -->
+          <text x="250" y="20" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="2" fill="#8A8A96">STRATEGIC</text>
+          <text x="250" y="492" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="2" fill="#8A8A96">TACTICAL</text>
+          <text x="15" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" fill="#8A8A96" transform="rotate(-90 15 254)">NON SCALABLE</text>
+          <text x="485" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" fill="#8A8A96" transform="rotate(90 485 254)">SCALABLE</text>
+          <!-- Annwn - top right -->
+          <rect x="310" y="55" width="120" height="55" rx="10" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="370" y="88" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="16" font-weight="700" fill="#7BF5A0">annwn</text>
+          <!-- Consultancies - top left -->
+          <rect x="60" y="70" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="125" y="95" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Consultancies</text>
+          <text x="125" y="113" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Accenture</text>
+          <!-- In-house AI - bottom left -->
+          <rect x="60" y="310" width="120" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="120" y="335" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">In-house AI</text>
+          <text x="120" y="353" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unilever</text>
+          <!-- Sustainability SaaS - bottom center -->
+          <rect x="190" y="380" width="150" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="265" y="405" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Sustainability SaaS</text>
+          <text x="265" y="423" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Watershed, Persefoni</text>
+          <!-- Point AI tools - bottom right -->
+          <rect x="350" y="310" width="120" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="410" y="335" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Point AI tools</text>
+          <text x="410" y="353" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unravel, Brink</text>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 11: ROADMAP ====== -->
-<section class="slide" id="slide-11" style="background: var(--sage-50);" data-theme="light">
+<!-- ====== 11: ROADMAP ====== -->
+<section class="slide" id="s11" data-theme="light" style="background: var(--sage-50);">
   <div class="slide-inner">
-    <span class="tag tag-light reveal">Roadmap</span>
-    <h2 class="slide-title reveal reveal-delay-1">Product, GTM, and funding in lockstep</h2>
-
-    <div class="reveal reveal-delay-2" style="overflow-x: auto;">
-      <table class="roadmap-table" style="color: var(--charcoal);">
-        <thead>
-          <tr>
-            <th style="border-bottom-color: var(--sage);"></th>
-            <th class="phase-header" style="background: var(--mint-pale); border-bottom-color: var(--sage);">Phase 1<br><span style="font-weight: 400; font-size: 13px;">H1 2026</span></th>
-            <th class="phase-header" style="background: var(--mint-soft); border-bottom-color: var(--sage);">Phase 2<br><span style="font-weight: 400; font-size: 13px;">H2 2026</span></th>
-            <th class="phase-header" style="background: var(--mint); color: var(--charcoal); border-bottom-color: var(--sage);">Phase 3<br><span style="font-weight: 400; font-size: 13px;">2027</span></th>
-            <th class="phase-header" style="background: rgba(123,245,160,0.7); border-bottom-color: var(--sage);">Phase 4<br><span style="font-weight: 400; font-size: 13px;">2028</span></th>
-            <th class="phase-header" style="background: rgba(123,245,160,0.5); border-bottom-color: var(--sage);">Phase 5<br><span style="font-weight: 400; font-size: 13px;">2029</span></th>
-          </tr>
-        </thead>
+    <span class="tag tag-light reveal-left">Roadmap</span>
+    <h2 class="slide-title reveal-left reveal-delay-1">Product, GTM, and funding in lockstep</h2>
+    <div class="reveal-clip reveal-delay-2" style="overflow-x:auto;">
+      <table class="roadmap-table" style="color:var(--charcoal);">
+        <thead><tr>
+          <th></th>
+          <th style="background:var(--mint-pale);border-radius:8px 8px 0 0;">Phase 1<br><span style="font-weight:400;font-size:12px;">H1 2026</span></th>
+          <th style="background:var(--mint-soft);border-radius:8px 8px 0 0;">Phase 2<br><span style="font-weight:400;font-size:12px;">H2 2026</span></th>
+          <th style="background:var(--mint);color:var(--charcoal);border-radius:8px 8px 0 0;">Phase 3<br><span style="font-weight:400;font-size:12px;">2027</span></th>
+          <th style="background:rgba(123,245,160,0.7);border-radius:8px 8px 0 0;">Phase 4<br><span style="font-weight:400;font-size:12px;">2028</span></th>
+          <th style="background:rgba(123,245,160,0.5);border-radius:8px 8px 0 0;">Phase 5<br><span style="font-weight:400;font-size:12px;">2029</span></th>
+        </tr></thead>
         <tbody>
-          <tr>
-            <td class="row-label" style="color: var(--dark-gray);">Objective</td>
-            <td style="border-bottom-color: var(--sage-light);">Consultant automation</td>
-            <td style="border-bottom-color: var(--sage-light);">Firm-level automation</td>
-            <td style="border-bottom-color: var(--sage-light);">Innovation upsell</td>
-            <td style="border-bottom-color: var(--sage-light);">Enterprise CSO</td>
-            <td style="border-bottom-color: var(--sage-light);">Direct to CXO</td>
-          </tr>
-          <tr>
-            <td class="row-label" style="color: var(--dark-gray);">Funding</td>
-            <td style="border-bottom-color: var(--sage-light);">F&amp;F</td>
-            <td style="border-bottom-color: var(--sage-light);">Seed</td>
-            <td style="border-bottom-color: var(--sage-light);">Series A</td>
-            <td style="border-bottom-color: var(--sage-light);">Series B</td>
-            <td style="border-bottom-color: var(--sage-light);">Series C</td>
-          </tr>
-          <tr>
-            <td class="row-label" style="color: var(--dark-gray);">Product</td>
-            <td style="border-bottom-color: var(--sage-light);">Core workflows, ontology</td>
-            <td style="border-bottom-color: var(--sage-light);">Multi-domain agents</td>
-            <td style="border-bottom-color: var(--sage-light);">Decision assistance</td>
-            <td style="border-bottom-color: var(--sage-light);">Agent collaboration</td>
-            <td style="border-bottom-color: var(--sage-light);">Autonomous systems</td>
-          </tr>
-          <tr>
-            <td class="row-label" style="color: var(--dark-gray);">Region</td>
-            <td>UK</td>
-            <td>UK</td>
-            <td>EU</td>
-            <td>Americas</td>
-            <td>Global</td>
-          </tr>
+          <tr><td class="row-label">Objective</td><td>Consultant automation</td><td>Firm-level automation</td><td>Innovation upsell</td><td>Enterprise CSO</td><td>Direct to CXO</td></tr>
+          <tr><td class="row-label">Funding</td><td>F&amp;F</td><td>Seed</td><td>Series A</td><td>Series B</td><td>Series C</td></tr>
+          <tr><td class="row-label">Product</td><td>Core workflows</td><td>Multi-domain agents</td><td>Decision assistance</td><td>Agent collaboration</td><td>Autonomous systems</td></tr>
+          <tr><td class="row-label">Region</td><td>UK</td><td>UK</td><td>EU</td><td>Americas</td><td>Global</td></tr>
         </tbody>
       </table>
     </div>
@@ -992,167 +704,139 @@
 </section>
 
 
-<!-- ====== SLIDE 12: TRACTION ====== -->
-<section class="slide bg-dark" id="slide-12" data-theme="dark">
-  <div class="slide-inner" style="text-align: center;">
-    <span class="tag tag-dark reveal">Traction</span>
-    <h2 class="slide-title reveal reveal-delay-1" style="color: var(--white);">Early signals from people who know the problem.</h2>
-
-    <div class="three-col reveal reveal-delay-2" style="margin-top: 48px; text-align: center;">
-      <div>
-        <div class="stat-huge count-up" style="color: var(--sage-light);" data-target="8">0</div>
-        <p style="color: var(--sage); font-size: 15px; margin-top: 8px;">Consultancies in active<br>co-development</p>
-      </div>
-      <div>
-        <div class="stat-huge count-up" style="color: var(--mint);" data-target="5">0</div>
-        <p style="color: var(--sage); font-size: 15px; margin-top: 8px;">Enterprise clients in<br>deployment conversations</p>
-      </div>
-      <div>
-        <div class="stat-huge count-up" style="color: var(--lavender-soft);" data-target="50" data-suffix="+">0</div>
-        <p style="color: var(--sage); font-size: 15px; margin-top: 8px;">SME consultancies:<br>deep relationships, first revenues</p>
-      </div>
+<!-- ====== 12: TRACTION ====== -->
+<section class="slide" id="s12" data-theme="dark" style="background: var(--charcoal);">
+  <div class="slide-inner" style="text-align:center;">
+    <span class="tag tag-dark reveal-blur">Traction</span>
+    <h2 class="slide-title reveal-blur reveal-delay-1" style="color:var(--white);">Early signals from people who know the problem.</h2>
+    <div class="three-col reveal-scale reveal-delay-2" style="margin-top:48px;text-align:center;">
+      <div><div class="stat-huge count-up" style="color:var(--sage-light);" data-target="8">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Consultancies in active<br>co-development</p></div>
+      <div><div class="stat-huge count-up" style="color:var(--mint);" data-target="5">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Enterprise clients in<br>deployment conversations</p></div>
+      <div><div class="stat-huge count-up" style="color:var(--lavender-soft);" data-target="50" data-suffix="+">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">SME consultancies:<br>relationships, first revenues</p></div>
     </div>
-
-    <div class="logo-grid reveal reveal-delay-3" style="justify-content: center; margin-top: 48px;">
-      <span class="logo-placeholder">EY</span>
-      <span class="logo-placeholder">Deloitte</span>
-      <span class="logo-placeholder">Unilever</span>
-      <span class="logo-placeholder">Chanel</span>
-      <span class="logo-placeholder">BDO</span>
-      <span class="logo-placeholder">WSP</span>
-      <span class="logo-placeholder">Seismic</span>
-      <span class="logo-placeholder">ZTP</span>
-      <span class="logo-placeholder">Kier</span>
-      <span class="logo-placeholder">SLR</span>
-      <span class="logo-placeholder">Fujitsu</span>
+    <div class="logo-grid reveal-blur reveal-delay-3" style="justify-content:center;margin-top:44px;">
+      <span class="logo-placeholder">EY</span><span class="logo-placeholder">Deloitte</span><span class="logo-placeholder">Unilever</span><span class="logo-placeholder">Chanel</span><span class="logo-placeholder">BDO</span>
+      <span class="logo-placeholder">WSP</span><span class="logo-placeholder">Seismic</span><span class="logo-placeholder">ZTP</span><span class="logo-placeholder">Kier</span><span class="logo-placeholder">SLR</span><span class="logo-placeholder">Fujitsu</span>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 13: THE ASK ====== -->
-<section class="slide" id="slide-13" style="background: linear-gradient(160deg, var(--sage-lighter) 0%, var(--mint-pale) 50%, var(--lavender-pale) 100%);" data-theme="light">
-  <div class="orb orb-1" style="width: 400px; height: 400px; background: var(--mint); top: -100px; left: 50%; opacity: 0.12;"></div>
-  <div class="orb orb-2" style="width: 300px; height: 300px; background: var(--lavender); bottom: -80px; right: -40px; opacity: 0.1;"></div>
-  <div class="slide-inner" style="text-align: center;">
-    <span class="tag tag-light reveal">The ask</span>
-    <h2 class="reveal reveal-delay-1" style="font-family: var(--display); font-size: clamp(36px, 4.5vw, 58px); font-weight: 700; letter-spacing: -0.025em; max-width: 820px; margin: 0 auto 24px;">&pound;2m seed. 24 months to Series A.</h2>
-    <p class="slide-subtitle reveal reveal-delay-2" style="margin: 0 auto 48px; color: var(--dark-gray); text-align: center; max-width: 600px;">Building on ~&pound;500k already committed from founders, friends, and family.</p>
-
-    <div class="three-col reveal reveal-delay-3" style="gap: 28px; text-align: center;">
-      <div class="card" style="background: var(--white); padding: 40px 32px; border-radius: 20px; border: 1px solid var(--sage-light);">
-        <div class="count-up" style="font-family: var(--display); font-size: 56px; font-weight: 700; color: var(--charcoal);" data-target="2" data-prefix="&pound;" data-suffix="m">0</div>
-        <div style="font-size: 15px; color: var(--dark-gray); margin-top: 8px;">Seed round</div>
+<!-- ====== 13: THE ASK ====== -->
+<section class="slide" id="s13" data-theme="light" style="background: linear-gradient(160deg, var(--sage-lighter), var(--mint-pale) 50%, var(--lavender-pale));">
+  <div class="orb orb-1" style="width:400px;height:400px;background:var(--mint);top:-100px;left:50%;opacity:0.12;"></div>
+  <div class="orb orb-2" style="width:300px;height:300px;background:var(--lavender);bottom:-80px;right:-40px;opacity:0.1;"></div>
+  <div class="slide-inner" style="text-align:center;">
+    <span class="tag tag-light reveal-blur">The ask</span>
+    <h2 class="reveal-blur reveal-delay-1" style="font-family:var(--display);font-size:clamp(36px,4.5vw,58px);font-weight:700;letter-spacing:-0.025em;max-width:820px;margin:0 auto 20px;">&pound;2m seed. 24 months to Series A.</h2>
+    <p class="slide-subtitle reveal reveal-delay-2" style="margin:0 auto 44px;color:var(--dark-gray);text-align:center;max-width:600px;">Building on ~&pound;500k already committed from founders, friends, and family.</p>
+    <div class="three-col reveal-scale reveal-delay-3" style="gap:28px;text-align:center;">
+      <div class="card" style="background:var(--white);padding:40px 28px;border-radius:20px;border:1px solid var(--sage-light);">
+        <div class="count-up" style="font-family:var(--display);font-size:56px;font-weight:700;color:var(--charcoal);" data-target="2" data-prefix="&pound;" data-suffix="m">0</div>
+        <div style="font-size:15px;color:var(--dark-gray);margin-top:8px;">Seed round</div>
       </div>
-      <div class="card" style="background: var(--white); padding: 40px 32px; border-radius: 20px; border: 1px solid var(--sage-light);">
-        <div class="count-up" style="font-family: var(--display); font-size: 56px; font-weight: 700; color: var(--charcoal);" data-target="24" data-suffix=" mo">0</div>
-        <div style="font-size: 15px; color: var(--dark-gray); margin-top: 8px;">Runway to Series A</div>
+      <div class="card" style="background:var(--white);padding:40px 28px;border-radius:20px;border:1px solid var(--sage-light);">
+        <div class="count-up" style="font-family:var(--display);font-size:56px;font-weight:700;color:var(--charcoal);" data-target="24" data-suffix=" mo">0</div>
+        <div style="font-size:15px;color:var(--dark-gray);margin-top:8px;">Runway to Series A</div>
       </div>
-      <div class="card" style="background: var(--white); padding: 40px 32px; border-radius: 20px; border: 1px solid var(--sage-light);">
-        <div class="count-up" style="font-family: var(--display); font-size: 56px; font-weight: 700; color: var(--charcoal);" data-target="20" data-suffix="x+">0</div>
-        <div style="font-size: 15px; color: var(--dark-gray); margin-top: 8px;">ARR multiples for &ldquo;Service-as-Software&rdquo;</div>
+      <div class="card" style="background:var(--white);padding:40px 28px;border-radius:20px;border:1px solid var(--sage-light);">
+        <div class="count-up" style="font-family:var(--display);font-size:56px;font-weight:700;color:var(--charcoal);" data-target="20" data-suffix="x+">0</div>
+        <div style="font-size:15px;color:var(--dark-gray);margin-top:8px;">ARR multiples for &ldquo;Service-as-Software&rdquo;</div>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ====== SLIDE 14: THANK YOU ====== -->
-<section class="slide bg-dark" id="slide-14" style="text-align: center;" data-theme="dark">
-  <div class="orb orb-1" style="width: 600px; height: 600px; background: var(--mint); bottom: -200px; left: 50%; transform: translateX(-50%); opacity: 0.08;"></div>
-  <div class="orb orb-2" style="width: 300px; height: 300px; background: var(--lavender); top: -100px; right: -50px; opacity: 0.06;"></div>
-  <div class="slide-inner" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <h2 class="reveal" style="font-family: var(--display); font-size: clamp(52px, 7vw, 90px); font-weight: 700; color: var(--white); margin-bottom: 32px;">Thank you</h2>
-    <div class="reveal reveal-delay-1" style="color: var(--sage-light); font-size: 18px; margin-bottom: 8px;">
-      Contact <a href="mailto:ben.patten@annwn.ai" style="color: var(--mint); text-decoration: none; border-bottom: 1px solid var(--mint);">ben.patten@annwn.ai</a>
+<!-- ====== 14: THANK YOU ====== -->
+<section class="slide" id="s14" data-theme="dark" style="background: var(--charcoal); text-align:center;">
+  <div class="orb orb-1" style="width:600px;height:600px;background:var(--mint);bottom:-200px;left:50%;transform:translateX(-50%);opacity:0.08;"></div>
+  <div class="orb orb-2" style="width:300px;height:300px;background:var(--lavender);top:-100px;right:-50px;opacity:0.06;"></div>
+  <div class="slide-inner" style="align-items:center;justify-content:center;">
+    <h2 class="reveal-blur" style="font-family:var(--display);font-size:clamp(52px,7vw,90px);font-weight:700;color:var(--white);margin-bottom:28px;">Thank you</h2>
+    <div class="reveal reveal-delay-1" style="color:var(--sage-light);font-size:18px;margin-bottom:8px;">
+      Contact <a href="mailto:ben.patten@annwn.ai" style="color:var(--mint);text-decoration:none;border-bottom:1px solid var(--mint);">ben.patten@annwn.ai</a>
     </div>
-    <div class="reveal reveal-delay-2" style="color: var(--sage); font-size: 18px; margin-bottom: 56px;">
-      <a href="tel:+447961107207" style="color: var(--sage); text-decoration: none;">+44 7961 107 207</a>
+    <div class="reveal reveal-delay-2" style="font-size:18px;margin-bottom:48px;">
+      <a href="tel:+447961107207" style="color:var(--sage);text-decoration:none;">+44 7961 107 207</a>
     </div>
-    <img src="https://annwn.ai/annwn_transparent_white.png" alt="annwn" class="logo reveal reveal-delay-3" style="height: 40px;">
+    <img src="https://annwn.ai/annwn_transparent_white.png" alt="annwn" class="logo reveal-scale reveal-delay-3" style="height:40px;">
   </div>
 </section>
 
 
 <script>
-  // Reveal on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // Reveal (toggles so animations replay when revisiting slides)
+  const revealSel = '.reveal,.reveal-left,.reveal-right,.reveal-blur,.reveal-scale,.reveal-rotate,.reveal-clip';
+  const obs = new IntersectionObserver(e => e.forEach(en => {
+    if(en.isIntersecting) en.target.classList.add('visible');
+    else en.target.classList.remove('visible');
+  }), {threshold:0.15});
+  document.querySelectorAll(revealSel).forEach(el => obs.observe(el));
 
-  // Adaptive nav dots
+  // Slide-level entrance (subtle scale/fade on whole slide content)
+  const slideObs = new IntersectionObserver(e => e.forEach(en => {
+    en.target.classList.toggle('slide-visible', en.isIntersecting);
+  }), {threshold:0.3});
+  document.querySelectorAll('.slide').forEach(s => slideObs.observe(s));
+
+  // Nav dots
   const slides = document.querySelectorAll('.slide');
   const navLinks = document.querySelectorAll('.slide-nav a');
+  function updateDots(theme) { navLinks.forEach(l => { l.classList.remove('dot-dark','dot-light'); l.classList.add(theme==='light'?'dot-dark':'dot-light'); }); }
+  const navObs = new IntersectionObserver(e => e.forEach(en => {
+    if(en.isIntersecting) { navLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+en.target.id)); updateDots(en.target.dataset.theme||'dark'); }
+  }), {threshold:0.4});
+  slides.forEach(s => navObs.observe(s));
 
-  function updateNavDots(theme) {
-    navLinks.forEach(link => {
-      link.classList.remove('dot-dark', 'dot-light');
-      link.classList.add(theme === 'light' ? 'dot-dark' : 'dot-light');
-    });
-  }
-
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        const theme = entry.target.dataset.theme || 'dark';
-        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
-        updateNavDots(theme);
-      }
-    });
-  }, { threshold: 0.4 });
-  slides.forEach(slide => navObserver.observe(slide));
-
-  // Keyboard navigation
-  let currentSlide = 0;
-  document.addEventListener('keydown', (e) => {
-    const ids = Array.from(slides).map(s => s.id);
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
-      e.preventDefault();
-      currentSlide = Math.min(currentSlide + 1, ids.length - 1);
-      document.getElementById(ids[currentSlide]).scrollIntoView({ behavior: 'instant' });
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault();
-      currentSlide = Math.max(currentSlide - 1, 0);
-      document.getElementById(ids[currentSlide]).scrollIntoView({ behavior: 'instant' });
+  // Download button adaptive
+  const dlBtn = document.querySelector('.dl-btn');
+  const dlObs = new IntersectionObserver(e => e.forEach(en => {
+    if(en.isIntersecting) {
+      const t = en.target.dataset.theme;
+      if(t==='light') { dlBtn.style.background='var(--charcoal)'; dlBtn.style.color='var(--white)'; }
+      else { dlBtn.style.background='rgba(255,255,255,0.1)'; dlBtn.style.color='var(--white)'; dlBtn.style.backdropFilter='blur(12px)'; }
     }
+  }), {threshold:0.5});
+  slides.forEach(s => dlObs.observe(s));
+
+  // Keyboard nav
+  let cur = 0;
+  document.addEventListener('keydown', e => {
+    const ids = Array.from(slides).map(s=>s.id);
+    if(['ArrowDown','ArrowRight',' '].includes(e.key)){e.preventDefault();cur=Math.min(cur+1,ids.length-1);document.getElementById(ids[cur]).scrollIntoView({behavior:'instant'});}
+    else if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();cur=Math.max(cur-1,0);document.getElementById(ids[cur]).scrollIntoView({behavior:'instant'});}
   });
+  const scrollObs = new IntersectionObserver(e => e.forEach(en => { if(en.isIntersecting) cur=Array.from(slides).indexOf(en.target); }), {threshold:0.5});
+  slides.forEach(s => scrollObs.observe(s));
 
-  const scrollObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) currentSlide = Array.from(slides).indexOf(entry.target); });
-  }, { threshold: 0.5 });
-  slides.forEach(slide => scrollObs.observe(slide));
-
-  // Count-up animation
-  function animateCountUp(el) {
-    const target = parseInt(el.dataset.target);
-    const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
-    const duration = 1500;
-    const startTime = performance.now();
-
-    function update(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-      el.textContent = prefix + current + suffix;
-      if (progress < 1) requestAnimationFrame(update);
+  // Count-up
+  function countUp(el) {
+    const t=parseInt(el.dataset.target), p=el.dataset.prefix||'', s=el.dataset.suffix||'', dur=1200, start=performance.now();
+    function tick(now) {
+      const prog=Math.min((now-start)/dur,1), eased=1-Math.pow(1-prog,3);
+      el.textContent=p+Math.round(eased*t)+s;
+      if(prog<1)requestAnimationFrame(tick);
     }
-    requestAnimationFrame(update);
+    requestAnimationFrame(tick);
   }
+  const cObs=new IntersectionObserver(e=>e.forEach(en=>{
+    if(en.isIntersecting&&!en.target.dataset.counted){en.target.dataset.counted='1';countUp(en.target);}
+    else if(!en.isIntersecting&&en.target.dataset.counted){delete en.target.dataset.counted;en.target.textContent='0';}
+  }),{threshold:0.5});
+  document.querySelectorAll('.count-up').forEach(el=>cObs.observe(el));
 
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.dataset.counted) {
-        entry.target.dataset.counted = 'true';
-        animateCountUp(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+  // Workflow step-by-step animation
+  const wfObs = new IntersectionObserver(e => e.forEach(en => {
+    if(en.isIntersecting) {
+      const steps = en.target.querySelectorAll('.animate-in');
+      steps.forEach((s,i) => setTimeout(() => s.classList.add('step-visible'), i*120));
+    } else {
+      en.target.querySelectorAll('.animate-in').forEach(s => s.classList.remove('step-visible'));
+    }
+  }), {threshold:0.3});
+  const wfEl = document.getElementById('workflowSteps');
+  if(wfEl) wfObs.observe(wfEl);
 </script>
 
 </body>
