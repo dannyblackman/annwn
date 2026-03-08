@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annwn — Brand Guidelines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --sage: #C5D0C0;
+      --sage-light: #DDE3DA;
+      --sage-lighter: #EEF1EC;
+      --sage-50: #F4F6F3;
+      --mint: #7BF5A0;
+      --mint-soft: #A8F5C0;
+      --mint-pale: #D4FAE2;
+      --lavender: #B8A9E8;
+      --lavender-soft: #D0C6F0;
+      --lavender-pale: #EBE6F8;
+      --charcoal: #1E1E2A;
+      --charcoal-soft: #2D2D3D;
+      --dark-gray: #4A4A5A;
+      --mid-gray: #8A8A96;
+      --white: #FFFFFF;
+      --off-white: #FAFBFA;
+      --display: 'Space Grotesk', system-ui, sans-serif;
+      --body: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--sage-50);
+      color: var(--charcoal);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ——— Grain Overlay ——— */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    /* ——— Scroll Animations ——— */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ——— Navigation ——— */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(244, 246, 243, 0.8);
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      border-bottom: 1px solid rgba(197, 208, 192, 0.35);
+      padding: 0 clamp(24px, 4vw, 64px);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .nav-logo {
+      height: 24px;
+      width: auto;
+      filter: brightness(0);
+    }
+
+    .nav-brand span {
+      font-family: var(--body);
+      color: var(--mid-gray);
+      font-weight: 400;
+      font-size: 12px;
+      margin-left: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 8px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--dark-gray);
+      font-size: 13px;
+      font-weight: 400;
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: all 0.25s;
+    }
+
+    nav a:hover {
+      color: var(--charcoal);
+      background: rgba(197, 208, 192, 0.35);
+    }
+
+    /* ——— Hero ——— */
+    .hero {
+      margin-top: 60px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 80px clamp(24px, 6vw, 96px);
+      position: relative;
+      overflow: hidden;
+      background: var(--sage-lighter);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .hero-bg .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .hero-bg .orb-1 {
+      width: 600px; height: 600px;
+      background: rgba(197, 208, 192, 0.4);
+      top: -15%; right: -10%;
+      animation-delay: 0s;
+    }
+
+    .hero-bg .orb-2 {
+      width: 500px; height: 500px;
+      background: rgba(184, 169, 232, 0.12);
+      bottom: -10%; left: -8%;
+      animation-delay: -7s;
+    }
+
+    .hero-bg .orb-3 {
+      width: 350px; height: 350px;
+      background: rgba(197, 208, 192, 0.25);
+      top: 40%; left: 30%;
+      animation-delay: -14s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 15px) scale(0.95); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo {
+      width: 160px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+      filter: brightness(0);
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 1.5vw, 19px);
+      color: var(--dark-gray);
+      max-width: 480px;
+      font-weight: 400;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    .hero .version-badge {
+      margin-top: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--dark-gray);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1px solid rgba(30, 30, 42, 0.12);
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+    }
+
+    .version-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--mint);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ——— Sections ——— */
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px clamp(24px, 4vw, 64px);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px 48px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+
+    .section-number {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--lavender);
+      font-weight: 500;
+      padding-top: 8px;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-title em { font-style: normal; }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--dark-gray);
+      max-width: 520px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sage), transparent);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ——— Logo ——— */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .logo-card {
+      border-radius: 24px;
+      padding: 64px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 220px;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo-card:hover { transform: scale(0.985); }
+
+    .logo-card:first-child { grid-row: span 2; min-height: 460px; }
+
+    .logo-card img {
+      max-width: 180px;
+      height: auto;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo-card:hover img { transform: scale(1.03); }
+
+    .logo-card.dark { background: var(--charcoal); }
+    .logo-card.light {
+      background: var(--white);
+      box-shadow: inset 0 0 0 1px rgba(30, 30, 42, 0.06);
+    }
+    .logo-card.sage { background: var(--sage); }
+    .logo-card.mint { background: var(--mint); }
+
+    .logo-card-label {
+      position: absolute;
+      bottom: 20px;
+      left: 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      opacity: 0.45;
+    }
+
+    .logo-card.dark .logo-card-label { color: var(--white); }
+    .logo-card.light .logo-card-label { color: var(--charcoal); }
+    .logo-card.sage .logo-card-label { color: var(--charcoal); }
+    .logo-card.mint .logo-card-label { color: var(--charcoal); }
+
+    .logo-rules {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .logo-rule {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo-rule:hover { transform: translateY(-2px); }
+
+    .logo-rule-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .logo-rule-badge.do { background: var(--mint-pale); color: #1a6b35; }
+    .logo-rule-badge.dont { background: #FDE8E8; color: #9b2c2c; }
+
+    .logo-rule h4 {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .logo-rule p {
+      font-size: 13px;
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    /* ——— Colour Palette ——— */
+    .color-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .color-hero-card {
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .color-hero-card:hover { transform: translateY(-4px); }
+
+    .color-hero-swatch {
+      height: 200px;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px 24px;
+      position: relative;
+    }
+
+    .color-hero-swatch .swatch-tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      padding: 5px 12px;
+      border-radius: 100px;
+      backdrop-filter: blur(12px);
+    }
+
+    .color-hero-info {
+      padding: 24px 28px;
+    }
+
+    .color-hero-name {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+
+    .color-hero-hex {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--mid-gray);
+      margin-bottom: 10px;
+    }
+
+    .color-hero-role {
+      font-size: 13px;
+      color: var(--dark-gray);
+      line-height: 1.6;
+    }
+
+    .color-ext-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .color-ext-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .color-ext-card:hover { transform: translateY(-2px); }
+
+    .color-ext-swatch { height: 80px; }
+
+    .color-ext-info { padding: 14px 18px; }
+
+    .color-ext-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .color-ext-hex {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    /* ——— Typography ——— */
+    .type-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .type-family-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 56px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .type-family-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .type-family-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--mid-gray);
+    }
+
+    .type-family-tag {
+      font-size: 12px;
+      color: var(--dark-gray);
+      background: var(--sage-lighter);
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    .type-display-sample {
+      font-family: var(--display);
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 32px;
+      color: var(--charcoal);
+    }
+
+    .type-display-sample em { font-style: normal; }
+
+    .type-body-sample {
+      font-family: var(--body);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      margin-bottom: 32px;
+      color: var(--charcoal);
+    }
+
+    .type-weights-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      border-top: 1px solid var(--sage-lighter);
+    }
+
+    .type-weight-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .type-weight-char {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .type-weight-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    /* Type Scale */
+    .type-scale {
+      margin-top: 48px;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 48px 56px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+    }
+
+    .type-scale-heading {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--mid-gray);
+      margin-bottom: 32px;
+    }
+
+    .type-scale-row {
+      display: grid;
+      grid-template-columns: 100px 72px 1fr;
+      align-items: baseline;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--sage-50);
+      gap: 32px;
+    }
+
+    .type-scale-row:last-child { border-bottom: none; }
+
+    .type-scale-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--mid-gray);
+      text-transform: uppercase;
+    }
+
+    .type-scale-size {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--lavender);
+      font-weight: 500;
+    }
+
+    .type-scale-sample {
+      font-family: var(--display);
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ——— Spacing ——— */
+    .spacing-visual {
+      display: flex;
+      gap: 20px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      padding: 48px;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+    }
+
+    .spacing-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .spacing-block {
+      background: linear-gradient(135deg, var(--mint), var(--mint-soft));
+      border-radius: 6px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .spacing-item:hover .spacing-block { transform: scale(1.08); }
+
+    .spacing-meta {
+      text-align: center;
+    }
+
+    .spacing-px {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--charcoal);
+      font-weight: 500;
+      display: block;
+    }
+
+    .spacing-token {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--lavender);
+    }
+
+    .radius-section {
+      margin-top: 48px;
+    }
+
+    .radius-subtitle {
+      font-family: var(--display);
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+
+    .radius-grid {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 48px;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+    }
+
+    .radius-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .radius-block {
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .radius-item:hover .radius-block {
+      border-color: var(--lavender);
+      transform: scale(1.06);
+    }
+
+    .radius-block span {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    .radius-name {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    /* ——— Components ——— */
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .component-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+    }
+
+    .component-card h4 {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mid-gray);
+      margin-bottom: 28px;
+    }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 26px;
+      border-radius: 12px;
+      font-family: var(--body);
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary { background: var(--charcoal); color: var(--white); }
+    .btn-primary:hover { background: var(--charcoal-soft); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(30, 30, 42, 0.2); }
+
+    .btn-secondary { background: var(--mint); color: var(--charcoal); }
+    .btn-secondary:hover { background: var(--mint-soft); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(123, 245, 160, 0.3); }
+
+    .btn-outline { background: transparent; color: var(--charcoal); border: 1.5px solid var(--sage); }
+    .btn-outline:hover { border-color: var(--charcoal); transform: translateY(-1px); }
+
+    .btn-ghost { background: transparent; color: var(--dark-gray); padding: 11px 16px; }
+    .btn-ghost:hover { color: var(--charcoal); background: var(--sage-lighter); }
+
+    .btn-sm { padding: 8px 18px; font-size: 13px; border-radius: 10px; }
+    .btn-lg { padding: 14px 34px; font-size: 15px; border-radius: 14px; }
+
+    /* Tags */
+    .tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .tag-mint { background: var(--mint-pale); color: #1a6b35; }
+    .tag-lavender { background: var(--lavender-pale); color: #5b4a9e; }
+    .tag-sage { background: var(--sage-lighter); color: var(--dark-gray); }
+    .tag-dark { background: var(--charcoal); color: var(--white); }
+
+    /* Inputs */
+    .input-demo { display: flex; flex-direction: column; gap: 14px; }
+
+    .input-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    .input-field {
+      padding: 13px 18px;
+      border: 1.5px solid var(--sage);
+      border-radius: 12px;
+      font-family: var(--body);
+      font-size: 14px;
+      background: var(--white);
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      width: 100%;
+    }
+
+    .input-field:focus {
+      border-color: var(--mint);
+      box-shadow: 0 0 0 3px rgba(123, 245, 160, 0.15);
+    }
+
+    .input-field::placeholder { color: var(--mid-gray); }
+
+    /* Cards */
+    .card-demo { display: flex; flex-direction: column; gap: 12px; }
+
+    .demo-card {
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .demo-card.sage-bg { background: var(--sage-lighter); }
+    .demo-card.dark-bg { background: var(--charcoal); color: var(--white); }
+    .demo-card.mint-bg { background: var(--mint); }
+
+    .demo-card h5 {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    .demo-card p {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    /* Stats */
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-block {
+      border-radius: 16px;
+      padding: 24px;
+      background: var(--sage-lighter);
+    }
+
+    .stat-block.accent { background: var(--mint); }
+    .stat-block.lavender { background: var(--lavender-pale); }
+
+    .stat-value {
+      font-family: var(--display);
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--mid-gray);
+      font-weight: 500;
+    }
+
+    .stat-block.accent .stat-label { color: var(--dark-gray); }
+    .stat-block.lavender .stat-label { color: #5b4a9e; }
+
+    /* ——— Voice & Tone ——— */
+    .tone-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .tone-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 0 0 1px rgba(30, 30, 42, 0.04);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tone-card:hover { transform: translateY(-2px); }
+
+    .tone-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .tone-badge.do { background: var(--mint-pale); color: #1a6b35; }
+    .tone-badge.dont { background: #FDE8E8; color: #9b2c2c; }
+
+    .tone-example {
+      font-family: var(--display);
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--charcoal);
+      font-weight: 400;
+    }
+
+    .tone-context {
+      font-family: var(--body);
+      font-style: normal;
+      font-size: 13px;
+      display: block;
+      margin-top: 12px;
+      color: var(--mid-gray);
+      font-weight: 400;
+    }
+
+    /* ——— Application — Bento Grid ——— */
+    .bento-section-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--mid-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+      margin-top: 56px;
+    }
+
+    .bento-section-label:first-of-type { margin-top: 0; }
+
+    .bento {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bento-dashboard {
+      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-rows: auto auto;
+    }
+
+    .bento-reports {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .bento-frameworks {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .bento-data {
+      grid-template-columns: 0.8fr 1.2fr;
+      grid-template-rows: auto auto;
+    }
+
+    .bento-settings {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .w {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 1px 4px rgba(30,30,42,0.05);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s;
+      overflow: hidden;
+    }
+
+    .w:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(30,30,42,0.08);
+    }
+
+    .w.dark {
+      background: var(--charcoal);
+      color: var(--white);
+    }
+
+    .w.mint-bg { background: var(--mint); }
+    .w.lavender-bg { background: var(--lavender); }
+    .w.sage-bg { background: var(--sage-lighter); }
+
+    .w.span-2 { grid-column: span 2; }
+    .w.span-row { grid-row: span 2; }
+
+    /* Widget internals */
+    .w-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .w-label {
+      font-size: 13px;
+      color: var(--mid-gray);
+      font-weight: 500;
+    }
+
+    .w.dark .w-label { color: rgba(255,255,255,0.5); }
+    .w.mint-bg .w-label { color: var(--dark-gray); }
+    .w.lavender-bg .w-label { color: rgba(255,255,255,0.7); }
+
+    .w-pill {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(30,30,42,0.06);
+      color: var(--dark-gray);
+    }
+
+    .w.dark .w-pill { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); }
+
+    .w-big {
+      font-family: var(--display);
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .w-big.xl { font-size: 56px; }
+    .w-big.sm { font-size: 32px; }
+
+    .w-sub {
+      font-size: 12px;
+      color: var(--mid-gray);
+      font-weight: 400;
+    }
+
+    .w.dark .w-sub { color: rgba(255,255,255,0.4); }
+    .w.mint-bg .w-sub { color: var(--dark-gray); }
+
+    .w-change {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a6b35;
+      margin-top: 4px;
+    }
+
+    .w-change.neg { color: var(--lavender); }
+
+    .w-title {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .w.dark .w-title { color: var(--white); }
+
+    /* Bar chart inside widgets */
+    .w-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 80px;
+      margin-top: 16px;
+    }
+
+    .w-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      min-width: 0;
+    }
+
+    /* Donut / gauge */
+    .w-gauge {
+      width: 120px;
+      height: 120px;
+      margin: 8px auto 0;
+      position: relative;
+    }
+
+    .w-gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+    .w-gauge-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Mini progress bar */
+    .w-progress {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(30,30,42,0.06);
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .w.dark .w-progress { background: rgba(255,255,255,0.1); }
+
+    .w-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    /* List rows inside widgets */
+    .w-list { display: flex; flex-direction: column; gap: 0; }
+
+    .w-list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--sage-50);
+      font-size: 13px;
+    }
+
+    .w-list-item:last-child { border-bottom: none; }
+
+    .w-list-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .w-list-right {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--mid-gray);
+    }
+
+    .w.dark .w-list-item { border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+    .w.dark .w-list-right { color: rgba(255,255,255,0.35); }
+
+    /* Timeline */
+    .w-timeline { display: flex; flex-direction: column; gap: 0; padding-left: 16px; border-left: 2px solid var(--sage-light); }
+
+    .w-timeline-item { padding: 10px 0 10px 16px; position: relative; }
+
+    .w-timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -21px;
+      top: 16px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--sage);
+      background: var(--white);
+    }
+
+    .w-timeline-item.active::before { border-color: var(--mint); background: var(--mint); }
+
+    .w-timeline-date { font-family: var(--mono); font-size: 11px; color: var(--lavender); font-weight: 500; }
+    .w-timeline-text { font-size: 13px; color: var(--dark-gray); margin-top: 2px; }
+
+    /* Toggle row */
+    .w-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--sage-50);
+      font-size: 13px;
+    }
+
+    .w-toggle-row:last-child { border-bottom: none; }
+
+    .w-toggle {
+      width: 36px;
+      height: 20px;
+      border-radius: 10px;
+      background: var(--sage);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .w-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--white);
+      transition: transform 0.2s;
+    }
+
+    .w-toggle.on { background: var(--mint); }
+    .w-toggle.on::after { transform: translateX(16px); }
+
+    /* Sparkline */
+    .w-sparkline {
+      margin-top: 12px;
+    }
+
+    .w-sparkline svg {
+      width: 100%;
+      height: 40px;
+    }
+
+    /* Icon circle */
+    .w-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Arrow link */
+    .w-arrow {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(30,30,42,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .w.dark .w-arrow { background: rgba(255,255,255,0.1); }
+    .w.mint-bg .w-arrow { background: rgba(30,30,42,0.08); }
+    .w.lavender-bg .w-arrow { background: rgba(255,255,255,0.2); }
+
+    /* ——— Photography ——— */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 280px 280px;
+      gap: 12px;
+    }
+
+    .photo-grid .photo-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background: var(--sage-lighter);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .photo-card.wide { grid-column: span 2; }
+    .photo-card.tall { grid-row: span 2; }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(30,30,42,0.7), transparent);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-card:hover .photo-caption { opacity: 1; }
+
+    .photo-principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .photo-principle {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 0 0 1px rgba(30,30,42,0.04);
+    }
+
+    .photo-principle-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 18px;
+    }
+
+    .photo-principle h4 {
+      font-family: var(--display);
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .photo-principle p {
+      font-size: 13px;
+      color: var(--dark-gray);
+      line-height: 1.65;
+    }
+
+    .photo-avoid {
+      margin-top: 48px;
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 0 0 1px rgba(30,30,42,0.04);
+    }
+
+    .photo-avoid h4 {
+      font-family: var(--display);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .photo-avoid-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .photo-avoid-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: #fde8e8;
+      font-size: 13px;
+      color: #9b2c2c;
+      line-height: 1.5;
+    }
+
+    .photo-avoid-x {
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .photo-card.wide { grid-column: span 1; }
+      .photo-card.tall { grid-row: span 1; }
+      .photo-grid .photo-card { min-height: 220px; }
+      .photo-principles { grid-template-columns: 1fr; }
+      .photo-avoid-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ——— Footer ——— */
+    footer {
+      text-align: center;
+      padding: 80px clamp(24px, 4vw, 64px) 64px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sage), transparent);
+      margin-bottom: 48px;
+    }
+
+    .footer-brand {
+      margin-bottom: 12px;
+    }
+
+    .footer-logo {
+      height: 28px;
+      width: auto;
+      filter: brightness(0);
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--mid-gray);
+      line-height: 1.7;
+    }
+
+    /* ——— Responsive ——— */
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      section { padding: 80px 24px; }
+      .section-header { grid-template-columns: 1fr; gap: 8px; }
+      .color-hero-grid { grid-template-columns: 1fr; }
+      .color-ext-grid { grid-template-columns: repeat(2, 1fr); }
+      .logo-grid { grid-template-columns: 1fr; }
+      .logo-grid .logo-card:first-child { grid-row: span 1; min-height: 220px; }
+      .logo-rules { grid-template-columns: 1fr; }
+      .component-grid { grid-template-columns: 1fr; }
+      .tone-grid { grid-template-columns: 1fr; }
+      .bento { grid-template-columns: 1fr !important; }
+      .w.span-2 { grid-column: span 1; }
+      .type-scale-row { grid-template-columns: 72px 56px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-brand"><img src="https://annwn.ai/annwn_transparent_white.png" alt="Annwn" class="nav-logo"> <span>Brand Guidelines</span></div>
+    <ul>
+      <li><a href="#logo">Logo</a></li>
+      <li><a href="#colours">Colours</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#spacing">Spacing</a></li>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#voice">Voice</a></li>
+      <li><a href="#photography">Photography</a></li>
+      <li><a href="#application">Application</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <img src="https://annwn.ai/annwn_transparent_white.png" alt="Annwn Logo" class="hero-logo">
+      <h1>Brand<br><em>Guidelines</em></h1>
+      <p>A living identity system for Annwn — sustainability compliance that feels clear, human, and genuinely helpful.</p>
+      <div class="version-badge"><span class="version-dot"></span> Version 1.0 — March 2026</div>
+    </div>
+  </div>
+
+  <!-- ===== 01 LOGO ===== -->
+  <section id="logo">
+    <div class="section-header reveal">
+      <div class="section-number">01</div>
+      <div>
+        <h2 class="section-title">Our <em>Mark</em></h2>
+        <p class="section-desc">The Annwn logo should always breathe. Keep a minimum clear space equal to the logomark height on all sides. Simplicity is the point.</p>
+      </div>
+    </div>
+
+    <div class="logo-grid reveal">
+      <div class="logo-card dark">
+        <img src="https://annwn.ai/annwn_transparent_white.png" alt="Annwn on dark">
+        <span class="logo-card-label">On dark</span>
+      </div>
+      <div class="logo-card light">
+        <img src="https://annwn.ai/annwn_transparent_white.png" alt="Annwn on light" style="filter: brightness(0);">
+        <span class="logo-card-label">On light</span>
+      </div>
+      <div class="logo-card sage">
+        <img src="https://annwn.ai/annwn_transparent_white.png" alt="Annwn on sage" style="filter: brightness(0);">
+        <span class="logo-card-label">On sage</span>
+      </div>
+    </div>
+
+    <div class="logo-rules reveal">
+      <div class="logo-rule">
+        <div class="logo-rule-badge do">&#10003; Do</div>
+        <h4>Give it space</h4>
+        <p>Generous whitespace around the logo keeps it feeling premium and considered.</p>
+      </div>
+      <div class="logo-rule">
+        <div class="logo-rule-badge do">&#10003; Do</div>
+        <h4>Use approved backgrounds</h4>
+        <p>Place on dark, white, sage, or mint surfaces for the best legibility.</p>
+      </div>
+      <div class="logo-rule">
+        <div class="logo-rule-badge dont">&#10007; Don't</div>
+        <h4>Distort or recolour</h4>
+        <p>Never stretch, rotate, add effects, or swap colours outside approved variations.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 02 COLOURS ===== -->
+  <section id="colours">
+    <div class="section-header reveal">
+      <div class="section-number">02</div>
+      <div>
+        <h2 class="section-title">Fresh & <em>Grounded</em></h2>
+        <p class="section-desc">Our palette draws from nature — sage greens that feel grounded, bright mints that signal growth, and soft lavenders that add warmth. Professional yet approachable.</p>
+      </div>
+    </div>
+
+    <!-- Primary -->
+    <div class="color-hero-grid reveal">
+      <div class="color-hero-card">
+        <div class="color-hero-swatch" style="background: var(--charcoal);">
+          <span class="swatch-tag" style="background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8);">Primary</span>
+        </div>
+        <div class="color-hero-info">
+          <div class="color-hero-name">Charcoal</div>
+          <div class="color-hero-hex">#1E1E2A</div>
+          <div class="color-hero-role">Text, dark surfaces, navigation</div>
+        </div>
+      </div>
+      <div class="color-hero-card">
+        <div class="color-hero-swatch" style="background: var(--mint);">
+          <span class="swatch-tag" style="background: rgba(30,30,42,0.08); color: var(--charcoal);">Accent</span>
+        </div>
+        <div class="color-hero-info">
+          <div class="color-hero-name">Mint</div>
+          <div class="color-hero-hex">#7BF5A0</div>
+          <div class="color-hero-role">CTAs, success states, highlights</div>
+        </div>
+      </div>
+      <div class="color-hero-card">
+        <div class="color-hero-swatch" style="background: var(--lavender);">
+          <span class="swatch-tag" style="background: rgba(30,30,42,0.08); color: var(--charcoal);">Secondary</span>
+        </div>
+        <div class="color-hero-info">
+          <div class="color-hero-name">Lavender</div>
+          <div class="color-hero-hex">#B8A9E8</div>
+          <div class="color-hero-role">Charts, tags, decorative accents</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extended -->
+    <div class="color-ext-grid reveal">
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--sage);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Sage</div>
+          <div class="color-ext-hex">#C5D0C0</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--sage-light);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Sage Light</div>
+          <div class="color-ext-hex">#DDE3DA</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--mint-soft);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Mint Soft</div>
+          <div class="color-ext-hex">#A8F5C0</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--mint-pale);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Mint Pale</div>
+          <div class="color-ext-hex">#D4FAE2</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--lavender-soft);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Lavender Soft</div>
+          <div class="color-ext-hex">#D0C6F0</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--lavender-pale);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Lavender Pale</div>
+          <div class="color-ext-hex">#EBE6F8</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--sage-lighter);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">Sage Lighter</div>
+          <div class="color-ext-hex">#EEF1EC</div>
+        </div>
+      </div>
+      <div class="color-ext-card">
+        <div class="color-ext-swatch" style="background: var(--white); border-bottom: 1px solid var(--sage-lighter);"></div>
+        <div class="color-ext-info">
+          <div class="color-ext-name">White</div>
+          <div class="color-ext-hex">#FFFFFF</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 03 TYPOGRAPHY ===== -->
+  <section id="typography">
+    <div class="section-header reveal">
+      <div class="section-number">03</div>
+      <div>
+        <h2 class="section-title">Clear & <em>Confident</em></h2>
+        <p class="section-desc">Space Grotesk for headings, Inter for body. The pairing feels modern and technical without being cold — exactly how sustainability compliance should feel.</p>
+      </div>
+    </div>
+
+    <div class="type-showcase">
+      <div class="type-family-card reveal">
+        <div class="type-family-header">
+          <span class="type-family-label">Space Grotesk</span>
+          <span class="type-family-tag">Display & Headings</span>
+        </div>
+        <div class="type-display-sample">Sustainability,<br>simplified.</div>
+        <div class="type-weights-row">
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--display); font-weight: 400;">Ag</span>
+            <span class="type-weight-name">Regular 400</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--display); font-weight: 500;">Ag</span>
+            <span class="type-weight-name">Medium 500</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--display); font-weight: 600;">Ag</span>
+            <span class="type-weight-name">Semi 600</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--display); font-weight: 700;">Ag</span>
+            <span class="type-weight-name">Bold 700</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="type-family-card reveal">
+        <div class="type-family-header">
+          <span class="type-family-label">Inter</span>
+          <span class="type-family-tag">Body & Interface</span>
+        </div>
+        <div class="type-body-sample">The quick brown fox jumps over the lazy dog</div>
+        <div class="type-weights-row">
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--body); font-weight: 300;">Ag</span>
+            <span class="type-weight-name">Light 300</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--body); font-weight: 400;">Ag</span>
+            <span class="type-weight-name">Regular 400</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--body); font-weight: 500;">Ag</span>
+            <span class="type-weight-name">Medium 500</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--body); font-weight: 600;">Ag</span>
+            <span class="type-weight-name">Semi 600</span>
+          </div>
+          <div class="type-weight-item">
+            <span class="type-weight-char" style="font-family: var(--body); font-weight: 700;">Ag</span>
+            <span class="type-weight-name">Bold 700</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-scale reveal">
+      <div class="type-scale-heading">Type Scale</div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">Display</span>
+        <span class="type-scale-size">56px</span>
+        <span class="type-scale-sample" style="font-size: 38px;">Annwn</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">H1</span>
+        <span class="type-scale-size">40px</span>
+        <span class="type-scale-sample" style="font-size: 30px;">Dashboard</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">H2</span>
+        <span class="type-scale-size">32px</span>
+        <span class="type-scale-sample" style="font-size: 25px;">Compliance Score</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">H3</span>
+        <span class="type-scale-size">24px</span>
+        <span class="type-scale-sample" style="font-size: 21px;">ESG Metrics</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">H4</span>
+        <span class="type-scale-size">18px</span>
+        <span class="type-scale-sample" style="font-size: 18px;">Report Summary</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">Body</span>
+        <span class="type-scale-size">16px</span>
+        <span class="type-scale-sample" style="font-size: 16px; font-family: var(--body); font-weight: 400;">Your compliance report has been generated successfully.</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">Small</span>
+        <span class="type-scale-size">14px</span>
+        <span class="type-scale-sample" style="font-size: 14px; font-family: var(--body); font-weight: 400;">Last updated 2 hours ago</span>
+      </div>
+      <div class="type-scale-row">
+        <span class="type-scale-label">Mono</span>
+        <span class="type-scale-size">13px</span>
+        <span class="type-scale-sample" style="font-size: 13px; font-family: var(--mono); font-weight: 400;">JetBrains Mono — data, code, labels</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 04 SPACING ===== -->
+  <section id="spacing">
+    <div class="section-header reveal">
+      <div class="section-number">04</div>
+      <div>
+        <h2 class="section-title">Consistent <em>Rhythm</em></h2>
+        <p class="section-desc">An 8px base grid keeps everything aligned. Generous whitespace is central to Annwn's identity — let things breathe.</p>
+      </div>
+    </div>
+
+    <div class="spacing-visual reveal">
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 4px; height: 4px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">4</span><span class="spacing-token">0.5x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 8px; height: 8px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">8</span><span class="spacing-token">1x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 12px; height: 12px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">12</span><span class="spacing-token">1.5x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 16px; height: 16px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">16</span><span class="spacing-token">2x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 24px; height: 24px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">24</span><span class="spacing-token">3x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 32px; height: 32px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">32</span><span class="spacing-token">4x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 48px; height: 48px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">48</span><span class="spacing-token">6x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 64px; height: 64px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">64</span><span class="spacing-token">8x</span></div>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-block" style="width: 96px; height: 96px;"></div>
+        <div class="spacing-meta"><span class="spacing-px">96</span><span class="spacing-token">12x</span></div>
+      </div>
+    </div>
+
+    <div class="radius-section reveal">
+      <h3 class="radius-subtitle">Border Radius</h3>
+      <div class="radius-grid">
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 4px;"><span>4</span></div>
+          <span class="radius-name">sm</span>
+        </div>
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 8px;"><span>8</span></div>
+          <span class="radius-name">default</span>
+        </div>
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 12px;"><span>12</span></div>
+          <span class="radius-name">md</span>
+        </div>
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 16px;"><span>16</span></div>
+          <span class="radius-name">lg</span>
+        </div>
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 20px;"><span>20</span></div>
+          <span class="radius-name">xl</span>
+        </div>
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 24px;"><span>24</span></div>
+          <span class="radius-name">2xl</span>
+        </div>
+        <div class="radius-item">
+          <div class="radius-block" style="border-radius: 50%;"><span>50%</span></div>
+          <span class="radius-name">full</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 05 COMPONENTS ===== -->
+  <section id="components">
+    <div class="section-header reveal">
+      <div class="section-number">05</div>
+      <div>
+        <h2 class="section-title">Building <em>Blocks</em></h2>
+        <p class="section-desc">Core components that compose the Annwn interface. Every element follows the palette, spacing, and radius conventions above.</p>
+      </div>
+    </div>
+
+    <div class="component-grid">
+      <div class="component-card reveal">
+        <h4>Buttons</h4>
+        <div class="btn-row" style="margin-bottom: 16px;">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Accent</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+      </div>
+
+      <div class="component-card reveal">
+        <h4>Tags & Badges</h4>
+        <div class="tag-row" style="margin-bottom: 16px;">
+          <span class="tag tag-mint">Compliant</span>
+          <span class="tag tag-lavender">In Review</span>
+          <span class="tag tag-sage">Draft</span>
+          <span class="tag tag-dark">Critical</span>
+        </div>
+        <div class="tag-row">
+          <span class="tag tag-mint">ESG Score: A+</span>
+          <span class="tag tag-lavender">CSRD</span>
+          <span class="tag tag-sage">Scope 3</span>
+        </div>
+      </div>
+
+      <div class="component-card reveal">
+        <h4>Form Inputs</h4>
+        <div class="input-demo">
+          <div class="input-label">Company name</div>
+          <input type="text" class="input-field" placeholder="Enter company name...">
+          <input type="text" class="input-field" placeholder="Search compliance reports..." style="border-color: var(--mint); box-shadow: 0 0 0 3px rgba(123, 245, 160, 0.15);">
+        </div>
+      </div>
+
+      <div class="component-card reveal">
+        <h4>Cards</h4>
+        <div class="card-demo">
+          <div class="demo-card sage-bg">
+            <h5>Emissions Report</h5>
+            <p>Q4 2025 carbon footprint analysis complete</p>
+          </div>
+          <div class="demo-card dark-bg">
+            <h5>AI Insights</h5>
+            <p>3 new recommendations available</p>
+          </div>
+          <div class="demo-card mint-bg">
+            <h5>Score: 94/100</h5>
+            <p>Above industry benchmark by 12 points</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-card reveal" style="grid-column: span 2;">
+        <h4>Data Display</h4>
+        <div class="stat-row">
+          <div class="stat-block">
+            <div class="stat-value">2,847</div>
+            <div class="stat-label">Data points collected</div>
+          </div>
+          <div class="stat-block accent">
+            <div class="stat-value">94%</div>
+            <div class="stat-label">Compliance score</div>
+          </div>
+          <div class="stat-block lavender">
+            <div class="stat-value">-23%</div>
+            <div class="stat-label">Carbon reduction YoY</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-value">12</div>
+            <div class="stat-label">Active frameworks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 06 VOICE ===== -->
+  <section id="voice">
+    <div class="section-header reveal">
+      <div class="section-number">06</div>
+      <div>
+        <h2 class="section-title">How We <em>Speak</em></h2>
+        <p class="section-desc">Knowledgeable but never condescending. We simplify complexity without dumbing it down. The expert friend who makes sustainability compliance feel manageable.</p>
+      </div>
+    </div>
+
+    <div class="tone-grid">
+      <div class="tone-card reveal">
+        <div class="tone-badge do">&#10003; Do</div>
+        <div class="tone-example">
+          "Your CSRD report is 94% complete. Here's what's left."
+          <span class="tone-context">Clear, specific, action-oriented</span>
+        </div>
+      </div>
+      <div class="tone-card reveal">
+        <div class="tone-badge dont">&#10007; Don't</div>
+        <div class="tone-example">
+          "Our cutting-edge AI-powered solution leverages advanced algorithms to streamline your compliance journey."
+          <span class="tone-context">Jargon-heavy, vague, overly corporate</span>
+        </div>
+      </div>
+      <div class="tone-card reveal">
+        <div class="tone-badge do">&#10003; Do</div>
+        <div class="tone-example">
+          "We spotted 3 gaps in your Scope 3 emissions data. Let's fix them."
+          <span class="tone-context">Helpful, direct, human</span>
+        </div>
+      </div>
+      <div class="tone-card reveal">
+        <div class="tone-badge dont">&#10007; Don't</div>
+        <div class="tone-example">
+          "WARNING: Critical compliance failure detected. Immediate action required."
+          <span class="tone-context">Alarmist, impersonal, anxiety-inducing</span>
+        </div>
+      </div>
+      <div class="tone-card reveal">
+        <div class="tone-badge do">&#10003; Do</div>
+        <div class="tone-example">
+          "Nice progress — you've reduced emissions by 23% this quarter."
+          <span class="tone-context">Encouraging, specific, warm</span>
+        </div>
+      </div>
+      <div class="tone-card reveal">
+        <div class="tone-badge dont">&#10007; Don't</div>
+        <div class="tone-example">
+          "The system has processed your data. Please review the output at your earliest convenience."
+          <span class="tone-context">Robotic, passive, impersonal</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 07 PHOTOGRAPHY ===== -->
+  <section id="photography">
+    <div class="section-header reveal">
+      <div class="section-number">07</div>
+      <div>
+        <h2 class="section-title">Image <em>Style</em></h2>
+        <p class="section-desc">Our photography is bright, human, and grounded. Real people in real workspaces — natural light, plants, and warmth. Professional without the stock-photo stiffness.</p>
+      </div>
+    </div>
+
+    <div class="photo-grid reveal">
+      <div class="photo-card wide">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&fit=crop&q=80" alt="Bright modern open office with natural light" loading="lazy">
+        <div class="photo-caption">Bright, open workspaces with natural light</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&fit=crop&q=80" alt="Two colleagues collaborating at desk" loading="lazy">
+        <div class="photo-caption">Genuine collaboration, not posed</div>
+      </div>
+      <div class="photo-card">
+        <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?w=600&fit=crop&q=80" alt="Open plan office with greenery" loading="lazy">
+        <div class="photo-caption">Greenery as part of the environment</div>
+      </div>
+      <div class="photo-card wide">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&fit=crop&q=80" alt="Team working together around laptops" loading="lazy">
+        <div class="photo-caption">Teams working, not performing</div>
+      </div>
+    </div>
+
+    <!-- Principles -->
+    <div class="photo-principles reveal">
+      <div class="photo-principle">
+        <div class="photo-principle-icon" style="background: var(--mint-pale);">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="var(--charcoal)" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Natural light</h4>
+        <p>Always favour daylight. Window-lit scenes, soft shadows, warm tones. Avoid harsh flash or fluorescent overhead lighting.</p>
+      </div>
+      <div class="photo-principle">
+        <div class="photo-principle-icon" style="background: var(--lavender-pale);">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v2M3 10h2M15 10h2M5.6 5.6l1.4 1.4M13 7l1.4-1.4" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 14c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round"/><rect x="5" y="14" width="10" height="3" rx="1.5" stroke="var(--charcoal)" stroke-width="1.5"/></svg>
+        </div>
+        <h4>Living spaces</h4>
+        <p>Plants, wood, natural textures. Offices that feel alive. Show environments where people actually want to work — biophilic by default.</p>
+      </div>
+      <div class="photo-principle">
+        <div class="photo-principle-icon" style="background: var(--sage-lighter);">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="var(--charcoal)" stroke-width="1.5"/><path d="M4 17c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>Real people</h4>
+        <p>Professional, diverse, and candid. People should be engaged in actual work — not awkwardly grinning at the camera or pointing at screens.</p>
+      </div>
+      <div class="photo-principle">
+        <div class="photo-principle-icon" style="background: var(--mint-pale);">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="var(--charcoal)" stroke-width="1.5"/><path d="M3 13l4-4 3 3 4-4 3 3" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Soft palette</h4>
+        <p>Images should feel consistent with our colour palette. Muted greens, warm whites, soft tones. Light post-processing is fine — heavy filters are not.</p>
+      </div>
+      <div class="photo-principle">
+        <div class="photo-principle-icon" style="background: var(--lavender-pale);">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10c0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round"/><path d="M10 4v6l4 2" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4>In-the-moment</h4>
+        <p>Capture work in progress — laptops open, whiteboards mid-session, coffee half-drunk. Energy and motion over static poses.</p>
+      </div>
+      <div class="photo-principle">
+        <div class="photo-principle-icon" style="background: var(--sage-lighter);">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-4z" stroke="var(--charcoal)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Aspirational, not fantasy</h4>
+        <p>Show workplaces people recognise but slightly elevated. Clean desks, good light, happy teams — realistic but at its best.</p>
+      </div>
+    </div>
+
+    <!-- What to avoid -->
+    <div class="photo-avoid reveal">
+      <h4><span style="color: #c53030;">Avoid</span></h4>
+      <div class="photo-avoid-grid">
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> Hands cupping a glowing globe or seedling</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> Aerial views of deforestation or pollution</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> Suited executives shaking hands in front of charts</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> Wind turbines at golden hour (unless genuinely relevant)</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> People high-fiving or jumping in celebration</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> Overly saturated "eco green" colour grading</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> Generic diverse teams around a conference table looking at camera</div>
+        <div class="photo-avoid-item"><span class="photo-avoid-x">&#10007;</span> AI-generated or heavily composited imagery</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ===== 08 APPLICATION ===== -->
+  <section id="application">
+    <div class="section-header reveal">
+      <div class="section-number">08</div>
+      <div>
+        <h2 class="section-title">In <em>Application</em></h2>
+        <p class="section-desc">How the brand comes together across key screens. Each view uses floating widget cards in a bento-grid layout — light, scannable, and distinct.</p>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="bento-section-label reveal">Dashboard</div>
+    <div class="bento bento-dashboard reveal">
+      <!-- Compliance overview — dark card -->
+      <div class="w dark span-row">
+        <div class="w-head">
+          <div class="w-label">Compliance overview</div>
+          <div class="w-pill">Monthly</div>
+        </div>
+        <div class="w-sub" style="margin-bottom: 24px;">Updated 1 day ago</div>
+        <div class="w-bars" style="height: 120px; margin-bottom: 24px;">
+          <div class="w-bar" style="height: 45%; background: var(--mint);"></div>
+          <div class="w-bar" style="height: 62%; background: var(--mint);"></div>
+          <div class="w-bar" style="height: 55%; background: var(--lavender);"></div>
+          <div class="w-bar" style="height: 78%; background: var(--mint);"></div>
+          <div class="w-bar" style="height: 70%; background: var(--lavender);"></div>
+          <div class="w-bar" style="height: 85%; background: var(--mint);"></div>
+          <div class="w-bar" style="height: 90%; background: var(--mint);"></div>
+        </div>
+        <div class="w-label" style="margin-bottom: 4px;">Compliance score</div>
+        <div class="w-big" style="color: var(--white);">94%</div>
+      </div>
+
+      <!-- Recent activity -->
+      <div class="w">
+        <div class="w-head">
+          <div class="w-title">Recent Activity</div>
+        </div>
+        <div class="w-list">
+          <div class="w-list-item"><div class="w-list-dot" style="background: var(--mint);"></div> CSRD report submitted <span class="w-list-right">2m</span></div>
+          <div class="w-list-item"><div class="w-list-dot" style="background: var(--lavender);"></div> Scope 2 data imported <span class="w-list-right">1h</span></div>
+          <div class="w-list-item"><div class="w-list-dot" style="background: var(--sage);"></div> GRI framework updated <span class="w-list-right">3h</span></div>
+          <div class="w-list-item"><div class="w-list-dot" style="background: var(--mint);"></div> AI analysis complete <span class="w-list-right">5h</span></div>
+        </div>
+      </div>
+
+      <!-- Gauge card -->
+      <div class="w mint-bg">
+        <div class="w-title">Carbon footprint</div>
+        <div class="w-gauge">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(30,30,42,0.08)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--charcoal)" stroke-width="10" stroke-dasharray="230 314" stroke-linecap="round"/>
+          </svg>
+          <div class="w-gauge-center">-23%</div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 12px;">
+          <div><div class="w-sub">tCO2e reduced</div><div style="font-weight: 600; font-size: 15px;">1,247</div></div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Frameworks score -->
+      <div class="w lavender-bg">
+        <div class="w-head">
+          <div class="w-label">Active frameworks</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big" style="color: var(--white);">12</div>
+        <div class="w-sparkline">
+          <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+            <polyline points="0,35 20,30 40,25 60,28 80,20 100,18 120,15 140,12 160,10 180,8 200,5" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="0,35 20,30 40,25 60,28 80,20 100,18 120,15 140,12 160,10 180,8 200,5" fill="url(#lavFade)" stroke="none"/>
+            <defs><linearGradient id="lavFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.2)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>
+          </svg>
+        </div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;">CSRD, TCFD, GRI, ISSB +8</div>
+      </div>
+    </div>
+
+    <!-- Reports -->
+    <div class="bento-section-label reveal">Reports</div>
+    <div class="bento bento-reports reveal">
+      <div class="w dark">
+        <div class="w-head">
+          <div class="w-label">CSRD Annual</div>
+          <div class="w-pill">2025</div>
+        </div>
+        <div class="w-big" style="color: var(--white); font-size: 36px;">47</div>
+        <div class="w-sub">pages generated</div>
+        <div class="w-progress" style="margin-top: 16px;"><div class="w-progress-fill" style="width: 100%; background: var(--mint);"></div></div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px;"><span class="w-sub">Complete</span><span class="w-sub" style="color: var(--mint);">100%</span></div>
+      </div>
+
+      <div class="w">
+        <div class="w-head">
+          <div class="w-title">TCFD Climate Risk</div>
+          <span class="tag tag-lavender" style="font-size: 11px;">In Review</span>
+        </div>
+        <div class="w-sub" style="margin-bottom: 12px;">23 pages &middot; Updated yesterday</div>
+        <div class="w-progress"><div class="w-progress-fill" style="width: 78%; background: var(--lavender);"></div></div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px;"><span class="w-sub">78% reviewed</span><span class="w-sub">31/40 disclosures</span></div>
+      </div>
+
+      <div class="w mint-bg">
+        <div class="w-head">
+          <div class="w-label">Scope 3 inventory</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big sm">18</div>
+        <div class="w-sub">pages &middot; Complete</div>
+        <div class="w-sparkline" style="margin-top: 16px;">
+          <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+            <polyline points="0,38 25,35 50,30 75,25 100,22 125,18 150,12 175,8 200,4" fill="none" stroke="var(--charcoal)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="w span-2">
+        <div class="w-head">
+          <div class="w-title">GRI Standards Disclosure</div>
+          <span class="tag tag-sage" style="font-size: 11px;">Draft</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 8px;">
+          <div>
+            <div class="w-big sm">31</div>
+            <div class="w-sub">pages drafted</div>
+          </div>
+          <div>
+            <div class="w-big sm" style="color: var(--lavender);">68</div>
+            <div class="w-sub">of 80 disclosures</div>
+          </div>
+          <div>
+            <div class="w-big sm" style="color: var(--mint);">85%</div>
+            <div class="w-sub">complete</div>
+          </div>
+        </div>
+        <div class="w-progress" style="margin-top: 16px;"><div class="w-progress-fill" style="width: 85%; background: var(--mint);"></div></div>
+      </div>
+
+      <div class="w sage-bg">
+        <div class="w-label" style="color: var(--dark-gray);">Pending review</div>
+        <div class="w-big sm" style="margin-top: 8px;">3</div>
+        <div class="w-sub" style="color: var(--dark-gray);">reports awaiting sign-off</div>
+      </div>
+    </div>
+
+    <!-- Frameworks -->
+    <div class="bento-section-label reveal">Frameworks</div>
+    <div class="bento bento-frameworks reveal">
+      <div class="w mint-bg">
+        <div class="w-head">
+          <div class="w-label">CSRD</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big">94%</div>
+        <div class="w-sub">142 / 151 disclosures</div>
+        <div class="w-progress" style="margin-top: 16px; background: rgba(30,30,42,0.08);"><div class="w-progress-fill" style="width: 94%; background: var(--charcoal);"></div></div>
+        <div class="w-timeline" style="margin-top: 20px; border-color: rgba(30,30,42,0.12);">
+          <div class="w-timeline-item active" style="--before-bg: var(--charcoal);">
+            <div class="w-timeline-date" style="color: var(--charcoal);">Mar 2026</div>
+            <div class="w-timeline-text" style="color: var(--charcoal);">Annual report filed</div>
+          </div>
+          <div class="w-timeline-item">
+            <div class="w-timeline-date" style="color: var(--dark-gray);">Jun 2026</div>
+            <div class="w-timeline-text">Mid-year review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w dark">
+        <div class="w-head">
+          <div class="w-label">TCFD</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big" style="color: var(--white);">78%</div>
+        <div class="w-sub">31 / 40 disclosures</div>
+        <div class="w-progress" style="margin-top: 16px;"><div class="w-progress-fill" style="width: 78%; background: var(--lavender);"></div></div>
+        <div class="w-bars" style="height: 60px; margin-top: 16px;">
+          <div class="w-bar" style="height: 80%; background: var(--lavender);"></div>
+          <div class="w-bar" style="height: 65%; background: var(--lavender);"></div>
+          <div class="w-bar" style="height: 90%; background: var(--lavender);"></div>
+          <div class="w-bar" style="height: 50%; background: var(--lavender-soft);"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px;"><span class="w-sub">Governance</span><span class="w-sub">Strategy</span><span class="w-sub">Risk Mgmt</span><span class="w-sub">Metrics</span></div>
+      </div>
+
+      <div class="w">
+        <div class="w-head">
+          <div class="w-title">GRI</div>
+          <span class="tag tag-mint" style="font-size: 11px;">Active</span>
+        </div>
+        <div class="w-big sm" style="color: var(--mint);">85%</div>
+        <div class="w-sub">68 / 80 disclosures</div>
+        <div class="w-progress" style="margin-top: 12px;"><div class="w-progress-fill" style="width: 85%; background: var(--mint);"></div></div>
+      </div>
+
+      <div class="w lavender-bg">
+        <div class="w-head">
+          <div class="w-label">ISSB</div>
+          <span style="font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 500;">Setup</span>
+        </div>
+        <div class="w-big" style="color: var(--white);">12%</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.6);">5 / 42 disclosures</div>
+        <div class="w-progress" style="margin-top: 12px; background: rgba(255,255,255,0.15);"><div class="w-progress-fill" style="width: 12%; background: var(--white);"></div></div>
+      </div>
+    </div>
+
+    <!-- Data -->
+    <div class="bento-section-label reveal">Data</div>
+    <div class="bento bento-data reveal">
+      <div class="w dark span-row">
+        <div class="w-head">
+          <div class="w-label">Data sources</div>
+          <div class="w-pill">12 connected</div>
+        </div>
+        <div class="w-list">
+          <div class="w-list-item"><div class="w-icon" style="background: rgba(123,245,160,0.15);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" fill="var(--mint)"/></svg></div> ERP System <span class="w-list-right">Live</span></div>
+          <div class="w-list-item"><div class="w-icon" style="background: rgba(123,245,160,0.15);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" fill="var(--mint)"/></svg></div> Energy meters <span class="w-list-right">Live</span></div>
+          <div class="w-list-item"><div class="w-icon" style="background: rgba(184,169,232,0.15);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" fill="var(--lavender)"/></svg></div> Fleet tracking <span class="w-list-right">Syncing</span></div>
+          <div class="w-list-item"><div class="w-icon" style="background: rgba(123,245,160,0.15);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" fill="var(--mint)"/></svg></div> Supplier portal <span class="w-list-right">Live</span></div>
+          <div class="w-list-item"><div class="w-icon" style="background: rgba(123,245,160,0.15);"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" fill="var(--mint)"/></svg></div> HR system <span class="w-list-right">Live</span></div>
+        </div>
+      </div>
+
+      <div class="w mint-bg">
+        <div class="w-head">
+          <div class="w-label">Data coverage</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big">87%</div>
+        <div class="w-sub">13 gaps remaining</div>
+        <div class="w-progress" style="margin-top: 16px; background: rgba(30,30,42,0.08);"><div class="w-progress-fill" style="width: 87%; background: var(--charcoal);"></div></div>
+      </div>
+
+      <div class="w">
+        <div class="w-head">
+          <div class="w-title">Data points</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="var(--charcoal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big sm">2,847</div>
+        <div class="w-change">+312 this month</div>
+        <div class="w-bars" style="height: 50px; margin-top: 12px;">
+          <div class="w-bar" style="height: 40%; background: var(--sage);"></div>
+          <div class="w-bar" style="height: 55%; background: var(--sage);"></div>
+          <div class="w-bar" style="height: 45%; background: var(--mint-soft);"></div>
+          <div class="w-bar" style="height: 70%; background: var(--mint-soft);"></div>
+          <div class="w-bar" style="height: 65%; background: var(--mint);"></div>
+          <div class="w-bar" style="height: 80%; background: var(--mint);"></div>
+          <div class="w-bar" style="height: 90%; background: var(--mint);"></div>
+        </div>
+      </div>
+
+      <div class="w lavender-bg">
+        <div class="w-head">
+          <div class="w-label">AI quality score</div>
+          <div class="w-arrow"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 10L10 4M10 4H5M10 4V9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="w-big" style="color: var(--white);">96.4%</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px;">Validation accuracy</div>
+        <div class="w-sparkline" style="margin-top: 12px;">
+          <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+            <polyline points="0,30 25,28 50,25 75,20 100,18 125,12 150,10 175,6 200,4" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="bento-section-label reveal">Settings</div>
+    <div class="bento bento-settings reveal">
+      <div class="w">
+        <div class="w-title" style="margin-bottom: 16px;">Notifications</div>
+        <div class="w-toggle-row">Email alerts <div class="w-toggle on"></div></div>
+        <div class="w-toggle-row">Slack integration <div class="w-toggle on"></div></div>
+        <div class="w-toggle-row">Weekly digest <div class="w-toggle"></div></div>
+        <div class="w-toggle-row">AI recommendations <div class="w-toggle on"></div></div>
+      </div>
+
+      <div class="w dark">
+        <div class="w-title" style="margin-bottom: 16px;">Team</div>
+        <div class="w-list">
+          <div class="w-list-item"><div class="w-icon" style="background: var(--mint); color: var(--charcoal); font-size: 11px; font-weight: 600;">DM</div> Danny Murphy <span class="w-list-right">Admin</span></div>
+          <div class="w-list-item"><div class="w-icon" style="background: var(--lavender); color: var(--white); font-size: 11px; font-weight: 600;">SK</div> Sarah Kelly <span class="w-list-right">Editor</span></div>
+          <div class="w-list-item"><div class="w-icon" style="background: var(--sage); color: var(--charcoal); font-size: 11px; font-weight: 600;">JB</div> James Burke <span class="w-list-right">Viewer</span></div>
+        </div>
+      </div>
+
+      <div class="w sage-bg">
+        <div class="w-title" style="margin-bottom: 16px;">Plan</div>
+        <div class="w-big sm" style="color: var(--charcoal);">Pro</div>
+        <div class="w-sub" style="color: var(--dark-gray); margin-bottom: 12px;">Unlimited frameworks &middot; 10 seats</div>
+        <div class="w-progress" style="background: rgba(30,30,42,0.08);"><div class="w-progress-fill" style="width: 30%; background: var(--charcoal);"></div></div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px;"><span class="w-sub" style="color: var(--dark-gray);">3 / 10 seats used</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-line"></div>
+    <div class="footer-brand"><img src="https://annwn.ai/annwn_transparent_white.png" alt="Annwn" class="footer-logo"></div>
+    <p>Brand Guidelines v1.0 — For internal and partner use<br>Questions? Reach out to the design team.</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth stagger for grid children
+    document.querySelectorAll('.color-hero-grid .color-hero-card, .color-ext-grid .color-ext-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 60}ms`;
+    });
+  </script>
+</body>
+</html>
