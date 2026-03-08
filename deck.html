@@ -45,26 +45,48 @@
     /* ——— 16:9 enforced slides ——— */
     .slide {
       width: 100vw;
-      height: 100vh;
-      max-height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       scroll-snap-align: start;
     }
 
     .slide-inner {
       width: 90%;
       max-width: 1400px;
-      height: 90vh;
       padding: 40px 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
       z-index: 2;
+    }
+
+    /* ——— Smaller desktop screens ——— */
+    @media (min-width: 901px) and (max-height: 750px) {
+      .slide-title { font-size: clamp(24px, 3.2vw, 40px); }
+      .hero-title { font-size: clamp(32px, 4.5vw, 56px); }
+      .slide-subtitle { font-size: clamp(14px, 1.5vw, 18px); }
+      .slide-inner { padding: 36px 0; }
+      .slide-title { margin-bottom: 12px; }
+      .feature-list { gap: 14px; margin-top: 18px; }
+      .feature-content h4 { font-size: 15px; }
+      .feature-content p { font-size: 13px; }
+      .callout { font-size: 13px; padding: 12px 18px; margin-top: 16px; }
+      .card { padding: 24px; }
+      .two-col { gap: 32px; }
+      .four-col { gap: 20px; }
+      .three-col { gap: 20px; }
+      .holding-box { min-height: 280px; }
+      .icon { width: 36px; height: 36px; }
+      .icon svg { width: 18px; height: 18px; }
+      .mint-badge { width: 110px; height: 110px; font-size: 15px; }
+      .roadmap-table th { padding: 10px 12px; font-size: 13px; }
+      .roadmap-table td { padding: 10px 12px; font-size: 12px; }
+      .stat-huge { font-size: clamp(48px, 8vw, 80px); }
     }
 
     /* ——— Slide number ——— */
@@ -305,7 +327,7 @@
       }
       .slide-inner {
         height: auto; min-height: auto;
-        padding: 48px 20px 40px; transition: none; width: 100%;
+        padding: 60px 20px 52px; transition: none; width: 100%;
       }
       /* Disable all entrance animations — everything visible immediately */
       .slide:not(.slide-visible) .slide-inner { opacity: 1; transform: none; }
@@ -456,7 +478,6 @@
 
 <!-- ====== 3: PROBLEM ====== -->
 <section class="slide" id="s3" data-theme="dark" style="background: var(--charcoal);">
-  <div class="orb orb-1" style="width: 500px; height: 500px; background: #1a3a1a; top: -200px; right: -150px; opacity: 0.5;"></div>
   <div class="slide-inner">
     <span class="tag tag-dark reveal-left">Problem</span>
     <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white); max-width: 900px;">Sustainability is a structurally constrained profession &mdash; and <u>consultants</u> currently pay the price</h2>
@@ -654,11 +675,11 @@
       <div class="reveal-scale reveal-delay-3 tam-wrap">
         <svg class="tam-svg" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- TAM -->
-          <circle cx="220" cy="220" r="210" stroke="rgba(123,245,160,0.3)" stroke-width="2" fill="rgba(123,245,160,0.05)"/>
+          <circle cx="220" cy="220" r="210" stroke="rgba(184,169,232,0.3)" stroke-width="2" fill="rgba(184,169,232,0.05)"/>
           <text x="220" y="80" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">TAM</text>
-          <text x="220" y="115" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#A8F5C0">&pound;30bn</text>
+          <text x="220" y="115" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#D0C6F0">&pound;30bn</text>
           <!-- SAM -->
-          <circle cx="220" cy="270" r="130" stroke="rgba(123,245,160,0.4)" stroke-width="2" fill="rgba(123,245,160,0.08)"/>
+          <circle cx="220" cy="270" r="130" stroke="rgba(168,245,192,0.4)" stroke-width="2" fill="rgba(123,245,160,0.06)"/>
           <text x="220" y="195" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">SAM</text>
           <text x="220" y="225" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
           <!-- SOM -->
@@ -847,8 +868,9 @@
           <text x="125" y="113" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Accenture</text>
           <!-- In-house AI - bottom left -->
           <rect x="60" y="310" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="125" y="335" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">In-house AI workflows</text>
-          <text x="125" y="353" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unilever build in-house</text>
+          <text x="125" y="330" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">In-house AI</text>
+          <text x="125" y="346" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">workflows</text>
+          <text x="125" y="360" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unilever</text>
           <!-- Sustainability SaaS - bottom center -->
           <rect x="190" y="380" width="150" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
           <text x="265" y="405" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Sustainability SaaS</text>
