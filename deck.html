@@ -67,29 +67,54 @@
       z-index: 2;
     }
 
-    /* ——— Nav dots ——— */
+    /* ——— Slide number ——— */
+    .slide-num {
+      position: absolute;
+      bottom: 20px;
+      left: 5%;
+      font-family: var(--mono);
+      font-size: 11px;
+      opacity: 0.35;
+      z-index: 3;
+    }
+
+    /* ——— Nav with labels ——— */
     .slide-nav {
-      position: fixed; right: 20px; top: 50%;
+      position: fixed; right: 16px; top: 50%;
       transform: translateY(-50%); z-index: 100;
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 4px;
     }
     .slide-nav a {
-      width: 10px; height: 10px; border-radius: 50%;
-      display: block; transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none; padding: 3px 0; transition: all 0.3s ease;
     }
-    .slide-nav a.dot-dark { background: rgba(30,30,42,0.2); border: 1px solid rgba(30,30,42,0.1); }
-    .slide-nav a.dot-light { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.15); }
-    .slide-nav a:hover, .slide-nav a.active { background: var(--mint) !important; transform: scale(1.3); border-color: var(--mint) !important; }
+    .slide-nav a .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      display: block; transition: all 0.3s ease; flex-shrink: 0;
+    }
+    .slide-nav a .nav-label {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.5px;
+      opacity: 0; transition: opacity 0.2s; white-space: nowrap;
+      position: absolute; right: 20px;
+    }
+    .slide-nav a:hover .nav-label { opacity: 0.7; }
+    .slide-nav a.dot-dark .dot { background: rgba(30,30,42,0.2); border: 1px solid rgba(30,30,42,0.1); }
+    .slide-nav a.dot-dark .nav-label { color: var(--charcoal); }
+    .slide-nav a.dot-light .dot { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.15); }
+    .slide-nav a.dot-light .nav-label { color: var(--white); }
+    .slide-nav a:hover .dot, .slide-nav a.active .dot { background: var(--mint) !important; transform: scale(1.3); border-color: var(--mint) !important; }
+    .slide-nav a.active .nav-label { opacity: 0.6; }
 
     /* ——— Download button ——— */
     .dl-btn {
       position: fixed; top: 16px; right: 20px; z-index: 101;
       font-family: var(--display); font-size: 13px; font-weight: 600;
       padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
-      background: var(--white); color: var(--charcoal); transition: all 0.2s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      color: var(--charcoal); transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     }
-    .dl-btn:hover { background: var(--mint); color: var(--charcoal); }
+    .dl-btn:hover { background: rgba(123,245,160,0.85); color: var(--charcoal); }
 
     .tag { font-family: var(--mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: inline-block; }
     .tag-light { color: var(--mid-gray); }
@@ -159,11 +184,11 @@
     .reveal-scale { opacity: 0; transform: scale(0.88); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
     .reveal-scale.visible { opacity: 1; transform: scale(1); }
 
-    /* ——— Rotate reveal (for circular elements) ——— */
+    /* ——— Rotate reveal ——— */
     .reveal-rotate { opacity: 0; transform: rotate(-6deg) scale(0.92); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
     .reveal-rotate.visible { opacity: 1; transform: rotate(0) scale(1); }
 
-    /* ——— Clip reveal (wipe from bottom) ——— */
+    /* ——— Clip reveal ——— */
     .reveal-clip { clip-path: inset(100% 0 0 0); opacity: 0; transition: clip-path 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease; }
     .reveal-clip.visible { clip-path: inset(0 0 0 0); opacity: 1; }
 
@@ -201,20 +226,16 @@
     .logo { height: 28px; object-fit: contain; }
     .logo-dark { filter: brightness(0); }
 
-    /* ——— Photo with brand overlay ——— */
-    .brand-photo {
-      border-radius: 20px; overflow: hidden; position: relative;
-      background: var(--charcoal);
+    /* ——— Holding box (placeholder for imagery) ——— */
+    .holding-box {
+      border-radius: 20px; display: flex; align-items: center; justify-content: center;
+      min-height: 380px; height: 100%;
     }
-    .brand-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .brand-photo .overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(123,245,160,0.15), rgba(184,169,232,0.1));
-      mix-blend-mode: color;
+    .holding-box-dark {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
     }
-    .brand-photo .darken {
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(30,30,42,0.7));
+    .holding-box-light {
+      background: rgba(30,30,42,0.03); border: 1px solid rgba(30,30,42,0.08);
     }
 
     /* ——— TAM ——— */
@@ -225,7 +246,7 @@
     .matrix-svg { width: 100%; max-width: 500px; height: auto; }
 
     /* ——— Flywheel ——— */
-    .flywheel-svg { width: 100%; max-width: 460px; height: auto; }
+    .flywheel-svg { width: 100%; max-width: 520px; height: auto; }
 
     /* ——— Roadmap ——— */
     .roadmap-table { width: 100%; border-collapse: separate; border-spacing: 8px 0; margin-top: 32px; }
@@ -235,7 +256,6 @@
 
     /* ——— Logos ——— */
     .logo-grid { display: flex; flex-wrap: wrap; gap: 28px 44px; align-items: center; margin-top: 36px; }
-    .logo-placeholder { font-family: var(--display); font-weight: 700; font-size: 22px; color: rgba(255,255,255,0.45); letter-spacing: 1px; }
 
     /* ——— Workflow ——— */
     .workflow-steps { display: flex; gap: 3px; margin: 24px 0; flex-wrap: wrap; }
@@ -268,23 +288,86 @@
       .slide-inner { opacity: 1 !important; transform: none !important; transition: none !important; }
       .orb { animation: none !important; }
       .workflow-step.animate-in { opacity: 1 !important; transform: none !important; }
+      .roadmap-table { display: table !important; }
+      .roadmap-table th, .roadmap-table td { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .two-col { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+      .three-col { grid-template-columns: repeat(3,1fr) !important; }
+      .four-col { grid-template-columns: repeat(4,1fr) !important; }
+      .slide-num { display: block !important; }
       @page { size: landscape; margin: 0; }
     }
 
     @media (max-width: 900px) {
       html { scroll-snap-type: none; }
-      .slide { height: auto; min-height: 100vh; }
-      .slide-inner { height: auto; min-height: 80vh; padding: 48px 0; transition: none; }
+      .slide {
+        height: auto; min-height: auto; max-height: none;
+        scroll-snap-align: none; overflow: visible;
+      }
+      .slide-inner {
+        height: auto; min-height: auto;
+        padding: 48px 20px 40px; transition: none; width: 100%;
+      }
+      /* Disable all entrance animations — everything visible immediately */
       .slide:not(.slide-visible) .slide-inner { opacity: 1; transform: none; }
+      .reveal, .reveal-left, .reveal-right, .reveal-blur, .reveal-scale, .reveal-rotate, .reveal-clip {
+        opacity: 1 !important; transform: none !important; filter: none !important;
+        clip-path: none !important; transition: none !important;
+      }
+      .workflow-step.animate-in { opacity: 1 !important; transform: none !important; }
+      /* Layouts */
       .two-col { grid-template-columns: 1fr; gap: 32px; }
       .four-col { grid-template-columns: 1fr 1fr; }
       .three-col { grid-template-columns: 1fr; }
+      /* Title slide taller on mobile */
+      #s1 .slide-inner { min-height: 85vh; padding-top: 60px; padding-bottom: 60px; }
+      /* Slide 2 stacks on mobile */
+      #s2 .slide-inner > div { grid-template-columns: 1fr !important; }
+      /* Nav & UI */
       .slide-nav { display: none; }
+      .dl-btn { top: 8px; right: 10px; font-size: 12px; padding: 8px 14px; }
+      /* Slide numbers: keep absolute but inside padded area */
+      .slide-num { position: absolute; bottom: 12px; left: 20px; }
+      /* Final slide more breathing room */
+      #s14 .slide-inner { padding-top: 80px; padding-bottom: 80px; }
+      /* Typography */
+      .slide-title { font-size: clamp(24px, 6vw, 36px); }
+      .hero-title { font-size: clamp(28px, 7vw, 48px); }
+      .stat-huge { font-size: clamp(40px, 12vw, 72px); }
+      .slide-subtitle { font-size: 16px; }
+      /* Cards & containers */
+      .callout { white-space: normal; font-size: 14px; }
+      .card { padding: 24px; }
+      .holding-box { min-height: 200px; }
+      /* SVGs scale down */
+      .tam-svg, .flywheel-svg, .matrix-svg { max-width: 100%; width: 100%; }
+      .tam-wrap { padding: 20px 0; }
+      /* Bleed diagram and roadmap to right edge */
+      #s5 .slide-inner > .reveal { margin-right: -20px; padding-right: 0; }
+      .roadmap-table { font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-right: -20px; }
+      .roadmap-table th { padding: 10px 8px; font-size: 12px; }
+      .roadmap-table td { padding: 8px; font-size: 11px; }
+      /* Misc */
+      .logo-grid { gap: 16px 24px; }
+      .feature-list li { flex-direction: column; gap: 8px; }
+      .mint-badge { width: 100px; height: 100px; font-size: 14px; }
+      .workflow-steps { flex-wrap: wrap; gap: 6px; }
+      .workflow-step { min-width: 80px; font-size: 12px; padding: 10px 8px; }
+      .data-sources { flex-wrap: wrap; gap: 8px; }
+      .data-source { font-size: 12px; padding: 10px 12px; }
+      .persist-chip { font-size: 11px; padding: 8px 12px; }
+      .orb { display: none; }
+      .slide-num { font-size: 10px; }
     }
     @media (max-width: 600px) {
+      .slide-inner { padding: 32px 16px; }
+      #s5 .slide-inner > .reveal { margin-right: -16px; }
+      .roadmap-table { margin-right: -16px; }
       .four-col { grid-template-columns: 1fr; }
+      .two-col { gap: 24px; }
       .workflow-steps { flex-direction: column; }
       .data-sources { flex-direction: column; }
+      .feature-content h4 { font-size: 15px; }
+      .feature-content p { font-size: 14px; }
     }
   </style>
 </head>
@@ -293,19 +376,28 @@
 <button class="dl-btn" onclick="window.print()">Download PDF</button>
 
 <nav class="slide-nav" id="slideNav">
-  <a href="#s1" title="Title"></a><a href="#s2" title="Summary"></a><a href="#s3" title="Problem"></a>
-  <a href="#s4" title="Solution"></a><a href="#s5" title="How it works"></a><a href="#s6" title="Market"></a>
-  <a href="#s7" title="GTM"></a><a href="#s8" title="Defensibility"></a><a href="#s9" title="Team"></a>
-  <a href="#s10" title="Competition"></a><a href="#s11" title="Roadmap"></a><a href="#s12" title="Traction"></a>
-  <a href="#s13" title="The Ask"></a><a href="#s14" title="Thank You"></a>
+  <a href="#s1"><span class="dot"></span><span class="nav-label">Title</span></a>
+  <a href="#s2"><span class="dot"></span><span class="nav-label">Summary</span></a>
+  <a href="#s3"><span class="dot"></span><span class="nav-label">Problem</span></a>
+  <a href="#s4"><span class="dot"></span><span class="nav-label">Solution</span></a>
+  <a href="#s5"><span class="dot"></span><span class="nav-label">Workflow</span></a>
+  <a href="#s6"><span class="dot"></span><span class="nav-label">Market</span></a>
+  <a href="#s7"><span class="dot"></span><span class="nav-label">GTM</span></a>
+  <a href="#s8"><span class="dot"></span><span class="nav-label">Moat</span></a>
+  <a href="#s9"><span class="dot"></span><span class="nav-label">Team</span></a>
+  <a href="#s10"><span class="dot"></span><span class="nav-label">Competition</span></a>
+  <a href="#s11"><span class="dot"></span><span class="nav-label">Roadmap</span></a>
+  <a href="#s12"><span class="dot"></span><span class="nav-label">Traction</span></a>
+  <a href="#s13"><span class="dot"></span><span class="nav-label">Ask</span></a>
+  <a href="#s14"><span class="dot"></span><span class="nav-label">Close</span></a>
 </nav>
 
 
 <!-- ====== 1: TITLE ====== -->
 <section class="slide slide-visible" id="s1" data-theme="light" style="background: var(--sage-lighter);">
-  <div class="orb orb-1" style="width: 600px; height: 600px; background: var(--mint); top: -150px; right: -100px; opacity: 0.3;"></div>
-  <div class="orb orb-2" style="width: 500px; height: 500px; background: var(--lavender); bottom: -120px; left: -80px; opacity: 0.22;"></div>
-  <div class="orb orb-1" style="width: 350px; height: 350px; background: var(--sage); top: 40%; left: 25%; opacity: 0.15;"></div>
+  <div class="orb orb-1" style="width: 600px; height: 600px; background: var(--mint); top: -150px; right: -100px; opacity: 0.12;"></div>
+  <div class="orb orb-2" style="width: 500px; height: 500px; background: var(--lavender); bottom: -120px; left: -80px; opacity: 0.08;"></div>
+  <div class="orb orb-1" style="width: 350px; height: 350px; background: var(--sage); top: 40%; left: 25%; opacity: 0.06;"></div>
   <div class="slide-inner" style="justify-content: space-between;">
     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
       <img src="https://annwn.ai/annwn_transparent_white.png" alt="annwn" class="logo logo-dark" style="height: 36px;">
@@ -313,29 +405,30 @@
     </div>
     <div style="max-width: 760px;">
       <h1 class="hero-title reveal-blur" style="color: var(--charcoal); margin-bottom: 20px;">The AI operating system for sustainability consultants</h1>
-      <p class="slide-subtitle reveal-blur reveal-delay-1" style="color: var(--dark-gray); font-size: clamp(18px, 2.2vw, 24px);">Automate the manual. Codify knowledge. Unlock strategic value.</p>
+      <p class="slide-subtitle reveal-blur reveal-delay-1" style="color: var(--dark-gray); font-size: clamp(18px, 2.2vw, 24px);">Automating the manual. Codifying knowledge. Upsell strategically impactful work.</p>
     </div>
     <div class="reveal reveal-delay-2" style="display: flex; justify-content: space-between; align-items: flex-end;">
       <span style="font-family: var(--mono); font-size: 13px; color: var(--mid-gray);">Q1 2026</span>
       <span style="font-size: 11px; color: var(--mid-gray);">Confidential &amp; Proprietary &copy; annwn</span>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--mid-gray);">01</span>
 </section>
 
 
 <!-- ====== 2: SUMMARY ====== -->
 <section class="slide" id="s2" data-theme="light" style="background: var(--white);">
   <div class="slide-inner">
-    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: start;">
+    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: center;">
       <div>
         <span class="tag tag-light reveal-left">Summary</span>
-        <h2 class="slide-title reveal-left reveal-delay-1" style="font-size: clamp(28px, 3.5vw, 44px);">AI agents that automate enterprise sustainability compliance &mdash; saving hundreds of hours per year.</h2>
+        <h2 class="slide-title reveal-left reveal-delay-1" style="font-size: clamp(28px, 3.5vw, 44px);">Annwn automates enterprise sustainability compliance with AI agents, saving hundreds of hours per year.</h2>
         <div class="reveal-left reveal-delay-2" style="display: flex; flex-direction: column; gap: 14px; margin-top: 28px;">
-          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Problem</h4><p style="font-size: 14px; color: var(--dark-gray);">Consultants lose margin on manual work, leak knowledge, can't sell strategy.</p></div>
-          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Solution</h4><p style="font-size: 14px; color: var(--dark-gray);">End-to-end workflow agents, persistent knowledge graphs, innovation engine.</p></div>
-          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Market</h4><p style="font-size: 14px; color: var(--dark-gray);">&pound;30bn consulting TAM. We displace labour budgets, not software.</p></div>
-          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Why now</h4><p style="font-size: 14px; color: var(--dark-gray);">AI agents hit enterprise maturity. First mover takes the knowledge moat.</p></div>
-          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Team</h4><p style="font-size: 14px; color: var(--dark-gray);">50+ years in sustainability. Built and sold Avieco to Accenture (30x EBITDA).</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Problem</h4><p style="font-size: 14px; color: var(--dark-gray);">Sustainability consultants are losing margin on manual work, leaking knowledge, and unable to sell strategic value-adds.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Solution</h4><p style="font-size: 14px; color: var(--dark-gray);">End-to-end workflow agents, a persistent knowledge system, and an innovation engine that recommends and executes new plans.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Opportunity</h4><p style="font-size: 14px; color: var(--dark-gray);">&pound;2.6bn sustainability software market, part of the &pound;30bn consulting market, displacing tasks and adding value.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Why now</h4><p style="font-size: 14px; color: var(--dark-gray);">AI agents are reaching a maturity that allows enterprise-scale rollout for the first time, saving hundreds of hours of work per year.</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Team</h4><p style="font-size: 14px; color: var(--dark-gray);">50+ years in sustainability tech and consulting. Built, scaled, and sold Avieco to Accenture for 30x EBITDA.</p></div>
         </div>
       </div>
       <div class="reveal-right reveal-delay-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -357,6 +450,7 @@
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--mid-gray);">02</span>
 </section>
 
 
@@ -364,32 +458,33 @@
 <section class="slide" id="s3" data-theme="dark" style="background: var(--charcoal);">
   <div class="orb orb-1" style="width: 500px; height: 500px; background: #1a3a1a; top: -200px; right: -150px; opacity: 0.5;"></div>
   <div class="slide-inner">
-    <div class="two-col">
+    <span class="tag tag-dark reveal-left">Problem</span>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white); max-width: 900px;">Sustainability is a structurally constrained profession &mdash; and <u>consultants</u> currently pay the price</h2>
+    <div class="two-col" style="margin-top:16px;align-items:start;">
       <div>
-        <span class="tag tag-dark reveal-left">Problem</span>
-        <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Sustainability consulting is structurally broken</h2>
-        <p class="slide-subtitle reveal-left reveal-delay-2" style="color: var(--sage-light); margin-bottom: 36px;">Broad remit, scattered data, poor tools, shifting regulations. Consultants are trapped doing low-value manual work.</p>
+        <p class="slide-subtitle reveal-left reveal-delay-2" style="color: var(--sage-light); margin-bottom: 28px;">Sustainability has a broad remit: spanning every part of a business and many topics, but sits apart. No mandate, scattered data, poor tools, and an ever-shifting brief mean&hellip;</p>
         <ul class="feature-list reveal-left reveal-delay-3">
           <li>
             <div class="icon" style="background: rgba(197,208,192,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#C5D0C0" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--sage-light);">Slow and expensive</h4><p style="color: var(--sage);">High-cost manual work that clients won't pay for.</p></div>
+            <div class="feature-content"><h4 style="color: var(--sage-light);">Slow and expensive</h4><p style="color: var(--sage);">The priority work is manual (low value and high cost) and enterprise clients expect more for less.</p></div>
           </li>
           <li>
             <div class="icon" style="background: rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--sage-light);">Knowledge walks out the door</h4><p style="color: var(--sage);">Every engagement starts from scratch.</p></div>
+            <div class="feature-content"><h4 style="color: var(--sage-light);">Knowledge doesn't accumulate</h4><p style="color: var(--sage);">Methodology and context leave with people. Every engagement starts from scratch.</p></div>
           </li>
           <li>
             <div class="icon" style="background: rgba(123,245,160,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#7BF5A0" stroke-width="1.5"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--sage-light);">No room for strategy</h4><p style="color: var(--sage);">Compliance eats all the bandwidth.</p></div>
+            <div class="feature-content"><h4 style="color: var(--sage-light);">No space for strategy</h4><p style="color: var(--sage);">Clients are consumed by compliance. True impact and value creation gets sidelined.</p></div>
           </li>
         </ul>
+        <div class="callout callout-mint reveal-left reveal-delay-4" style="white-space:normal;">Consultants are seen as vendors, not partners. Budget cuts and regulatory retrenchment mean more pressure to deliver, tighter budgets, and less influence.</div>
       </div>
-      <div class="reveal-scale reveal-delay-2 brand-photo" style="height: 100%; min-height: 420px;">
-        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80" alt="Dense open office" style="filter: saturate(0.6) brightness(0.5);">
-        <div class="darken"></div>
+      <div class="holding-box holding-box-dark reveal-scale reveal-delay-4" style="min-height:100%;">
+        <span style="font-family:var(--mono);font-size:12px;color:var(--sage);opacity:0.5;">Illustration placeholder</span>
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">03</span>
 </section>
 
 
@@ -397,73 +492,146 @@
 <section class="slide" id="s4" data-theme="dark" style="background: var(--charcoal-soft);">
   <div class="orb orb-2" style="width: 400px; height: 400px; background: var(--mint); bottom: -150px; left: -100px; opacity: 0.06;"></div>
   <div class="slide-inner">
-    <div class="two-col">
-      <div>
-        <span class="tag tag-mint reveal-left">Solution</span>
-        <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Three products. One compounding system.</h2>
-        <ul class="feature-list reveal-left reveal-delay-2" style="margin-top: 32px;">
-          <li>
-            <div class="icon" style="background: var(--mint); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"/><circle cx="12" cy="12" r="3"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--white);">Automation</h4><p style="color: var(--sage-light);">End-to-end workflow agents. <span style="color: var(--mint);">CDP: 6 weeks &rarr; 10 days.</span></p></div>
-          </li>
-          <li>
-            <div class="icon" style="background: var(--lavender); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--white);">Knowledge System</h4><p style="color: var(--sage-light);">Every decision captured, searchable, compounding.</p></div>
-          </li>
-          <li>
-            <div class="icon" style="background: var(--sage); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--white);">Innovation Engine</h4><p style="color: var(--sage-light);">Surfaces costed strategic opportunities automatically.</p></div>
-          </li>
-        </ul>
-        <div class="callout callout-mint reveal-left reveal-delay-3">The more annwn is used, the more powerful it becomes.</div>
-      </div>
-      <div class="reveal-scale reveal-delay-2 brand-photo" style="height: 100%; min-height: 420px;">
-        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=900&q=80" alt="Modern bright workspace with plants" style="filter: saturate(0.7) brightness(0.55);">
-        <div class="darken"></div>
-      </div>
-    </div>
+    <span class="tag tag-mint reveal-left">Solution</span>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white); max-width: 900px;">Annwn creates efficiency across the team, growing institutional memory and helping execute bigger opportunities</h2>
+    <ul class="feature-list reveal-left reveal-delay-2" style="margin-top: 32px;">
+      <li>
+        <div class="icon" style="background: var(--mint); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="feature-content"><h4 style="color: var(--white);">Automation</h4><p style="color: var(--sage-light);">Speedy end-to-end workflow management: data ingestion, calcs, drafts, QA, audit trail. <em style="color: var(--mint);">A CDP submission: 6 weeks &rarr; 10 days.</em></p></div>
+      </li>
+      <li>
+        <div class="icon" style="background: var(--lavender); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+        <div class="feature-content"><h4 style="color: var(--white);">Knowledge System</h4><p style="color: var(--sage-light);">Every decision captured and searchable. Each building on the last. <em style="color: var(--sage);">Knowledge stays when people leave. Clients get deeper, more consistent expertise.</em></p></div>
+      </li>
+      <li>
+        <div class="icon" style="background: var(--sage); color: var(--charcoal);"><svg viewBox="0 0 24 24" fill="none" stroke="#1E1E2A" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <div class="feature-content"><h4 style="color: var(--white);">Innovation Engine</h4><p style="color: var(--sage-light);">Costed strategic opportunities surfaced automatically across the portfolio. <em style="color: var(--sage);">Board-ready energy efficiency case for the CFO. New business for the consultancy.</em></p></div>
+      </li>
+    </ul>
+    <div class="callout callout-mint reveal-left reveal-delay-3" style="align-self:flex-start;">The more annwn is used, the more powerful it becomes.</div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">04</span>
 </section>
 
 
 <!-- ====== 5: CDP WORKFLOW ====== -->
-<section class="slide" id="s5" data-theme="light" style="background: var(--sage-50);">
-  <div class="slide-inner" style="justify-content: flex-start; padding-top: 60px;">
-    <span class="tag tag-light reveal-blur">How it works</span>
-    <h2 class="slide-title reveal-blur reveal-delay-1" style="font-size: clamp(30px, 3.8vw, 48px);">A CDP submission: 6 weeks &rarr; 10 days</h2>
-    <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--dark-gray);">Same team. Better output. Full traceability.</p>
+<section class="slide" id="s5" data-theme="dark" style="background: var(--charcoal);">
+  <div class="slide-inner">
+    <span class="tag tag-dark reveal-blur">An illustration of value</span>
+    <h2 class="slide-title reveal-blur reveal-delay-1" style="color:var(--white);font-size: clamp(24px, 3vw, 40px);">What &lsquo;agentic&rsquo; means in practice: a CDP submission</h2>
+    <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--sage-light);margin-bottom:20px;">annwn automates the full workflow end-to-end: 6 weeks &rarr; 10 days. Same team. Better output. Full traceability.</p>
 
-    <div class="reveal-clip reveal-delay-3" style="margin-top: 24px;">
-      <div class="data-sources">
-        <div class="data-source" style="background: var(--mint-pale); border: 1px solid var(--mint-soft); color: var(--charcoal);"><strong>annwn Corpus</strong><br><span style="font-size: 11px; opacity: 0.7;">Prior submissions, benchmarks</span></div>
-        <div class="data-source" style="background: var(--sage-light); border: 1px solid var(--sage); color: var(--charcoal);"><strong>Enterprise Data</strong><br><span style="font-size: 11px; opacity: 0.7;">Utility bills, reports</span></div>
-        <div class="data-source" style="background: var(--lavender-pale); border: 1px solid var(--lavender-soft); color: var(--charcoal);"><strong>External Risk Data</strong><br><span style="font-size: 11px; opacity: 0.7;">Regulatory databases</span></div>
-      </div>
-      <div style="text-align: center; color: var(--mid-gray); font-size: 16px; margin: 4px 0;">&#8595;</div>
-      <div class="workflow-steps" id="workflowSteps">
-        <div class="workflow-step ws-auto animate-in">1. Scoping</div>
-        <div class="workflow-step ws-auto animate-in">2. Data Collection</div>
-        <div class="workflow-step ws-collab animate-in">3. Gap Analysis</div>
-        <div class="workflow-step ws-collab animate-in">4. Framework Map</div>
-        <div class="workflow-step ws-auto animate-in">5. Draft</div>
-        <div class="workflow-step ws-collab animate-in">6. QA</div>
-        <div class="workflow-step ws-human animate-in">7. Client Review</div>
-        <div class="workflow-step ws-auto animate-in">8. Submit</div>
-        <div class="workflow-step ws-external animate-in">9. Score D&rarr;A</div>
-      </div>
-      <div style="display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap;">
-        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--mint);display:inline-block;"></span> annwn automated</div>
-        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--mint-soft);display:inline-block;"></span> annwn + client</div>
-        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--sage);display:inline-block;"></span> Human</div>
-        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dark-gray);"><span style="width:12px;height:12px;border-radius:3px;background:var(--lavender-soft);display:inline-block;"></span> External</div>
-      </div>
-      <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;">
-        <div class="persist-chip" style="background:var(--sage-light);border:1px solid var(--sage);color:var(--charcoal);">Persistent scoring model</div>
-        <div class="persist-chip" style="background:var(--sage-light);border:1px solid var(--sage);color:var(--charcoal);">Assurance-grade audit trail</div>
-        <div class="persist-chip" style="background:var(--sage-light);border:1px solid var(--sage);color:var(--charcoal);">Knowledge graph</div>
-      </div>
+    <div class="reveal reveal-delay-3" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <svg class="workflow-diagram-svg" viewBox="0 0 1100 520" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:800px;height:auto;">
+        <defs>
+          <marker id="warr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1L8 5L0 9z" fill="#B8A9E8"/></marker>
+          <marker id="garr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1L8 5L0 9z" fill="#7BF5A0"/></marker>
+        </defs>
+        <!-- ——— DATA SOURCES (top row) ——— -->
+        <!-- annwn Corpus (mint-pale) -->
+        <rect x="10" y="10" width="130" height="100" rx="10" fill="rgba(123,245,160,0.12)" stroke="#A8F5C0" stroke-width="1.5"/>
+        <text x="75" y="38" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#A8F5C0">annwn</text>
+        <text x="75" y="54" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#A8F5C0">Corpus</text>
+        <text x="75" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(168,245,192,0.7)">Prior submissions,</text>
+        <text x="75" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(168,245,192,0.7)">sector methodology</text>
+        <text x="75" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(168,245,192,0.7)">&amp; benchmarks</text>
+        <!-- Enterprise Data (sage) — centred above step 3 (x=296) -->
+        <rect x="231" y="10" width="130" height="100" rx="10" fill="rgba(197,208,192,0.12)" stroke="#C5D0C0" stroke-width="1.5"/>
+        <text x="296" y="38" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#DDE3DA">Enterprise</text>
+        <text x="296" y="54" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#DDE3DA">Data</text>
+        <text x="296" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(197,208,192,0.7)">Utility bills,</text>
+        <text x="296" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(197,208,192,0.7)">minutes, procurement,</text>
+        <text x="296" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(197,208,192,0.7)">prior reports</text>
+        <!-- External Risk Data (lavender) -->
+        <rect x="680" y="10" width="140" height="100" rx="10" fill="rgba(184,169,232,0.12)" stroke="#D0C6F0" stroke-width="1.5"/>
+        <text x="750" y="38" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#D0C6F0">External Risk</text>
+        <text x="750" y="54" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#D0C6F0">Data</text>
+        <text x="750" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(208,198,240,0.7)">Physical &amp;</text>
+        <text x="750" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(208,198,240,0.7)">transition risk,</text>
+        <text x="750" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(208,198,240,0.7)">regulatory databases</text>
+
+        <!-- ——— ARROWS from data sources down ——— -->
+        <line x1="75" y1="110" x2="75" y2="175" stroke="#7BF5A0" stroke-width="1.5" marker-end="url(#garr)"/>
+        <line x1="296" y1="110" x2="296" y2="175" stroke="#7BF5A0" stroke-width="1.5" marker-end="url(#garr)"/>
+        <line x1="750" y1="110" x2="750" y2="175" stroke="#7BF5A0" stroke-width="1.5" marker-end="url(#garr)"/>
+
+        <!-- ——— WORKFLOW STEPS (middle row y=180) ——— -->
+        <!-- Step boxes: each ~108px wide, 8px gap. Total ≈ 9*108 + 8*8 = 1036 -->
+        <!-- 1. Scoping (annwn automated - mint) -->
+        <rect x="10" y="180" width="108" height="60" rx="8" fill="#7BF5A0"/>
+        <text x="64" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">1. Scoping</text>
+        <text x="64" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">&amp; Prior Review</text>
+        <!-- 2. Data Collection (annwn automated) -->
+        <rect x="126" y="180" width="108" height="60" rx="8" fill="#7BF5A0"/>
+        <text x="180" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">2. Data</text>
+        <text x="180" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Collection</text>
+        <!-- 3. Gap Analysis (annwn + client - mint-soft) -->
+        <rect x="242" y="180" width="108" height="60" rx="8" fill="#A8F5C0"/>
+        <text x="296" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">3. Gap</text>
+        <text x="296" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Analysis</text>
+        <!-- 4. Framework Mapping (annwn + client) -->
+        <rect x="358" y="180" width="108" height="60" rx="8" fill="#A8F5C0"/>
+        <text x="412" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">4. Framework</text>
+        <text x="412" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Mapping</text>
+        <!-- 5. Draft Responses (annwn automated) -->
+        <rect x="474" y="180" width="108" height="60" rx="8" fill="#7BF5A0"/>
+        <text x="528" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">5. Draft</text>
+        <text x="528" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Responses</text>
+        <!-- 6. QA / Validation (annwn + client) -->
+        <rect x="590" y="180" width="108" height="60" rx="8" fill="#A8F5C0"/>
+        <text x="644" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">6. QA /</text>
+        <text x="644" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Validation</text>
+        <!-- 7. Client Review (client/human - sage) -->
+        <rect x="706" y="180" width="108" height="60" rx="8" fill="#C5D0C0"/>
+        <text x="760" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">7. Client</text>
+        <text x="760" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Review</text>
+        <!-- 8. Submit (annwn automated) -->
+        <rect x="822" y="180" width="96" height="60" rx="8" fill="#7BF5A0"/>
+        <text x="870" y="214" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">8. Submit</text>
+        <!-- 9. Score D→A (external/CDP - lavender-soft) -->
+        <rect x="926" y="180" width="96" height="60" rx="8" fill="#D0C6F0"/>
+        <text x="974" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">9. Score</text>
+        <text x="974" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">D &#8594; A</text>
+
+        <!-- ——— FEEDBACK LOOPS ——— -->
+        <!-- Year-on-year learning loop: from step 9 bottom, loops back to step 1 -->
+        <path d="M974 240 L974 350 L10 350 L10 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
+        <text x="480" y="346" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Year-on-year learning loop</text>
+
+        <!-- Client feedback: from step 7 bottom to step 5 -->
+        <path d="M760 240 L760 320 L528 320 L528 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
+        <text x="620" y="315" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Client feedback</text>
+
+        <!-- Revision loop: from step 6 bottom, short loop inside client feedback -->
+        <path d="M644 240 L644 296 L528 296 L528 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
+        <text x="560" y="292" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Revision loop</text>
+
+        <!-- ——— LEGEND (top right) ——— -->
+        <rect x="895" y="16" width="14" height="14" rx="3" fill="#7BF5A0"/>
+        <text x="918" y="28" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">annwn automated</text>
+        <rect x="895" y="38" width="14" height="14" rx="3" fill="#A8F5C0"/>
+        <text x="918" y="50" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">annwn + client</text>
+        <rect x="895" y="60" width="14" height="14" rx="3" fill="#C5D0C0"/>
+        <text x="918" y="72" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">Client / human</text>
+        <rect x="895" y="82" width="14" height="14" rx="3" fill="#D0C6F0"/>
+        <text x="918" y="94" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">External / CDP</text>
+        <rect x="895" y="104" width="14" height="14" rx="3" fill="rgba(197,208,192,0.3)" stroke="#C5D0C0" stroke-width="1"/>
+        <text x="918" y="116" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">Enterprise input</text>
+        <rect x="895" y="126" width="14" height="14" rx="3" fill="rgba(123,245,160,0.15)" stroke="#A8F5C0" stroke-width="1"/>
+        <text x="918" y="138" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">annwn corpus</text>
+
+        <!-- ——— PERSISTENT LAYER (bottom) ——— -->
+        <text x="10" y="430" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="13" fill="#A8F5C0">Persistent layer</text>
+        <rect x="10" y="445" width="332" height="50" rx="8" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="1.2"/>
+        <text x="176" y="475" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--sage-light)">Scoring model (D&#8594;C&#8594;B&#8594;A)</text>
+        <rect x="350" y="445" width="332" height="50" rx="8" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="1.2"/>
+        <text x="516" y="475" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--sage-light)">Audit trail (every output, assurance-grade)</text>
+        <rect x="690" y="445" width="332" height="50" rx="8" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="1.2"/>
+        <text x="856" y="475" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--sage-light)">annwn knowledge graph (context survives)</text>
+      </svg>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">05</span>
 </section>
 
 
@@ -471,16 +639,17 @@
 <section class="slide" id="s6" data-theme="dark" style="background: var(--charcoal);">
   <div class="slide-inner">
     <span class="tag tag-dark reveal-left">Market</span>
-    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">&pound;30bn market. Labour budgets, not software.</h2>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">A &pound;30bn market that has to automate</h2>
     <div class="two-col" style="margin-top: 16px;">
       <div class="reveal-left reveal-delay-2">
-        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 28px;">We displace manual tasks and surface higher-value work. Our addressable market is consulting, not SaaS.</p>
+        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 28px;">Annwn competes for labour budgets, not software budgets. We displace manual tasks, freeing practitioners to focus on higher-value work we surface &mdash; and it's why our addressable market is the &pound;30bn consulting market, not the &pound;2.6bn SaaS market.</p>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
-          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">TAM &pound;30bn</strong> &mdash; Global sustainability consulting 2030 (16% CAGR)</span></li>
-          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">SAM &pound;2.6bn</strong> &mdash; Sustainability software</span></li>
-          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">SOM &pound;200m</strong> &mdash; ~1,000 firms by 2030</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">TAM &pound;30bn</strong> &mdash; Global sustainability consulting market by 2030 (16% CAGR)</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">SAM &pound;2.6bn</strong> &mdash; Sustainability software market, initial competitive frame</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">SOM &pound;200m</strong> &mdash; ~1,000 consulting firms @ 2030 target, 0.6% of initial TAM</span></li>
+          <li style="display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;"><strong style="color:var(--white);">Adjacent &pound;17tn</strong> &mdash; Sustainable assets under management globally</span></li>
         </ul>
-        <div class="callout callout-mint" style="margin-top: 20px;">Comp: Harvey (legal AI) &mdash; $11bn. &ldquo;Service-as-Software&rdquo; commands 20x+ ARR.</div>
+        <div class="callout callout-mint" style="margin-top: 20px;white-space:normal;">Harvey (legal AI): $11bn valuation. &ldquo;Service-as-Software&rdquo; commands 20x+ ARR multiples. Sustainability is next.</div>
       </div>
       <div class="reveal-scale reveal-delay-3 tam-wrap">
         <svg class="tam-svg" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -490,16 +659,17 @@
           <text x="220" y="115" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#A8F5C0">&pound;30bn</text>
           <!-- SAM -->
           <circle cx="220" cy="270" r="130" stroke="rgba(123,245,160,0.4)" stroke-width="2" fill="rgba(123,245,160,0.08)"/>
-          <text x="220" y="240" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="12" letter-spacing="2" fill="#8A8A96">SAM</text>
-          <text x="220" y="272" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
+          <text x="220" y="195" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">SAM</text>
+          <text x="220" y="225" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
           <!-- SOM -->
-          <circle cx="260" cy="340" r="60" fill="#7BF5A0"/>
-          <text x="260" y="330" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="2" fill="#1E1E2A" font-weight="600">SOM</text>
-          <text x="260" y="352" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#1E1E2A">&pound;200m</text>
+          <circle cx="220" cy="320" r="60" fill="#7BF5A0"/>
+          <text x="220" y="310" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="2" fill="#1E1E2A" font-weight="600">SOM</text>
+          <text x="220" y="332" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#1E1E2A">&pound;200m</text>
         </svg>
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">06</span>
 </section>
 
 
@@ -507,27 +677,28 @@
 <section class="slide" id="s7" data-theme="light" style="background: linear-gradient(160deg, var(--lavender-pale), var(--sage-lighter));">
   <div class="slide-inner">
     <span class="tag tag-light reveal-blur">Go to market</span>
-    <h2 class="slide-title reveal-blur reveal-delay-1" style="max-width: 820px;">Consultants are the channel. Each one brings 50&ndash;100+ enterprise clients.</h2>
+    <h2 class="slide-title reveal-blur reveal-delay-1" style="max-width: 860px;">Sustainability consultants are the perfect channel to reach the whole market.</h2>
     <div class="two-col" style="margin-top: 32px;">
       <div class="card reveal-left reveal-delay-2" style="background: var(--charcoal); color: var(--white); padding: 32px; border-radius: 20px;">
-        <h3 style="font-family:var(--display);font-size:20px;color:var(--mint);margin-bottom:16px;">Why consultancies first</h3>
+        <h3 style="font-family:var(--display);font-size:20px;color:var(--mint);margin-bottom:16px;">Consultancies are the perfect market entry partner</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
-          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Distribution</strong> <span style="color:var(--sage);">&mdash; 1 consultancy = 50&ndash;100+ clients</span></li>
-          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Data flywheel</strong> <span style="color:var(--sage);">&mdash; denser data, faster</span></li>
-          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Acute pain</strong> <span style="color:var(--sage);">&mdash; margin pressure drives adoption</span></li>
-          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Lower threshold</strong> <span style="color:var(--sage);">&mdash; faster trust than enterprise</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Distribution multiplier</strong> <span style="color:var(--sage);">&mdash; Each consultancy brings 50&ndash;100+ enterprise clients</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Data enrichment</strong> <span style="color:var(--sage);">&mdash; Consultancy generates denser data, faster than any other channel</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Immediate economics</strong> <span style="color:var(--sage);">&mdash; Consultants feel margin pressure most acutely</span></li>
+          <li style="font-size:14px;"><strong style="color:var(--sage-light);">Build trust quicker</strong> <span style="color:var(--sage);">&mdash; Consultants have a lower adoption threshold than enterprise</span></li>
         </ul>
       </div>
       <div class="card reveal-right reveal-delay-3" style="background: var(--white); padding: 32px; border-radius: 20px; border: 1px solid var(--sage-light);">
-        <h3 style="font-family:var(--display);font-size:20px;color:var(--charcoal);margin-bottom:16px;">Land and expand</h3>
+        <h3 style="font-family:var(--display);font-size:20px;color:var(--charcoal);margin-bottom:16px;">We grow through embedded experts, market reach and serving enterprise direct</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
-          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">FDSEs</strong> &mdash; Embedded experts build knowledge from live engagements</li>
-          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Scope &amp; region</strong> &mdash; UK &rarr; EU &rarr; Global</li>
-          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Enterprise direct</strong> &mdash; Client retains knowledge, direct relationship</li>
+          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Forward Deployed Sustainability Experts (FDSEs)</strong> &mdash; embedded with early clients, build the knowledge system from live engagements</li>
+          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Scope / region</strong> &mdash; Over time product breadth grows and we reach a global market</li>
+          <li style="font-size:14px;color:var(--dark-gray);"><strong style="color:var(--charcoal);">Enterprise direct</strong> &mdash; When the engagement ends, annwn helps the client retain the knowledge: creating a direct relationship</li>
         </ul>
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--mid-gray);">07</span>
 </section>
 
 
@@ -535,73 +706,74 @@
 <section class="slide" id="s8" data-theme="dark" style="background: var(--charcoal);">
   <div class="slide-inner">
     <span class="tag tag-dark reveal-left">Defensibility</span>
-    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Gets harder to compete with every day</h2>
-    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; margin-top: 16px;">
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Why annwn gets harder to compete with every day</h2>
+    <div class="two-col" style="margin-top: 16px; align-items: start;">
       <div class="reveal-left reveal-delay-2">
-        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 20px;">50+ years domain expertise, major consultancy relationships, FDSEs building the knowledge moat from day one.</p>
+        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 20px;">annwn starts with an unfair advantage: 50+ years of expertise and direct relationships with every major consultancy plus FDSEs actively building the knowledge system from live engagements on day one.</p>
         <ul class="feature-list" style="gap: 16px;">
           <li>
             <div class="icon" style="background:rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-            <div class="feature-content"><h4 style="color:var(--sage-light);">Encoded expertise</h4><p style="color:var(--sage);">Disclosure history, methodology, reasoning across sectors.</p></div>
+            <div class="feature-content"><h4 style="color:var(--sage-light);">Encoded expertise</h4><p style="color:var(--sage);">Full disclosure history, methodology, and reasoning will be embedded in annwn by clients across sectors and engagements.</p></div>
           </li>
           <li>
             <div class="icon" style="background:rgba(123,245,160,0.12);"><svg viewBox="0 0 24 24" fill="none" stroke="#7BF5A0" stroke-width="1.5"><path d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></div>
-            <div class="feature-content"><h4 style="color:var(--sage-light);">Compounding outputs</h4><p style="color:var(--sage);">More data = better automation. Every use improves the system.</p></div>
+            <div class="feature-content"><h4 style="color:var(--sage-light);">Better outputs</h4><p style="color:var(--sage);">Better data improves both automation and the innovation engine with every use.</p></div>
           </li>
           <li>
             <div class="icon" style="background:rgba(197,208,192,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#C5D0C0" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
-            <div class="feature-content"><h4 style="color:var(--sage-light);">Institutional lock-in</h4><p style="color:var(--sage);">Corporate memory that can't be exported. Switching = zero.</p></div>
+            <div class="feature-content"><h4 style="color:var(--sage-light);">Lock-in</h4><p style="color:var(--sage);">annwn holds institutional memory that cannot be removed or exported. Starting over means starting from scratch.</p></div>
           </li>
         </ul>
+        <div class="callout callout-mint reveal-left reveal-delay-3" style="white-space:normal;">Companies are actively seeking upgrades, creating a clear buy window now.</div>
       </div>
-      <div class="reveal-rotate reveal-delay-3" style="display:flex;justify-content:center;">
-        <svg class="flywheel-svg" viewBox="0 0 460 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:460px;">
-          <!-- Main circle -->
-          <circle cx="260" cy="230" r="150" stroke="rgba(197,208,192,0.25)" stroke-width="1.5" fill="none"/>
-          <!-- Arrow marker -->
-          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C5D0C0"/></marker></defs>
-          <!-- Nodes on circle: top, right, bottom-right, bottom-left, left -->
-          <g font-family="Space Grotesk,sans-serif" font-weight="500">
-            <!-- Encoded knowledge (top) -->
-            <rect x="195" y="52" width="130" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
-            <text x="260" y="72" fill="#DDE3DA" text-anchor="middle" font-size="12">Encoded</text>
-            <text x="260" y="90" fill="#DDE3DA" text-anchor="middle" font-size="12">knowledge</text>
-            <!-- Better outputs (right) -->
-            <rect x="350" y="195" width="105" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
-            <text x="402" y="225" fill="#DDE3DA" text-anchor="middle" font-size="12">Better outputs</text>
-            <!-- More trust (bottom-right) -->
-            <rect x="310" y="345" width="100" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
-            <text x="360" y="375" fill="#DDE3DA" text-anchor="middle" font-size="12">More trust</text>
-            <!-- More users (bottom-left) -->
-            <rect x="110" y="325" width="100" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
-            <text x="160" y="355" fill="#DDE3DA" text-anchor="middle" font-size="12">More users</text>
-            <!-- Lock-in (left) -->
-            <rect x="108" y="195" width="90" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
-            <text x="153" y="225" fill="#DDE3DA" text-anchor="middle" font-size="12">Lock-in</text>
-            <!-- Unfair advantage (offset upper-left) -->
-            <rect x="5" y="72" width="120" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
-            <text x="65" y="93" fill="#DDE3DA" text-anchor="middle" font-size="11">Unfair</text>
-            <text x="65" y="110" fill="#DDE3DA" text-anchor="middle" font-size="11">advantage</text>
+      <div class="reveal-scale reveal-delay-3" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+        <svg class="flywheel-svg" viewBox="0 0 455 395" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Circle: center(230,215) r=155. Nodes at 0°,72°,144°,216°,288° clockwise from top -->
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 1L8 5L0 9z" fill="#A8F5C0"/></marker>
+            <marker id="arr2" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M10 1L2 5L10 9z" fill="#A8F5C0"/></marker>
+          </defs>
+          <!-- True circular arcs (r=155) between box edges, all clockwise -->
+          <g stroke="#A8F5C0" stroke-width="1.5" fill="none" marker-end="url(#arr)">
+            <path d="M295 74 A155 155 0 0 1 367 143"/>
+            <path d="M383 191 A155 155 0 0 1 348 316"/>
+            <path d="M113 316 A155 155 0 0 1 77 191"/>
+            <path d="M93 143 A155 155 0 0 1 165 74"/>
           </g>
-          <!-- Clockwise arrows along circle -->
-          <g stroke="#C5D0C0" stroke-width="1.3" fill="none" marker-end="url(#arr)">
-            <!-- Encoded knowledge → Better outputs -->
-            <path d="M325 90 Q370 120 365 195"/>
-            <!-- Better outputs → More trust -->
-            <path d="M420 243 Q420 310 395 345"/>
-            <!-- More trust → More users -->
-            <path d="M310 375 Q260 400 210 365"/>
-            <!-- More users → Lock-in -->
-            <path d="M120 325 Q100 285 115 243"/>
-            <!-- Lock-in → Encoded knowledge (going up the left side) -->
-            <path d="M145 195 Q140 140 195 100"/>
-            <!-- Unfair advantage → Encoded knowledge -->
-            <path d="M125 90 Q155 80 195 78"/>
+          <!-- Double arrow: Lock-in ↔ More trust -->
+          <line x1="189" y1="340" x2="269" y2="340" stroke="#A8F5C0" stroke-width="1.5" marker-end="url(#arr)" marker-start="url(#arr2)"/>
+          <!-- Straight arrow: Unfair advantage → Encoded knowledge -->
+          <line x1="108" y1="60" x2="163" y2="60" stroke="#A8F5C0" stroke-width="1.5" marker-end="url(#arr)"/>
+          <!-- Node boxes (centered on circle points) -->
+          <g font-family="Space Grotesk,sans-serif" font-weight="600">
+            <!-- Unfair advantage — outside circle, top-left -->
+            <rect x="3" y="36" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <text x="56" y="56" fill="#A8F5C0" text-anchor="middle" font-size="13">Unfair</text>
+            <text x="56" y="73" fill="#A8F5C0" text-anchor="middle" font-size="13">advantage</text>
+            <!-- 1. Encoded knowledge grows — (230,60) -->
+            <rect x="165" y="36" width="130" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <text x="230" y="56" fill="#A8F5C0" text-anchor="middle" font-size="13">Encoded</text>
+            <text x="230" y="73" fill="#A8F5C0" text-anchor="middle" font-size="13">knowledge grows</text>
+            <!-- 2. Better outputs — (378,167) -->
+            <rect x="326" y="143" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <text x="378" y="163" fill="#A8F5C0" text-anchor="middle" font-size="13">Better</text>
+            <text x="378" y="180" fill="#A8F5C0" text-anchor="middle" font-size="13">outputs</text>
+            <!-- 3. More trust — (321,340) -->
+            <rect x="269" y="316" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <text x="321" y="344" fill="#A8F5C0" text-anchor="middle" font-size="13">More trust</text>
+            <!-- 4. Lock-in — (139,340) -->
+            <rect x="89" y="316" width="100" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <text x="139" y="344" fill="#A8F5C0" text-anchor="middle" font-size="13">Lock-in</text>
+            <!-- 5. More users — (83,167) -->
+            <rect x="31" y="143" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <text x="83" y="171" fill="#A8F5C0" text-anchor="middle" font-size="13">More users</text>
           </g>
         </svg>
+        <p style="font-family:var(--mono);font-size:10px;color:var(--sage);text-align:center;opacity:0.7;">annwn flywheel: knowledge compounds value and locks in</p>
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">08</span>
 </section>
 
 
@@ -609,35 +781,36 @@
 <section class="slide" id="s9" data-theme="light" style="background: var(--white);">
   <div class="slide-inner">
     <span class="tag tag-light reveal-blur">Team</span>
-    <h2 class="slide-title reveal-blur reveal-delay-1">We defined this market. <span style="color: var(--mint);">Now we're automating it.</span></h2>
+    <h2 class="slide-title reveal-blur reveal-delay-1">The team that defined the Sustainability Consulting market. <span style="color: var(--mint);">Now we are automating it.</span></h2>
     <div class="four-col" style="margin-top: 40px;">
       <div class="reveal reveal-delay-2" style="text-align:center;">
         <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--mint-pale),var(--sage-light));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">BM</div>
         <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Ben Murray</h3>
         <p style="font-size:12px;color:var(--mint);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">CEO</p>
-        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Founded Avieco. Sold to Accenture 30x EBITDA. Ran UK sustainability practice. 25 years. Software engineer.</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Founded Avieco. Exited to Accenture for 30x EBITDA. Ran Accenture UK sustainability practice. 25 years in the profession. Trained software engineer.</p>
       </div>
       <div class="reveal reveal-delay-3" style="text-align:center;">
         <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--lavender-pale),var(--sage-light));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">AB</div>
         <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Adam Ball</h3>
         <p style="font-size:12px;color:var(--lavender);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">CPO</p>
-        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Built carbon accounting at Avieco. Led sustainability AI at Accenture. Product lead at Verna.</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Built and scaled carbon accounting platform at Avieco. Led sustainability and AI at Accenture. Product lead at NatureTech startup Verna.</p>
       </div>
       <div class="reveal reveal-delay-4" style="text-align:center;">
         <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--mint-pale),var(--lavender-pale));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">RM</div>
         <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Rory McCabe</h3>
         <p style="font-size:12px;color:var(--mint);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">CRO</p>
-        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Senior Manager, Accenture. Led 40-person sustainability data division. Founded consultancy. 15 years.</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Senior Manager at Accenture, led 40-person sustainability data &amp; analytics division. Founded independent consultancy. 15 years in sustainability.</p>
       </div>
       <div class="reveal reveal-delay-5" style="text-align:center;">
         <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--sage-light),var(--lavender-pale));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;font-family:var(--display);color:var(--charcoal);">BP</div>
         <h3 style="font-family:var(--display);font-size:18px;font-weight:600;">Ben Patten</h3>
         <p style="font-size:12px;color:var(--lavender);font-family:var(--mono);margin:3px 0 10px;text-transform:uppercase;letter-spacing:1px;">COO</p>
-        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">3 startups, raised &pound;10m+, hired 100. Built The Crowd &mdash; UK's largest sustainability community.</p>
+        <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">Founded 3 startups, raised &gt;&pound;10m, hired 100. Built The Crowd, the UK's leading corporate sustainability community.</p>
       </div>
     </div>
-    <div class="callout reveal reveal-delay-6" style="background:var(--mint-pale);border-left:3px solid var(--mint);color:var(--charcoal);margin-top:32px;font-size:15px;">Three of four founders have worked together 7+ years.</div>
+    <div style="display:flex;justify-content:center;margin-top:32px;"><div class="callout reveal reveal-delay-6" style="background:var(--mint-pale);border-left:3px solid var(--mint);color:var(--charcoal);font-size:15px;display:inline-block;margin-top:0;">Three of four founders have worked together for 7+ years.</div></div>
   </div>
+  <span class="slide-num" style="color:var(--mid-gray);">09</span>
 </section>
 
 
@@ -645,14 +818,14 @@
 <section class="slide" id="s10" data-theme="dark" style="background: var(--charcoal-soft);">
   <div class="slide-inner">
     <span class="tag tag-dark reveal-left">Competition</span>
-    <h2 class="slide-title reveal-left reveal-delay-1" style="color:var(--white);">Only annwn is strategic, tactical, <em>and</em> scalable</h2>
+    <h2 class="slide-title reveal-left reveal-delay-1" style="color:var(--white);">annwn is the only solution that combines strategic and tactical input with scalability</h2>
     <div class="two-col" style="margin-top: 16px;">
       <div class="reveal-left reveal-delay-2">
         <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
-          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Consultancies are channel partners. We ran one.</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Legacy SaaS needs a full rewrite to apply AI.</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Point solutions fail without organisational context.</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">The hard part isn't the AI &mdash; it's knowing what to point it at.</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Consultancies are channel partners, not competitors. We ran one!</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Sustainability SaaS needs a rewrite to apply AI meaningfully.</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">Discrete tools are ineffective without organisational context.</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9679;</span><span style="color:var(--sage-light);font-size:15px;">The hard part isn't the AI, it's knowing what to point it at.</span></li>
         </ul>
       </div>
       <div class="reveal-scale reveal-delay-3" style="display:flex;justify-content:center;">
@@ -673,21 +846,23 @@
           <text x="125" y="95" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Consultancies</text>
           <text x="125" y="113" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Accenture</text>
           <!-- In-house AI - bottom left -->
-          <rect x="60" y="310" width="120" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="120" y="335" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">In-house AI</text>
-          <text x="120" y="353" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unilever</text>
+          <rect x="60" y="310" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="125" y="335" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">In-house AI workflows</text>
+          <text x="125" y="353" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unilever build in-house</text>
           <!-- Sustainability SaaS - bottom center -->
           <rect x="190" y="380" width="150" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
           <text x="265" y="405" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Sustainability SaaS</text>
           <text x="265" y="423" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Watershed, Persefoni</text>
-          <!-- Point AI tools - bottom right -->
-          <rect x="350" y="310" width="120" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
-          <text x="410" y="335" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Point AI tools</text>
-          <text x="410" y="353" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unravel, Brink</text>
+          <!-- Discreet AI workflows - bottom right -->
+          <rect x="340" y="310" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+          <text x="405" y="330" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Discreet AI</text>
+          <text x="405" y="346" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">workflows</text>
+          <text x="405" y="360" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unravel, Brink, Upright</text>
         </svg>
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">10</span>
 </section>
 
 
@@ -695,26 +870,27 @@
 <section class="slide" id="s11" data-theme="light" style="background: var(--sage-50);">
   <div class="slide-inner">
     <span class="tag tag-light reveal-left">Roadmap</span>
-    <h2 class="slide-title reveal-left reveal-delay-1">Product, GTM, and funding in lockstep</h2>
-    <div class="reveal-clip reveal-delay-2" style="overflow-x:auto;">
+    <h2 class="slide-title reveal-left reveal-delay-1">Development aligns with the funding and GTM strategy</h2>
+    <div class="reveal reveal-delay-2" style="overflow-x:auto;">
       <table class="roadmap-table" style="color:var(--charcoal);">
         <thead><tr>
           <th></th>
           <th style="background:var(--mint-pale);border-radius:8px 8px 0 0;">Phase 1<br><span style="font-weight:400;font-size:12px;">H1 2026</span></th>
           <th style="background:var(--mint-soft);border-radius:8px 8px 0 0;">Phase 2<br><span style="font-weight:400;font-size:12px;">H2 2026</span></th>
-          <th style="background:var(--mint);color:var(--charcoal);border-radius:8px 8px 0 0;">Phase 3<br><span style="font-weight:400;font-size:12px;">2027</span></th>
-          <th style="background:rgba(123,245,160,0.7);border-radius:8px 8px 0 0;">Phase 4<br><span style="font-weight:400;font-size:12px;">2028</span></th>
-          <th style="background:rgba(123,245,160,0.5);border-radius:8px 8px 0 0;">Phase 5<br><span style="font-weight:400;font-size:12px;">2029</span></th>
+          <th style="background:var(--mint);color:var(--charcoal);border-radius:8px 8px 0 0;">Phase 3<br><span style="font-weight:400;font-size:12px;">H2 2027</span></th>
+          <th style="background:rgba(123,245,160,0.7);border-radius:8px 8px 0 0;">Phase 4<br><span style="font-weight:400;font-size:12px;">H2 2028</span></th>
+          <th style="background:rgba(123,245,160,0.5);border-radius:8px 8px 0 0;">Phase 5<br><span style="font-weight:400;font-size:12px;">H2 2029</span></th>
         </tr></thead>
         <tbody>
-          <tr><td class="row-label">Objective</td><td>Consultant automation</td><td>Firm-level automation</td><td>Innovation upsell</td><td>Enterprise CSO</td><td>Direct to CXO</td></tr>
-          <tr><td class="row-label">Funding</td><td>F&amp;F</td><td>Seed</td><td>Series A</td><td>Series B</td><td>Series C</td></tr>
-          <tr><td class="row-label">Product</td><td>Core workflows</td><td>Multi-domain agents</td><td>Decision assistance</td><td>Agent collaboration</td><td>Autonomous systems</td></tr>
+          <tr><td class="row-label">Principal objectives</td><td>Automation for consultants</td><td>Automation for consulting firms</td><td>Innovation upsell for consultants</td><td>Guiding the CSO in Enterprise</td><td>Direct to the CXO</td></tr>
+          <tr><td class="row-label">Funded by</td><td>F&amp;F</td><td>Seed</td><td>Series A</td><td>Series B</td><td>Series C</td></tr>
+          <tr><td class="row-label">Product</td><td>First workflows, ontology, context</td><td>More domains, Expert agents</td><td>Decision assistance</td><td>Agent-to-agent collaboration</td><td>Autonomous systems</td></tr>
           <tr><td class="row-label">Region</td><td>UK</td><td>UK</td><td>EU</td><td>Americas</td><td>Global</td></tr>
         </tbody>
       </table>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--mid-gray);">11</span>
 </section>
 
 
@@ -724,11 +900,11 @@
     <span class="tag tag-dark reveal-blur">Traction</span>
     <h2 class="slide-title reveal-blur reveal-delay-1" style="color:var(--white);">Early signals from people who know the problem.</h2>
     <div class="three-col reveal-scale reveal-delay-2" style="margin-top:48px;text-align:center;">
-      <div><div class="stat-huge count-up" style="color:var(--sage-light);" data-target="8">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Consultancies in active<br>co-development</p></div>
-      <div><div class="stat-huge count-up" style="color:var(--mint);" data-target="5">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Enterprise clients in<br>deployment conversations</p></div>
-      <div><div class="stat-huge count-up" style="color:var(--lavender-soft);" data-target="50" data-suffix="+">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">SME consultancies:<br>relationships, first revenues</p></div>
+      <div><div class="stat-huge count-up" style="color:var(--sage-light);" data-target="8">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Consultancies in active<br>co-development conversations</p></div>
+      <div><div class="stat-huge count-up" style="color:var(--mint);" data-target="5">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Enterprise clients; in active<br>deployment conversations</p></div>
+      <div><div class="stat-huge count-up" style="color:var(--lavender-soft);" data-target="50" data-suffix="+">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">Small / Medium consultancies:<br>deep relationships, first revenues</p></div>
     </div>
-    <div class="logo-grid reveal-blur reveal-delay-3" style="justify-content:center;margin-top:44px;">
+    <div class="logo-grid reveal-blur reveal-delay-3" style="justify-content:center;margin-top:64px;">
       <svg width="50" height="28" viewBox="0 0 50 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.4)" letter-spacing="-1">EY</text></svg>
       <svg width="90" height="28" viewBox="0 0 90 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Deloitte</text></svg>
       <svg width="100" height="28" viewBox="0 0 100 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Unilever</text></svg>
@@ -742,32 +918,31 @@
       <svg width="80" height="28" viewBox="0 0 80 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Fujitsu</text></svg>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">12</span>
 </section>
 
 
 <!-- ====== 13: THE ASK ====== -->
-<section class="slide" id="s13" data-theme="light" style="background: linear-gradient(160deg, var(--sage-lighter), var(--mint-pale) 50%, var(--lavender-pale));">
-  <div class="orb orb-1" style="width:400px;height:400px;background:var(--mint);top:-100px;left:50%;opacity:0.12;"></div>
-  <div class="orb orb-2" style="width:300px;height:300px;background:var(--lavender);bottom:-80px;right:-40px;opacity:0.1;"></div>
-  <div class="slide-inner" style="text-align:center;">
-    <span class="tag tag-light reveal-blur">The ask</span>
-    <h2 class="reveal-blur reveal-delay-1" style="font-family:var(--display);font-size:clamp(36px,4.5vw,58px);font-weight:700;letter-spacing:-0.025em;max-width:820px;margin:0 auto 20px;">&pound;2m seed. 24 months to Series A.</h2>
-    <p class="slide-subtitle reveal reveal-delay-2" style="margin:0 auto 44px;color:var(--dark-gray);text-align:center;max-width:600px;">Building on ~&pound;500k already committed from founders, friends, and family.</p>
-    <div class="three-col reveal-scale reveal-delay-3" style="gap:28px;text-align:center;">
-      <div class="card" style="background:var(--white);padding:40px 28px;border-radius:20px;border:1px solid var(--sage-light);">
-        <div class="count-up" style="font-family:var(--display);font-size:56px;font-weight:700;color:var(--charcoal);" data-target="2" data-prefix="&pound;" data-suffix="m">0</div>
-        <div style="font-size:15px;color:var(--dark-gray);margin-top:8px;">Seed round</div>
+<section class="slide" id="s13" data-theme="dark" style="background: var(--charcoal);">
+  <div class="slide-inner">
+    <span class="tag tag-dark reveal-blur">Investment overview</span>
+    <h2 class="slide-title reveal-blur reveal-delay-1" style="color:var(--white);max-width:900px;">&pound;2m seed as 24 months of runway to create a growing business that is Series A ready</h2>
+    <p class="slide-subtitle reveal reveal-delay-2" style="color:var(--sage-light);margin-bottom:36px;">We aim to raise our Seed round in H1 2026, building on ~&pound;500k already committed from founders, friends, and family.</p>
+    <div class="two-col reveal reveal-delay-3" style="align-items:start;">
+      <div>
+        <h4 style="font-family:var(--display);font-weight:600;color:var(--white);margin-bottom:12px;">Our current work is to research:</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;">
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9675;</span><span style="color:var(--sage-light);font-size:14px;"><strong style="color:var(--white);">Threshold metrics / traction for raising a Series A:</strong> ARR / Pipeline, Product capability</span></li>
+          <li style="display:flex;gap:10px;"><span style="color:var(--mint);margin-top:3px;">&#9675;</span><span style="color:var(--sage-light);font-size:14px;"><strong style="color:var(--white);">Resources required for 24 month period:</strong> COGS, Staff / skills, overheads, expenses</span></li>
+        </ul>
       </div>
-      <div class="card" style="background:var(--white);padding:40px 28px;border-radius:20px;border:1px solid var(--sage-light);">
-        <div class="count-up" style="font-family:var(--display);font-size:56px;font-weight:700;color:var(--charcoal);" data-target="24" data-suffix=" mo">0</div>
-        <div style="font-size:15px;color:var(--dark-gray);margin-top:8px;">Runway to Series A</div>
-      </div>
-      <div class="card" style="background:var(--white);padding:40px 28px;border-radius:20px;border:1px solid var(--sage-light);">
-        <div class="count-up" style="font-family:var(--display);font-size:56px;font-weight:700;color:var(--charcoal);" data-target="20" data-suffix="x+">0</div>
-        <div style="font-size:15px;color:var(--dark-gray);margin-top:8px;">ARR multiples for &ldquo;Service-as-Software&rdquo;</div>
+      <div>
+        <h4 style="font-family:var(--display);font-weight:600;color:var(--white);margin-bottom:12px;">Exit / High-Value Multiples:</h4>
+        <p style="color:var(--sage-light);font-size:14px;line-height:1.6;"><strong style="color:var(--white);">&ldquo;Service-as-Software&rdquo; / Agentic software premiums:</strong> AI applications are commanding premium valuations (20x ARR) because they tap into salary pools rather than software budgets.</p>
       </div>
     </div>
   </div>
+  <span class="slide-num" style="color:var(--sage);">13</span>
 </section>
 
 
@@ -783,6 +958,7 @@
     </div>
     <img src="https://annwn.ai/annwn_transparent_white.png" alt="annwn" class="logo reveal-scale reveal-delay-3" style="height:40px;">
   </div>
+  <span class="slide-num" style="color:var(--sage);">14</span>
 </section>
 
 
