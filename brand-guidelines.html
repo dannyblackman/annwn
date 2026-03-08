@@ -2074,6 +2074,74 @@
 
   <hr class="divider">
 
+  <!-- ===== 07b DECORATIVE GRADIENTS ===== -->
+  <section id="gradients">
+    <div class="section-header reveal">
+      <div class="section-number">07b</div>
+      <div>
+        <h2 class="section-title">Decorative <em>Gradients</em></h2>
+        <p class="section-desc">Soft gradient orbs and avatar backgrounds add depth and warmth. They should feel organic, never harsh — always blurred and subtly animated.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <h3 style="font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 24px;" class="reveal">Background Orbs</h3>
+      <p style="font-size: 14px; color: var(--dark-gray); margin-bottom: 24px; max-width: 600px;" class="reveal">Floating gradient orbs create atmospheric depth. Use sparingly on hero sections, title slides, and thank-you pages. Always apply heavy blur (80px+) and low opacity (5–25%).</p>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px;" class="reveal">
+        <div style="height: 200px; border-radius: 20px; background: var(--sage-lighter); position: relative; overflow: hidden;">
+          <div style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: var(--mint); filter: blur(60px); opacity: 0.25; top: -40px; right: -40px; animation: orbDemo1 8s ease-in-out infinite;"></div>
+          <div style="position: absolute; width: 150px; height: 150px; border-radius: 50%; background: var(--lavender); filter: blur(60px); opacity: 0.2; bottom: -30px; left: -20px; animation: orbDemo2 10s ease-in-out infinite;"></div>
+          <div style="position: absolute; bottom: 16px; left: 16px; font-family: var(--mono); font-size: 11px; color: var(--mid-gray);">Light background</div>
+        </div>
+        <div style="height: 200px; border-radius: 20px; background: var(--charcoal); position: relative; overflow: hidden;">
+          <div style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: var(--mint); filter: blur(60px); opacity: 0.08; top: -40px; left: -40px; animation: orbDemo2 8s ease-in-out infinite;"></div>
+          <div style="position: absolute; width: 150px; height: 150px; border-radius: 50%; background: var(--sage); filter: blur(60px); opacity: 0.06; bottom: -30px; right: -20px; animation: orbDemo1 10s ease-in-out infinite;"></div>
+          <div style="position: absolute; bottom: 16px; left: 16px; font-family: var(--mono); font-size: 11px; color: var(--mid-gray);">Dark background</div>
+        </div>
+        <div style="height: 200px; border-radius: 20px; background: linear-gradient(160deg, var(--sage-lighter) 0%, var(--mint-pale) 50%, var(--lavender-pale) 100%); position: relative; overflow: hidden;">
+          <div style="position: absolute; width: 180px; height: 180px; border-radius: 50%; background: var(--mint); filter: blur(60px); opacity: 0.12; top: -30px; left: 50%; animation: orbDemo1 12s ease-in-out infinite;"></div>
+          <div style="position: absolute; bottom: 16px; left: 16px; font-family: var(--mono); font-size: 11px; color: var(--mid-gray);">Multi-gradient</div>
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 24px;" class="reveal">Avatar Gradients</h3>
+      <p style="font-size: 14px; color: var(--dark-gray); margin-bottom: 24px; max-width: 600px;" class="reveal">When photos aren't available, use soft gradient backgrounds for avatar placeholders. Each should be unique using different palette combinations.</p>
+
+      <div style="display: flex; gap: 24px; flex-wrap: wrap;" class="reveal">
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--mint-pale), var(--sage-light)); display: flex; align-items: center; justify-content: center; font-size: 32px; font-family: var(--display); color: var(--charcoal); margin-bottom: 8px;">AB</div>
+          <span style="font-family: var(--mono); font-size: 10px; color: var(--mid-gray);">mint-pale → sage-light</span>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--lavender-pale), var(--sage-light)); display: flex; align-items: center; justify-content: center; font-size: 32px; font-family: var(--display); color: var(--charcoal); margin-bottom: 8px;">CD</div>
+          <span style="font-family: var(--mono); font-size: 10px; color: var(--mid-gray);">lavender-pale → sage-light</span>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--mint-pale), var(--lavender-pale)); display: flex; align-items: center; justify-content: center; font-size: 32px; font-family: var(--display); color: var(--charcoal); margin-bottom: 8px;">EF</div>
+          <span style="font-family: var(--mono); font-size: 10px; color: var(--mid-gray);">mint-pale → lavender-pale</span>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--sage-light), var(--lavender-pale)); display: flex; align-items: center; justify-content: center; font-size: 32px; font-family: var(--display); color: var(--charcoal); margin-bottom: 8px;">GH</div>
+          <span style="font-family: var(--mono); font-size: 10px; color: var(--mid-gray);">sage-light → lavender-pale</span>
+        </div>
+      </div>
+
+      <style>
+        @keyframes orbDemo1 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(20px, -15px); }
+        }
+        @keyframes orbDemo2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-15px, 20px); }
+        }
+      </style>
+    </div>
+  </section>
+
+  <hr class="divider">
+
   <!-- ===== 08 APPLICATION ===== -->
   <section id="application">
     <div class="section-header reveal">
