@@ -56,9 +56,10 @@
     }
 
     .slide-inner {
-      width: 92vw;
-      max-width: 1440px;
-      height: 88vh;
+      width: 90%;
+      max-width: 1400px;
+      height: 90vh;
+      padding: 40px 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -85,8 +86,8 @@
       position: fixed; top: 16px; right: 20px; z-index: 101;
       font-family: var(--display); font-size: 13px; font-weight: 600;
       padding: 10px 20px; border-radius: 10px; border: none; cursor: pointer;
-      background: var(--charcoal); color: var(--white); transition: all 0.2s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      background: var(--white); color: var(--charcoal); transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
     }
     .dl-btn:hover { background: var(--mint); color: var(--charcoal); }
 
@@ -177,7 +178,7 @@
     .workflow-step.animate-in.step-visible { opacity: 1; transform: translateY(0); }
 
     .card { border-radius: 16px; padding: 32px; }
-    .callout { padding: 16px 24px; border-radius: 10px; font-size: 15px; line-height: 1.5; margin-top: 24px; }
+    .callout { padding: 16px 24px; border-radius: 10px; font-size: 15px; line-height: 1.5; margin-top: 24px; white-space: nowrap; }
     .callout-mint { background: rgba(123,245,160,0.15); color: var(--mint); border-left: 3px solid var(--mint); }
 
     .feature-list { list-style: none; display: flex; flex-direction: column; gap: 24px; margin-top: 28px; }
@@ -224,7 +225,7 @@
     .matrix-svg { width: 100%; max-width: 500px; height: auto; }
 
     /* ——— Flywheel ——— */
-    .flywheel-svg { width: 100%; max-width: 400px; height: auto; }
+    .flywheel-svg { width: 100%; max-width: 460px; height: auto; }
 
     /* ——— Roadmap ——— */
     .roadmap-table { width: 100%; border-collapse: separate; border-spacing: 8px 0; margin-top: 32px; }
@@ -329,12 +330,12 @@
       <div>
         <span class="tag tag-light reveal-left">Summary</span>
         <h2 class="slide-title reveal-left reveal-delay-1" style="font-size: clamp(28px, 3.5vw, 44px);">AI agents that automate enterprise sustainability compliance &mdash; saving hundreds of hours per year.</h2>
-        <div class="reveal-left reveal-delay-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; margin-top: 24px;">
+        <div class="reveal-left reveal-delay-2" style="display: flex; flex-direction: column; gap: 14px; margin-top: 28px;">
           <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Problem</h4><p style="font-size: 14px; color: var(--dark-gray);">Consultants lose margin on manual work, leak knowledge, can't sell strategy.</p></div>
           <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Solution</h4><p style="font-size: 14px; color: var(--dark-gray);">End-to-end workflow agents, persistent knowledge graphs, innovation engine.</p></div>
           <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Market</h4><p style="font-size: 14px; color: var(--dark-gray);">&pound;30bn consulting TAM. We displace labour budgets, not software.</p></div>
           <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Why now</h4><p style="font-size: 14px; color: var(--dark-gray);">AI agents hit enterprise maturity. First mover takes the knowledge moat.</p></div>
-          <div style="grid-column: 1/-1;"><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Team</h4><p style="font-size: 14px; color: var(--dark-gray);">50+ years in sustainability. Built and sold Avieco to Accenture (30x EBITDA).</p></div>
+          <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Team</h4><p style="font-size: 14px; color: var(--dark-gray);">50+ years in sustainability. Built and sold Avieco to Accenture (30x EBITDA).</p></div>
         </div>
       </div>
       <div class="reveal-right reveal-delay-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -385,11 +386,7 @@
       </div>
       <div class="reveal-scale reveal-delay-2 brand-photo" style="height: 100%; min-height: 420px;">
         <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&q=80" alt="Dense open office" style="filter: saturate(0.6) brightness(0.5);">
-        <div class="overlay"></div>
         <div class="darken"></div>
-        <div style="position: absolute; bottom: 24px; left: 24px; right: 24px;">
-          <p style="color: var(--mint); font-size: 14px; font-weight: 500; line-height: 1.5;">Budget cuts and regulatory shifts are squeezing consultants. They need to do more with less &mdash; now.</p>
-        </div>
       </div>
     </div>
   </div>
@@ -418,11 +415,10 @@
             <div class="feature-content"><h4 style="color: var(--white);">Innovation Engine</h4><p style="color: var(--sage-light);">Surfaces costed strategic opportunities automatically.</p></div>
           </li>
         </ul>
-        <div class="callout callout-mint reveal-left reveal-delay-3" style="max-width: 380px;">The more annwn is used, the more powerful it becomes.</div>
+        <div class="callout callout-mint reveal-left reveal-delay-3">The more annwn is used, the more powerful it becomes.</div>
       </div>
       <div class="reveal-scale reveal-delay-2 brand-photo" style="height: 100%; min-height: 420px;">
         <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=900&q=80" alt="Modern bright workspace with plants" style="filter: saturate(0.7) brightness(0.55);">
-        <div class="overlay"></div>
         <div class="darken"></div>
       </div>
     </div>
@@ -432,7 +428,7 @@
 
 <!-- ====== 5: CDP WORKFLOW ====== -->
 <section class="slide" id="s5" data-theme="light" style="background: var(--sage-50);">
-  <div class="slide-inner">
+  <div class="slide-inner" style="justify-content: flex-start; padding-top: 60px;">
     <span class="tag tag-light reveal-blur">How it works</span>
     <h2 class="slide-title reveal-blur reveal-delay-1" style="font-size: clamp(30px, 3.8vw, 48px);">A CDP submission: 6 weeks &rarr; 10 days</h2>
     <p class="slide-subtitle reveal reveal-delay-2" style="color: var(--dark-gray);">Same team. Better output. Full traceability.</p>
@@ -487,19 +483,19 @@
         <div class="callout callout-mint" style="margin-top: 20px;">Comp: Harvey (legal AI) &mdash; $11bn. &ldquo;Service-as-Software&rdquo; commands 20x+ ARR.</div>
       </div>
       <div class="reveal-scale reveal-delay-3 tam-wrap">
-        <svg class="tam-svg" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="tam-svg" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- TAM -->
           <circle cx="220" cy="220" r="210" stroke="rgba(123,245,160,0.3)" stroke-width="2" fill="rgba(123,245,160,0.05)"/>
-          <text x="220" y="100" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">TAM</text>
-          <text x="220" y="135" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#A8F5C0">&pound;30bn</text>
+          <text x="220" y="80" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">TAM</text>
+          <text x="220" y="115" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#A8F5C0">&pound;30bn</text>
           <!-- SAM -->
-          <circle cx="240" cy="300" r="130" stroke="rgba(123,245,160,0.4)" stroke-width="2" fill="rgba(123,245,160,0.08)"/>
-          <text x="240" y="280" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="12" letter-spacing="2" fill="#8A8A96">SAM</text>
-          <text x="240" y="310" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
+          <circle cx="220" cy="270" r="130" stroke="rgba(123,245,160,0.4)" stroke-width="2" fill="rgba(123,245,160,0.08)"/>
+          <text x="220" y="240" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="12" letter-spacing="2" fill="#8A8A96">SAM</text>
+          <text x="220" y="272" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
           <!-- SOM -->
-          <circle cx="340" cy="380" r="65" fill="#7BF5A0"/>
-          <text x="340" y="370" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="2" fill="#1E1E2A" font-weight="600">SOM</text>
-          <text x="340" y="395" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#1E1E2A">&pound;200m</text>
+          <circle cx="260" cy="340" r="60" fill="#7BF5A0"/>
+          <text x="260" y="330" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="2" fill="#1E1E2A" font-weight="600">SOM</text>
+          <text x="260" y="352" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#1E1E2A">&pound;200m</text>
         </svg>
       </div>
     </div>
@@ -540,10 +536,10 @@
   <div class="slide-inner">
     <span class="tag tag-dark reveal-left">Defensibility</span>
     <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white);">Gets harder to compete with every day</h2>
-    <div class="two-col" style="margin-top: 16px;">
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; margin-top: 16px;">
       <div class="reveal-left reveal-delay-2">
-        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 28px;">50+ years domain expertise, major consultancy relationships, FDSEs building the knowledge moat from day one.</p>
-        <ul class="feature-list">
+        <p class="slide-subtitle" style="color: var(--sage-light); margin-bottom: 20px;">50+ years domain expertise, major consultancy relationships, FDSEs building the knowledge moat from day one.</p>
+        <ul class="feature-list" style="gap: 16px;">
           <li>
             <div class="icon" style="background:rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
             <div class="feature-content"><h4 style="color:var(--sage-light);">Encoded expertise</h4><p style="color:var(--sage);">Disclosure history, methodology, reasoning across sectors.</p></div>
@@ -559,30 +555,48 @@
         </ul>
       </div>
       <div class="reveal-rotate reveal-delay-3" style="display:flex;justify-content:center;">
-        <svg class="flywheel-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="200" cy="200" r="150" stroke="rgba(197,208,192,0.2)" stroke-width="1.5" stroke-dasharray="6 4"/>
-          <g font-family="Space Grotesk,sans-serif" font-size="13" font-weight="500">
-            <rect x="25" y="160" width="120" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="85" y="185" fill="#DDE3DA" text-anchor="middle">Unfair advantage</text>
-            <rect x="230" y="25" width="145" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="302" y="50" fill="#DDE3DA" text-anchor="middle">Encoded knowledge</text>
-            <rect x="290" y="180" width="105" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="342" y="205" fill="#DDE3DA" text-anchor="middle">Better outputs</text>
-            <rect x="240" y="320" width="100" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="290" y="345" fill="#DDE3DA" text-anchor="middle">More trust</text>
-            <rect x="55" y="290" width="100" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="105" y="315" fill="#DDE3DA" text-anchor="middle">More users</text>
-            <rect x="25" y="350" width="80" height="40" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
-            <text x="65" y="375" fill="#DDE3DA" text-anchor="middle">Lock-in</text>
+        <svg class="flywheel-svg" viewBox="0 0 460 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:460px;">
+          <!-- Main circle -->
+          <circle cx="260" cy="230" r="150" stroke="rgba(197,208,192,0.25)" stroke-width="1.5" fill="none"/>
+          <!-- Arrow marker -->
+          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C5D0C0"/></marker></defs>
+          <!-- Nodes on circle: top, right, bottom-right, bottom-left, left -->
+          <g font-family="Space Grotesk,sans-serif" font-weight="500">
+            <!-- Encoded knowledge (top) -->
+            <rect x="195" y="52" width="130" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
+            <text x="260" y="72" fill="#DDE3DA" text-anchor="middle" font-size="12">Encoded</text>
+            <text x="260" y="90" fill="#DDE3DA" text-anchor="middle" font-size="12">knowledge</text>
+            <!-- Better outputs (right) -->
+            <rect x="350" y="195" width="105" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
+            <text x="402" y="225" fill="#DDE3DA" text-anchor="middle" font-size="12">Better outputs</text>
+            <!-- More trust (bottom-right) -->
+            <rect x="310" y="345" width="100" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
+            <text x="360" y="375" fill="#DDE3DA" text-anchor="middle" font-size="12">More trust</text>
+            <!-- More users (bottom-left) -->
+            <rect x="110" y="325" width="100" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
+            <text x="160" y="355" fill="#DDE3DA" text-anchor="middle" font-size="12">More users</text>
+            <!-- Lock-in (left) -->
+            <rect x="108" y="195" width="90" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
+            <text x="153" y="225" fill="#DDE3DA" text-anchor="middle" font-size="12">Lock-in</text>
+            <!-- Unfair advantage (offset upper-left) -->
+            <rect x="5" y="72" width="120" height="48" rx="10" fill="rgba(255,255,255,0.06)" stroke="rgba(197,208,192,0.4)" stroke-width="1.5"/>
+            <text x="65" y="93" fill="#DDE3DA" text-anchor="middle" font-size="11">Unfair</text>
+            <text x="65" y="110" fill="#DDE3DA" text-anchor="middle" font-size="11">advantage</text>
           </g>
-          <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#C5D0C0"/></marker></defs>
-          <g stroke="#C5D0C0" stroke-width="1.2" fill="none" marker-end="url(#arr)">
-            <path d="M145 175Q190 100 230 60"/>
-            <path d="M365 65Q385 130 375 180"/>
-            <path d="M360 220Q340 280 320 320"/>
-            <path d="M240 340Q190 330 155 315"/>
-            <path d="M75 290Q50 245 45 200"/>
-            <path d="M105 350Q170 355 240 350"/>
+          <!-- Clockwise arrows along circle -->
+          <g stroke="#C5D0C0" stroke-width="1.3" fill="none" marker-end="url(#arr)">
+            <!-- Encoded knowledge → Better outputs -->
+            <path d="M325 90 Q370 120 365 195"/>
+            <!-- Better outputs → More trust -->
+            <path d="M420 243 Q420 310 395 345"/>
+            <!-- More trust → More users -->
+            <path d="M310 375 Q260 400 210 365"/>
+            <!-- More users → Lock-in -->
+            <path d="M120 325 Q100 285 115 243"/>
+            <!-- Lock-in → Encoded knowledge (going up the left side) -->
+            <path d="M145 195 Q140 140 195 100"/>
+            <!-- Unfair advantage → Encoded knowledge -->
+            <path d="M125 90 Q155 80 195 78"/>
           </g>
         </svg>
       </div>
@@ -622,7 +636,7 @@
         <p style="font-size:13px;color:var(--dark-gray);line-height:1.5;">3 startups, raised &pound;10m+, hired 100. Built The Crowd &mdash; UK's largest sustainability community.</p>
       </div>
     </div>
-    <div class="callout reveal reveal-delay-6" style="background:var(--mint-pale);border-left:3px solid var(--mint);color:var(--charcoal);margin-top:32px;max-width:420px;font-size:15px;">Three of four founders have worked together 7+ years.</div>
+    <div class="callout reveal reveal-delay-6" style="background:var(--mint-pale);border-left:3px solid var(--mint);color:var(--charcoal);margin-top:32px;font-size:15px;">Three of four founders have worked together 7+ years.</div>
   </div>
 </section>
 
@@ -715,8 +729,17 @@
       <div><div class="stat-huge count-up" style="color:var(--lavender-soft);" data-target="50" data-suffix="+">0</div><p style="color:var(--sage);font-size:15px;margin-top:8px;">SME consultancies:<br>relationships, first revenues</p></div>
     </div>
     <div class="logo-grid reveal-blur reveal-delay-3" style="justify-content:center;margin-top:44px;">
-      <span class="logo-placeholder">EY</span><span class="logo-placeholder">Deloitte</span><span class="logo-placeholder">Unilever</span><span class="logo-placeholder">Chanel</span><span class="logo-placeholder">BDO</span>
-      <span class="logo-placeholder">WSP</span><span class="logo-placeholder">Seismic</span><span class="logo-placeholder">ZTP</span><span class="logo-placeholder">Kier</span><span class="logo-placeholder">SLR</span><span class="logo-placeholder">Fujitsu</span>
+      <svg width="50" height="28" viewBox="0 0 50 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="rgba(255,255,255,0.4)" letter-spacing="-1">EY</text></svg>
+      <svg width="90" height="28" viewBox="0 0 90 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Deloitte</text></svg>
+      <svg width="100" height="28" viewBox="0 0 100 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Unilever</text></svg>
+      <svg width="85" height="28" viewBox="0 0 85 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)" letter-spacing="2">CHANEL</text></svg>
+      <svg width="55" height="28" viewBox="0 0 55 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.4)">BDO</text></svg>
+      <svg width="55" height="28" viewBox="0 0 55 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.4)">WSP</text></svg>
+      <svg width="85" height="28" viewBox="0 0 85 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Seismic</text></svg>
+      <svg width="50" height="28" viewBox="0 0 50 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.4)">ZTP</text></svg>
+      <svg width="50" height="28" viewBox="0 0 50 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.4)">Kier</text></svg>
+      <svg width="48" height="28" viewBox="0 0 48 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.4)">SLR</text></svg>
+      <svg width="80" height="28" viewBox="0 0 80 28"><text x="0" y="22" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="600" fill="rgba(255,255,255,0.4)">Fujitsu</text></svg>
     </div>
   </div>
 </section>
@@ -750,8 +773,6 @@
 
 <!-- ====== 14: THANK YOU ====== -->
 <section class="slide" id="s14" data-theme="dark" style="background: var(--charcoal); text-align:center;">
-  <div class="orb orb-1" style="width:600px;height:600px;background:var(--mint);bottom:-200px;left:50%;transform:translateX(-50%);opacity:0.08;"></div>
-  <div class="orb orb-2" style="width:300px;height:300px;background:var(--lavender);top:-100px;right:-50px;opacity:0.06;"></div>
   <div class="slide-inner" style="align-items:center;justify-content:center;">
     <h2 class="reveal-blur" style="font-family:var(--display);font-size:clamp(52px,7vw,90px);font-weight:700;color:var(--white);margin-bottom:28px;">Thank you</h2>
     <div class="reveal reveal-delay-1" style="color:var(--sage-light);font-size:18px;margin-bottom:8px;">
@@ -789,16 +810,6 @@
   }), {threshold:0.4});
   slides.forEach(s => navObs.observe(s));
 
-  // Download button adaptive
-  const dlBtn = document.querySelector('.dl-btn');
-  const dlObs = new IntersectionObserver(e => e.forEach(en => {
-    if(en.isIntersecting) {
-      const t = en.target.dataset.theme;
-      if(t==='light') { dlBtn.style.background='var(--charcoal)'; dlBtn.style.color='var(--white)'; }
-      else { dlBtn.style.background='rgba(255,255,255,0.1)'; dlBtn.style.color='var(--white)'; dlBtn.style.backdropFilter='blur(12px)'; }
-    }
-  }), {threshold:0.5});
-  slides.forEach(s => dlObs.observe(s));
 
   // Keyboard nav
   let cur = 0;
