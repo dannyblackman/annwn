@@ -267,6 +267,18 @@
     /* ——— Matrix ——— */
     .matrix-svg { width: 100%; max-width: 500px; height: auto; }
 
+    /* ——— Workflow diagram animation ——— */
+    .wf-anim { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .wf-anim.wf-visible { opacity: 1; transform: translateY(0); }
+
+    /* ——— TAM/SAM/SOM animation ——— */
+    .tam-ring { transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .tam-ring.tam-visible { opacity: 1 !important; transform: scale(1) !important; }
+
+    /* ——— Flywheel animation ——— */
+    .fw-node { opacity: 0; transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .fw-node.fw-visible { opacity: 1; }
+
     /* ——— Flywheel ——— */
     .flywheel-svg { width: 100%; max-width: 520px; height: auto; }
 
@@ -297,28 +309,6 @@
     a { color: inherit; }
 
     /* ——— Print / PDF ——— */
-    @media print {
-      html { scroll-snap-type: none !important; }
-      .slide {
-        height: 100vh !important; page-break-after: always; break-after: page;
-        -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      .slide-nav, .dl-btn { display: none !important; }
-      body::after { display: none !important; }
-      .reveal, .reveal-left, .reveal-right, .reveal-blur, .reveal-scale, .reveal-rotate, .reveal-clip { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
-      .slide-inner { opacity: 1 !important; transform: none !important; transition: none !important; }
-      .orb { animation: none !important; }
-      .workflow-step.animate-in { opacity: 1 !important; transform: none !important; }
-      .roadmap-table { display: table !important; }
-      .roadmap-table th, .roadmap-table td { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .two-col { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
-      .three-col { grid-template-columns: repeat(3,1fr) !important; }
-      .four-col { grid-template-columns: repeat(4,1fr) !important; }
-      .slide-num { display: block !important; }
-      @page { size: landscape; margin: 0; }
-    }
-
     @media (max-width: 900px) {
       html { scroll-snap-type: none; }
       .slide {
@@ -336,6 +326,9 @@
         clip-path: none !important; transition: none !important;
       }
       .workflow-step.animate-in { opacity: 1 !important; transform: none !important; }
+      .wf-anim { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .tam-ring { opacity: 1 !important; transform: scale(1) !important; transition: none !important; }
+      .fw-node { opacity: 1 !important; transition: none !important; }
       /* Layouts */
       .two-col { grid-template-columns: 1fr; gap: 32px; }
       .four-col { grid-template-columns: 1fr 1fr; }
@@ -390,6 +383,45 @@
       .data-sources { flex-direction: column; }
       .feature-content h4 { font-size: 15px; }
       .feature-content p { font-size: 14px; }
+    }
+
+    /* ——— Print / PDF — must come AFTER mobile breakpoints ——— */
+    @media print {
+      html { scroll-snap-type: none !important; overflow: visible !important; }
+      body { background: none !important; }
+      .slide {
+        height: 100vh !important; min-height: 100vh !important; max-height: 100vh !important;
+        overflow: hidden !important;
+        page-break-after: always; break-after: page;
+        page-break-inside: avoid; break-inside: avoid;
+        -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      .slide-inner {
+        height: 90vh !important; max-height: 90vh !important;
+        width: 90% !important; padding: 40px 0 !important;
+        opacity: 1 !important; transform: none !important; transition: none !important;
+      }
+      .slide-nav, .dl-btn { display: none !important; }
+      body::after { display: none !important; }
+      .orb { display: none !important; }
+      .reveal, .reveal-left, .reveal-right, .reveal-blur, .reveal-scale, .reveal-rotate, .reveal-clip { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
+      .workflow-step.animate-in { opacity: 1 !important; transform: none !important; }
+      .roadmap-table { display: table !important; margin-right: 0 !important; }
+      .roadmap-table th, .roadmap-table td { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .two-col { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+      .three-col { grid-template-columns: repeat(3,1fr) !important; }
+      .four-col { grid-template-columns: repeat(4,1fr) !important; }
+      .slide-num { display: block !important; position: absolute !important; bottom: 20px !important; left: 5% !important; }
+      .holding-box { min-height: 200px !important; }
+      #s2 .slide-inner > div { grid-template-columns: 1.2fr 0.8fr !important; gap: 56px !important; }
+      .feature-list li { flex-direction: row !important; gap: 16px !important; }
+      #s5 .slide-inner > .reveal { overflow: hidden !important; margin-right: 0 !important; }
+      .count-up { opacity: 1 !important; }
+      .wf-anim { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .tam-ring { opacity: 1 !important; transform: scale(1) !important; transition: none !important; }
+      .fw-node { opacity: 1 !important; transition: none !important; }
+      @page { size: landscape; margin: 0; }
     }
   </style>
 </head>
@@ -481,29 +513,22 @@
   <div class="slide-inner">
     <span class="tag tag-dark reveal-left">Problem</span>
     <h2 class="slide-title reveal-left reveal-delay-1" style="color: var(--white); max-width: 900px;">Sustainability is a structurally constrained profession &mdash; and <u>consultants</u> currently pay the price</h2>
-    <div class="two-col" style="margin-top:16px;align-items:start;">
-      <div>
-        <p class="slide-subtitle reveal-left reveal-delay-2" style="color: var(--sage-light); margin-bottom: 28px;">Sustainability has a broad remit: spanning every part of a business and many topics, but sits apart. No mandate, scattered data, poor tools, and an ever-shifting brief mean&hellip;</p>
-        <ul class="feature-list reveal-left reveal-delay-3">
-          <li>
-            <div class="icon" style="background: rgba(197,208,192,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#C5D0C0" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--sage-light);">Slow and expensive</h4><p style="color: var(--sage);">The priority work is manual (low value and high cost) and enterprise clients expect more for less.</p></div>
-          </li>
-          <li>
-            <div class="icon" style="background: rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--sage-light);">Knowledge doesn't accumulate</h4><p style="color: var(--sage);">Methodology and context leave with people. Every engagement starts from scratch.</p></div>
-          </li>
-          <li>
-            <div class="icon" style="background: rgba(123,245,160,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#7BF5A0" stroke-width="1.5"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
-            <div class="feature-content"><h4 style="color: var(--sage-light);">No space for strategy</h4><p style="color: var(--sage);">Clients are consumed by compliance. True impact and value creation gets sidelined.</p></div>
-          </li>
-        </ul>
-        <div class="callout callout-mint reveal-left reveal-delay-4" style="white-space:normal;">Consultants are seen as vendors, not partners. Budget cuts and regulatory retrenchment mean more pressure to deliver, tighter budgets, and less influence.</div>
-      </div>
-      <div class="holding-box holding-box-dark reveal-scale reveal-delay-4" style="min-height:100%;">
-        <span style="font-family:var(--mono);font-size:12px;color:var(--sage);opacity:0.5;">Illustration placeholder</span>
-      </div>
-    </div>
+    <p class="slide-subtitle reveal-left reveal-delay-2" style="color: var(--sage-light); margin-bottom: 36px;">Sustainability has a broad remit: spanning every part of a business and many topics, but sits apart. No mandate, scattered data, poor tools, and an ever-shifting brief mean&hellip;</p>
+    <ul class="feature-list reveal-left reveal-delay-3">
+      <li>
+        <div class="icon" style="background: rgba(197,208,192,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#C5D0C0" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="feature-content"><h4 style="color: var(--sage-light);">Slow and expensive</h4><p style="color: var(--sage);">The priority work is manual (low value and high cost) and enterprise clients expect more for less.</p></div>
+      </li>
+      <li>
+        <div class="icon" style="background: rgba(184,169,232,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#D0C6F0" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="feature-content"><h4 style="color: var(--sage-light);">Knowledge doesn't accumulate</h4><p style="color: var(--sage);">Methodology and context leave with people. Every engagement starts from scratch.</p></div>
+      </li>
+      <li>
+        <div class="icon" style="background: rgba(123,245,160,0.15);"><svg viewBox="0 0 24 24" fill="none" stroke="#7BF5A0" stroke-width="1.5"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+        <div class="feature-content"><h4 style="color: var(--sage-light);">No space for strategy</h4><p style="color: var(--sage);">Clients are consumed by compliance. True impact and value creation gets sidelined.</p></div>
+      </li>
+    </ul>
+    <div class="callout callout-mint reveal-left reveal-delay-4" style="max-width:720px;white-space:normal;">Consultants are seen as vendors, not partners. Budget cuts and regulatory retrenchment mean more pressure to deliver, tighter budgets, and less influence.</div>
   </div>
   <span class="slide-num" style="color:var(--sage);">03</span>
 </section>
@@ -549,85 +574,100 @@
           <marker id="garr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1L8 5L0 9z" fill="#7BF5A0"/></marker>
         </defs>
         <!-- ——— DATA SOURCES (top row) ——— -->
-        <!-- annwn Corpus (mint-pale) -->
+        <g class="wf-anim" data-wf-delay="0">
         <rect x="10" y="10" width="130" height="100" rx="10" fill="rgba(123,245,160,0.12)" stroke="#A8F5C0" stroke-width="1.5"/>
         <text x="75" y="38" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#A8F5C0">annwn</text>
         <text x="75" y="54" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#A8F5C0">Corpus</text>
         <text x="75" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(168,245,192,0.7)">Prior submissions,</text>
         <text x="75" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(168,245,192,0.7)">sector methodology</text>
         <text x="75" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(168,245,192,0.7)">&amp; benchmarks</text>
-        <!-- Enterprise Data (sage) — centred above step 3 (x=296) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="100">
         <rect x="231" y="10" width="130" height="100" rx="10" fill="rgba(197,208,192,0.12)" stroke="#C5D0C0" stroke-width="1.5"/>
         <text x="296" y="38" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#DDE3DA">Enterprise</text>
         <text x="296" y="54" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#DDE3DA">Data</text>
         <text x="296" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(197,208,192,0.7)">Utility bills,</text>
         <text x="296" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(197,208,192,0.7)">minutes, procurement,</text>
         <text x="296" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(197,208,192,0.7)">prior reports</text>
-        <!-- External Risk Data (lavender) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="200">
         <rect x="680" y="10" width="140" height="100" rx="10" fill="rgba(184,169,232,0.12)" stroke="#D0C6F0" stroke-width="1.5"/>
         <text x="750" y="38" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#D0C6F0">External Risk</text>
         <text x="750" y="54" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="13" fill="#D0C6F0">Data</text>
         <text x="750" y="72" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(208,198,240,0.7)">Physical &amp;</text>
         <text x="750" y="84" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(208,198,240,0.7)">transition risk,</text>
         <text x="750" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(208,198,240,0.7)">regulatory databases</text>
+        </g>
 
         <!-- ——— ARROWS from data sources down ——— -->
+        <g class="wf-anim" data-wf-delay="400">
         <line x1="75" y1="110" x2="75" y2="175" stroke="#7BF5A0" stroke-width="1.5" marker-end="url(#garr)"/>
         <line x1="296" y1="110" x2="296" y2="175" stroke="#7BF5A0" stroke-width="1.5" marker-end="url(#garr)"/>
         <line x1="750" y1="110" x2="750" y2="175" stroke="#7BF5A0" stroke-width="1.5" marker-end="url(#garr)"/>
+        </g>
 
         <!-- ——— WORKFLOW STEPS (middle row y=180) ——— -->
-        <!-- Step boxes: each ~108px wide, 8px gap. Total ≈ 9*108 + 8*8 = 1036 -->
-        <!-- 1. Scoping (annwn automated - mint) -->
+        <g class="wf-anim" data-wf-delay="500">
         <rect x="10" y="180" width="108" height="60" rx="8" fill="#7BF5A0"/>
         <text x="64" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">1. Scoping</text>
         <text x="64" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">&amp; Prior Review</text>
-        <!-- 2. Data Collection (annwn automated) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="600">
         <rect x="126" y="180" width="108" height="60" rx="8" fill="#7BF5A0"/>
         <text x="180" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">2. Data</text>
         <text x="180" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Collection</text>
-        <!-- 3. Gap Analysis (annwn + client - mint-soft) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="700">
         <rect x="242" y="180" width="108" height="60" rx="8" fill="#A8F5C0"/>
         <text x="296" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">3. Gap</text>
         <text x="296" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Analysis</text>
-        <!-- 4. Framework Mapping (annwn + client) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="800">
         <rect x="358" y="180" width="108" height="60" rx="8" fill="#A8F5C0"/>
         <text x="412" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">4. Framework</text>
         <text x="412" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Mapping</text>
-        <!-- 5. Draft Responses (annwn automated) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="900">
         <rect x="474" y="180" width="108" height="60" rx="8" fill="#7BF5A0"/>
         <text x="528" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">5. Draft</text>
         <text x="528" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Responses</text>
-        <!-- 6. QA / Validation (annwn + client) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="1000">
         <rect x="590" y="180" width="108" height="60" rx="8" fill="#A8F5C0"/>
         <text x="644" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">6. QA /</text>
         <text x="644" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Validation</text>
-        <!-- 7. Client Review (client/human - sage) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="1100">
         <rect x="706" y="180" width="108" height="60" rx="8" fill="#C5D0C0"/>
         <text x="760" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">7. Client</text>
         <text x="760" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">Review</text>
-        <!-- 8. Submit (annwn automated) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="1200">
         <rect x="822" y="180" width="96" height="60" rx="8" fill="#7BF5A0"/>
         <text x="870" y="214" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">8. Submit</text>
-        <!-- 9. Score D→A (external/CDP - lavender-soft) -->
+        </g>
+        <g class="wf-anim" data-wf-delay="1300">
         <rect x="926" y="180" width="96" height="60" rx="8" fill="#D0C6F0"/>
         <text x="974" y="206" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">9. Score</text>
         <text x="974" y="222" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="12" fill="#1E1E2A">D &#8594; A</text>
+        </g>
 
         <!-- ——— FEEDBACK LOOPS ——— -->
-        <!-- Year-on-year learning loop: from step 9 bottom, loops back to step 1 -->
-        <path d="M974 240 L974 350 L10 350 L10 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
-        <text x="480" y="346" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Year-on-year learning loop</text>
-
-        <!-- Client feedback: from step 7 bottom to step 5 -->
-        <path d="M760 240 L760 320 L528 320 L528 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
-        <text x="620" y="315" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Client feedback</text>
-
-        <!-- Revision loop: from step 6 bottom, short loop inside client feedback -->
+        <g class="wf-anim" data-wf-delay="1500">
         <path d="M644 240 L644 296 L528 296 L528 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
         <text x="560" y="292" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Revision loop</text>
+        </g>
+        <g class="wf-anim" data-wf-delay="1650">
+        <path d="M760 240 L760 320 L528 320 L528 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
+        <text x="620" y="315" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Client feedback</text>
+        </g>
+        <g class="wf-anim" data-wf-delay="1800">
+        <path d="M974 240 L974 350 L10 350 L10 245" stroke="#B8A9E8" stroke-width="1.5" fill="none" marker-end="url(#warr)"/>
+        <text x="480" y="346" font-family="Inter,sans-serif" font-size="11" font-style="italic" fill="#B8A9E8">Year-on-year learning loop</text>
+        </g>
 
         <!-- ——— LEGEND (top right) ——— -->
+        <g class="wf-anim" data-wf-delay="300">
         <rect x="895" y="16" width="14" height="14" rx="3" fill="#7BF5A0"/>
         <text x="918" y="28" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">annwn automated</text>
         <rect x="895" y="38" width="14" height="14" rx="3" fill="#A8F5C0"/>
@@ -640,8 +680,10 @@
         <text x="918" y="116" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">Enterprise input</text>
         <rect x="895" y="126" width="14" height="14" rx="3" fill="rgba(123,245,160,0.15)" stroke="#A8F5C0" stroke-width="1"/>
         <text x="918" y="138" font-family="Inter,sans-serif" font-size="11" fill="#DDE3DA">annwn corpus</text>
+        </g>
 
         <!-- ——— PERSISTENT LAYER (bottom) ——— -->
+        <g class="wf-anim" data-wf-delay="2000">
         <text x="10" y="430" font-family="Space Grotesk,sans-serif" font-weight="600" font-size="13" fill="#A8F5C0">Persistent layer</text>
         <rect x="10" y="445" width="332" height="50" rx="8" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="1.2"/>
         <text x="176" y="475" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--sage-light)">Scoring model (D&#8594;C&#8594;B&#8594;A)</text>
@@ -649,6 +691,7 @@
         <text x="516" y="475" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--sage-light)">Audit trail (every output, assurance-grade)</text>
         <rect x="690" y="445" width="332" height="50" rx="8" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="1.2"/>
         <text x="856" y="475" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="var(--sage-light)">annwn knowledge graph (context survives)</text>
+        </g>
       </svg>
     </div>
   </div>
@@ -673,19 +716,25 @@
         <div class="callout callout-mint" style="margin-top: 20px;white-space:normal;">Harvey (legal AI): $11bn valuation. &ldquo;Service-as-Software&rdquo; commands 20x+ ARR multiples. Sustainability is next.</div>
       </div>
       <div class="reveal-scale reveal-delay-3 tam-wrap">
-        <svg class="tam-svg" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="tam-svg tam-animated" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- TAM -->
+          <g class="tam-ring" data-tam-delay="0" style="opacity:0;transform-origin:220px 220px;transform:scale(0.6);">
           <circle cx="220" cy="220" r="210" stroke="rgba(184,169,232,0.3)" stroke-width="2" fill="rgba(184,169,232,0.05)"/>
           <text x="220" y="80" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">TAM</text>
           <text x="220" y="115" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="36" font-weight="700" fill="#D0C6F0">&pound;30bn</text>
+          </g>
           <!-- SAM -->
+          <g class="tam-ring" data-tam-delay="400" style="opacity:0;transform-origin:220px 270px;transform:scale(0.5);">
           <circle cx="220" cy="270" r="130" stroke="rgba(168,245,192,0.4)" stroke-width="2" fill="rgba(123,245,160,0.06)"/>
           <text x="220" y="195" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" letter-spacing="2" fill="#8A8A96">SAM</text>
           <text x="220" y="225" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="26" font-weight="700" fill="#A8F5C0">&pound;2.6bn</text>
+          </g>
           <!-- SOM -->
+          <g class="tam-ring" data-tam-delay="800" style="opacity:0;transform-origin:220px 320px;transform:scale(0.3);">
           <circle cx="220" cy="320" r="60" fill="#7BF5A0"/>
           <text x="220" y="310" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" letter-spacing="2" fill="#1E1E2A" font-weight="600">SOM</text>
           <text x="220" y="332" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#1E1E2A">&pound;200m</text>
+          </g>
         </svg>
       </div>
     </div>
@@ -748,46 +797,69 @@
         <div class="callout callout-mint reveal-left reveal-delay-3" style="white-space:normal;">Companies are actively seeking upgrades, creating a clear buy window now.</div>
       </div>
       <div class="reveal-scale reveal-delay-3" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <svg class="flywheel-svg" viewBox="0 0 455 395" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Circle: center(230,215) r=155. Nodes at 0°,72°,144°,216°,288° clockwise from top -->
+        <svg class="flywheel-svg flywheel-animated" viewBox="0 0 455 395" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 1L8 5L0 9z" fill="#A8F5C0"/></marker>
             <marker id="arr2" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M10 1L2 5L10 9z" fill="#A8F5C0"/></marker>
           </defs>
-          <!-- True circular arcs (r=155) between box edges, all clockwise -->
-          <g stroke="#A8F5C0" stroke-width="1.5" fill="none" marker-end="url(#arr)">
-            <path d="M295 74 A155 155 0 0 1 367 143"/>
-            <path d="M383 191 A155 155 0 0 1 348 316"/>
-            <path d="M113 316 A155 155 0 0 1 77 191"/>
-            <path d="M93 143 A155 155 0 0 1 165 74"/>
-          </g>
-          <!-- Double arrow: Lock-in ↔ More trust -->
-          <line x1="189" y1="340" x2="269" y2="340" stroke="#A8F5C0" stroke-width="1.5" marker-end="url(#arr)" marker-start="url(#arr2)"/>
-          <!-- Straight arrow: Unfair advantage → Encoded knowledge -->
-          <line x1="108" y1="60" x2="163" y2="60" stroke="#A8F5C0" stroke-width="1.5" marker-end="url(#arr)"/>
-          <!-- Node boxes (centered on circle points) -->
           <g font-family="Space Grotesk,sans-serif" font-weight="600">
-            <!-- Unfair advantage — outside circle, top-left -->
-            <rect x="3" y="36" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
-            <text x="56" y="56" fill="#A8F5C0" text-anchor="middle" font-size="13">Unfair</text>
-            <text x="56" y="73" fill="#A8F5C0" text-anchor="middle" font-size="13">advantage</text>
-            <!-- 1. Encoded knowledge grows — (230,60) -->
-            <rect x="165" y="36" width="130" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
-            <text x="230" y="56" fill="#A8F5C0" text-anchor="middle" font-size="13">Encoded</text>
-            <text x="230" y="73" fill="#A8F5C0" text-anchor="middle" font-size="13">knowledge grows</text>
-            <!-- 2. Better outputs — (378,167) -->
-            <rect x="326" y="143" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
+            <!-- Unfair advantage (lavender) -->
+            <g class="fw-node" data-fw-delay="0">
+            <rect x="3" y="36" width="105" height="48" rx="8" fill="rgba(184,169,232,0.1)" stroke="#B8A9E8" stroke-width="1.2"/>
+            <text x="56" y="56" fill="#D0C6F0" text-anchor="middle" font-size="13">Unfair</text>
+            <text x="56" y="73" fill="#D0C6F0" text-anchor="middle" font-size="13">advantage</text>
+            </g>
+            <!-- Arrow: Unfair → Encoded -->
+            <g class="fw-node" data-fw-delay="100">
+            <line x1="108" y1="60" x2="163" y2="60" stroke="#A8F5C0" stroke-width="1.5" marker-end="url(#arr)"/>
+            </g>
+            <!-- 1. Encoded knowledge grows (mint) -->
+            <g class="fw-node" data-fw-delay="200">
+            <rect x="165" y="36" width="130" height="48" rx="8" fill="rgba(123,245,160,0.1)" stroke="#7BF5A0" stroke-width="1.2"/>
+            <text x="230" y="56" fill="#7BF5A0" text-anchor="middle" font-size="13">Encoded</text>
+            <text x="230" y="73" fill="#7BF5A0" text-anchor="middle" font-size="13">knowledge grows</text>
+            </g>
+            <!-- Arc: Encoded → Better outputs -->
+            <g class="fw-node" data-fw-delay="300">
+            <path d="M295 74 A155 155 0 0 1 367 143" stroke="#A8F5C0" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+            </g>
+            <!-- 2. Better outputs (mint-soft) -->
+            <g class="fw-node" data-fw-delay="400">
+            <rect x="326" y="143" width="105" height="48" rx="8" fill="rgba(168,245,192,0.1)" stroke="#A8F5C0" stroke-width="1.2"/>
             <text x="378" y="163" fill="#A8F5C0" text-anchor="middle" font-size="13">Better</text>
             <text x="378" y="180" fill="#A8F5C0" text-anchor="middle" font-size="13">outputs</text>
-            <!-- 3. More trust — (321,340) -->
-            <rect x="269" y="316" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
-            <text x="321" y="344" fill="#A8F5C0" text-anchor="middle" font-size="13">More trust</text>
-            <!-- 4. Lock-in — (139,340) -->
-            <rect x="89" y="316" width="100" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
-            <text x="139" y="344" fill="#A8F5C0" text-anchor="middle" font-size="13">Lock-in</text>
-            <!-- 5. More users — (83,167) -->
-            <rect x="31" y="143" width="105" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(168,245,192,0.4)" stroke-width="1.2"/>
-            <text x="83" y="171" fill="#A8F5C0" text-anchor="middle" font-size="13">More users</text>
+            </g>
+            <!-- Arc: Better outputs → More trust -->
+            <g class="fw-node" data-fw-delay="500">
+            <path d="M383 191 A155 155 0 0 1 348 316" stroke="#A8F5C0" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+            </g>
+            <!-- 3. More trust (sage) -->
+            <g class="fw-node" data-fw-delay="600">
+            <rect x="269" y="316" width="105" height="48" rx="8" fill="rgba(197,208,192,0.1)" stroke="#C5D0C0" stroke-width="1.2"/>
+            <text x="321" y="344" fill="#DDE3DA" text-anchor="middle" font-size="13">More trust</text>
+            </g>
+            <!-- Double arrow: Lock-in ↔ More trust -->
+            <g class="fw-node" data-fw-delay="700">
+            <line x1="189" y1="340" x2="269" y2="340" stroke="#A8F5C0" stroke-width="1.5" marker-end="url(#arr)" marker-start="url(#arr2)"/>
+            </g>
+            <!-- 4. Lock-in (lavender-soft) -->
+            <g class="fw-node" data-fw-delay="800">
+            <rect x="89" y="316" width="100" height="48" rx="8" fill="rgba(208,198,240,0.1)" stroke="#D0C6F0" stroke-width="1.2"/>
+            <text x="139" y="344" fill="#D0C6F0" text-anchor="middle" font-size="13">Lock-in</text>
+            </g>
+            <!-- Arc: Lock-in → More users -->
+            <g class="fw-node" data-fw-delay="900">
+            <path d="M113 316 A155 155 0 0 1 77 191" stroke="#A8F5C0" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+            </g>
+            <!-- 5. More users (mint) -->
+            <g class="fw-node" data-fw-delay="1000">
+            <rect x="31" y="143" width="105" height="48" rx="8" fill="rgba(123,245,160,0.1)" stroke="#7BF5A0" stroke-width="1.2"/>
+            <text x="83" y="171" fill="#7BF5A0" text-anchor="middle" font-size="13">More users</text>
+            </g>
+            <!-- Arc: More users → Encoded knowledge -->
+            <g class="fw-node" data-fw-delay="1100">
+            <path d="M93 143 A155 155 0 0 1 165 74" stroke="#A8F5C0" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+            </g>
           </g>
         </svg>
         <p style="font-family:var(--mono);font-size:10px;color:var(--sage);text-align:center;opacity:0.7;">annwn flywheel: knowledge compounds value and locks in</p>
@@ -850,36 +922,47 @@
         </ul>
       </div>
       <div class="reveal-scale reveal-delay-3" style="display:flex;justify-content:center;">
-        <svg class="matrix-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="matrix-svg matrix-animated" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Axes -->
+          <g class="fw-node" data-fw-delay="0">
           <line x1="250" y1="30" x2="250" y2="470" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
           <line x1="30" y1="250" x2="470" y2="250" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-          <!-- Labels -->
           <text x="250" y="20" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="2" fill="#8A8A96">STRATEGIC</text>
           <text x="250" y="492" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="2" fill="#8A8A96">TACTICAL</text>
           <text x="15" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" fill="#8A8A96" transform="rotate(-90 15 254)">NON SCALABLE</text>
           <text x="485" y="254" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1.5" fill="#8A8A96" transform="rotate(90 485 254)">SCALABLE</text>
-          <!-- Annwn - top right -->
-          <rect x="310" y="55" width="120" height="55" rx="10" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="2" stroke-dasharray="6 4"/>
-          <text x="370" y="88" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="16" font-weight="700" fill="#7BF5A0">annwn</text>
+          </g>
           <!-- Consultancies - top left -->
+          <g class="fw-node" data-fw-delay="200">
           <rect x="60" y="70" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
           <text x="125" y="95" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Consultancies</text>
           <text x="125" y="113" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Accenture</text>
+          </g>
           <!-- In-house AI - bottom left -->
+          <g class="fw-node" data-fw-delay="350">
           <rect x="60" y="310" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
           <text x="125" y="330" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">In-house AI</text>
           <text x="125" y="346" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">workflows</text>
           <text x="125" y="360" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unilever</text>
+          </g>
           <!-- Sustainability SaaS - bottom center -->
+          <g class="fw-node" data-fw-delay="500">
           <rect x="190" y="380" width="150" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
           <text x="265" y="405" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Sustainability SaaS</text>
           <text x="265" y="423" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Watershed, Persefoni</text>
+          </g>
           <!-- Discreet AI workflows - bottom right -->
+          <g class="fw-node" data-fw-delay="650">
           <rect x="340" y="310" width="130" height="55" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
           <text x="405" y="330" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">Discreet AI</text>
           <text x="405" y="346" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" fill="#DDE3DA">workflows</text>
           <text x="405" y="360" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="#8A8A96">e.g. Unravel, Brink, Upright</text>
+          </g>
+          <!-- Annwn - top right (last, hero position) -->
+          <g class="fw-node" data-fw-delay="900">
+          <rect x="310" y="55" width="120" height="55" rx="10" fill="rgba(123,245,160,0.08)" stroke="#7BF5A0" stroke-width="2" stroke-dasharray="6 4"/>
+          <text x="370" y="88" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="16" font-weight="700" fill="#7BF5A0">annwn</text>
+          </g>
         </svg>
       </div>
     </div>
@@ -1035,6 +1118,14 @@
   }),{threshold:0.5});
   document.querySelectorAll('.count-up').forEach(el=>cObs.observe(el));
 
+  // Set final values for print
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll('.count-up').forEach(el => {
+      const t=parseInt(el.dataset.target), p=el.dataset.prefix||'', s=el.dataset.suffix||'';
+      el.textContent = p + t + s;
+    });
+  });
+
   // Workflow step-by-step animation
   const wfObs = new IntersectionObserver(e => e.forEach(en => {
     if(en.isIntersecting) {
@@ -1046,6 +1137,63 @@
   }), {threshold:0.3});
   const wfEl = document.getElementById('workflowSteps');
   if(wfEl) wfObs.observe(wfEl);
+
+  // Workflow diagram SVG animation
+  const diagramSvg = document.querySelector('.workflow-diagram-svg');
+  if(diagramSvg) {
+    const dObs = new IntersectionObserver(e => e.forEach(en => {
+      if(en.isIntersecting) {
+        const groups = en.target.querySelectorAll('.wf-anim');
+        groups.forEach(g => {
+          const delay = parseInt(g.dataset.wfDelay) || 0;
+          setTimeout(() => g.classList.add('wf-visible'), delay);
+        });
+      }
+    }), {threshold:0.2});
+    dObs.observe(diagramSvg);
+  }
+
+  // TAM/SAM/SOM animation
+  const tamSvg = document.querySelector('.tam-animated');
+  if(tamSvg) {
+    const tObs = new IntersectionObserver(e => e.forEach(en => {
+      if(en.isIntersecting) {
+        en.target.querySelectorAll('.tam-ring').forEach(g => {
+          const delay = parseInt(g.dataset.tamDelay) || 0;
+          setTimeout(() => g.classList.add('tam-visible'), delay);
+        });
+      }
+    }), {threshold:0.3});
+    tObs.observe(tamSvg);
+  }
+
+  // Flywheel animation
+  const fwSvg = document.querySelector('.flywheel-animated');
+  if(fwSvg) {
+    const fObs = new IntersectionObserver(e => e.forEach(en => {
+      if(en.isIntersecting) {
+        en.target.querySelectorAll('.fw-node').forEach(g => {
+          const delay = parseInt(g.dataset.fwDelay) || 0;
+          setTimeout(() => g.classList.add('fw-visible'), delay);
+        });
+      }
+    }), {threshold:0.3});
+    fObs.observe(fwSvg);
+  }
+
+  // Competition matrix animation
+  const mxSvg = document.querySelector('.matrix-animated');
+  if(mxSvg) {
+    const mObs = new IntersectionObserver(e => e.forEach(en => {
+      if(en.isIntersecting) {
+        en.target.querySelectorAll('.fw-node').forEach(g => {
+          const delay = parseInt(g.dataset.fwDelay) || 0;
+          setTimeout(() => g.classList.add('fw-visible'), delay);
+        });
+      }
+    }), {threshold:0.3});
+    mObs.observe(mxSvg);
+  }
 </script>
 
 </body>
