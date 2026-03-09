@@ -303,6 +303,16 @@
     .wf-anim { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
     .wf-anim.wf-visible { opacity: 1; transform: translateY(0); }
 
+    /* ——— UI card stagger animation ——— */
+    .ui-card { opacity: 0; transform: translateY(20px); transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .ui-card.ui-visible { opacity: 1; transform: translateY(0); }
+    .ui-card .ui-bar { transform: scaleX(0); transform-origin: left; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s; }
+    .ui-card.ui-visible .ui-bar { transform: scaleX(1); }
+    .ui-card .ui-spark polyline { stroke-dasharray: 200; stroke-dashoffset: 200; transition: stroke-dashoffset 1s ease 0.2s; }
+    .ui-card.ui-visible .ui-spark polyline { stroke-dashoffset: 0; }
+    .ui-card .ui-donut circle:last-child { stroke-dasharray: 0 94.2; transition: stroke-dasharray 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s; }
+    .ui-card.ui-visible .ui-donut circle:last-child { stroke-dasharray: 71.6 22.8; }
+
     /* ——— TAM/SAM/SOM animation ——— */
     .tam-ring { transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
     .tam-ring.tam-visible { opacity: 1 !important; transform: scale(1) !important; }
@@ -361,6 +371,10 @@
       .wf-anim { opacity: 1 !important; transform: none !important; transition: none !important; }
       .tam-ring { opacity: 1 !important; transform: scale(1) !important; transition: none !important; }
       .fw-node { opacity: 1 !important; transition: none !important; }
+      .ui-card { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .ui-card .ui-bar { transform: scaleX(1) !important; transition: none !important; }
+      .ui-card .ui-spark polyline { stroke-dashoffset: 0 !important; transition: none !important; }
+      .ui-card .ui-donut circle:last-child { stroke-dasharray: 71.6 22.8 !important; transition: none !important; }
       /* Layouts */
       .two-col { grid-template-columns: 1fr; gap: 32px; }
       .four-col { grid-template-columns: 1fr 1fr; }
@@ -453,6 +467,10 @@
       .wf-anim { opacity: 1 !important; transform: none !important; transition: none !important; }
       .tam-ring { opacity: 1 !important; transform: scale(1) !important; transition: none !important; }
       .fw-node { opacity: 1 !important; transition: none !important; }
+      .ui-card { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .ui-card .ui-bar { transform: scaleX(1) !important; transition: none !important; }
+      .ui-card .ui-spark polyline { stroke-dashoffset: 0 !important; transition: none !important; }
+      .ui-card .ui-donut circle:last-child { stroke-dasharray: 71.6 22.8 !important; transition: none !important; }
       @page { size: landscape; margin: 0; }
     }
   </style>
@@ -518,7 +536,7 @@
 <section class="slide" id="s2" data-theme="light" style="background: var(--white);">
   <div class="slide-inner">
     <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: center;">
-      <div>
+      <div style="max-width: 540px;">
         <span class="tag tag-light reveal-left">Summary</span>
         <h2 class="slide-title reveal-left reveal-delay-1" style="font-size: clamp(28px, 3.5vw, 44px);">AI agents that automate enterprise sustainability compliance &mdash; saving hundreds of hours per year.</h2>
         <div class="reveal-left reveal-delay-2" style="display: flex; flex-direction: column; gap: 14px; margin-top: 28px;">
@@ -528,21 +546,23 @@
           <div><h4 style="font-family: var(--display); font-weight: 600; font-size: 14px;">Big opportunity</h4><p style="font-size: 14px; color: var(--dark-gray);">While there is a $2.6bn sustainability software market, we are part of the $30bn consulting market, displacing tasks and adding value.</p></div>
         </div>
       </div>
-      <div class="reveal-right reveal-delay-3" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-        <div style="grid-column:1/-1; background: var(--charcoal-soft); border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.06);">
-          <div style="font-size: 11px; color: var(--sage); font-family: var(--mono); margin-bottom: 6px;">Compliance Score</div>
-          <div style="font-family: var(--display); font-size: 44px; font-weight: 700; color: var(--white);">2,025</div>
-          <div style="height: 6px; background: var(--charcoal); border-radius: 3px; margin-top: 10px;"><div style="height: 100%; width: 78%; background: linear-gradient(90deg, var(--mint), var(--lavender)); border-radius: 3px;"></div></div>
+      <div id="uiCards" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div class="ui-card" style="grid-column:1/-1; background: var(--charcoal-soft); border-radius: 14px; padding: 18px 20px; border: 1px solid rgba(255,255,255,0.06);">
+          <div style="height: 8px; width: 70px; background: rgba(255,255,255,0.12); border-radius: 4px; margin-bottom: 10px;"></div>
+          <div class="count-up" style="font-family: var(--display); font-size: 36px; font-weight: 700; color: var(--white);" data-target="2025" data-separator=",">0</div>
+          <div style="height: 5px; background: var(--charcoal); border-radius: 3px; margin-top: 8px;"><div class="ui-bar" style="height: 100%; width: 78%; background: linear-gradient(90deg, var(--mint), var(--lavender)); border-radius: 3px;"></div></div>
         </div>
-        <div style="background: var(--mint-pale); border-radius: 16px; padding: 20px;">
-          <div style="font-size: 11px; font-family: var(--mono); margin-bottom: 6px; opacity: 0.6;">Cost saved</div>
-          <div style="font-family: var(--display); font-size: 28px; font-weight: 700;">&pound;15,368</div>
-          <div style="font-size: 12px; margin-top: 2px; opacity: 0.6;">per engagement</div>
+        <div class="ui-card" style="background: var(--mint-pale); border-radius: 14px; padding: 16px;">
+          <div style="height: 7px; width: 50px; background: rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 8px;"></div>
+          <div class="count-up" style="font-family: var(--display); font-size: 24px; font-weight: 700;" data-target="15368" data-prefix="&pound;" data-separator=",">0</div>
+          <svg class="ui-spark" viewBox="0 0 120 32" style="width: 100%; margin-top: 8px; overflow: visible;"><defs><linearGradient id="sparkG" x1="0" x2="1"><stop offset="0%" stop-color="var(--mint)"/><stop offset="100%" stop-color="#3ac97a"/></linearGradient></defs><polyline points="0,28 15,24 30,26 45,18 60,20 75,12 90,8 105,4 120,2" fill="none" stroke="url(#sparkG)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <div style="background: var(--lavender-pale); border-radius: 16px; padding: 20px;">
-          <div style="font-size: 11px; font-family: var(--mono); margin-bottom: 6px; opacity: 0.6;">Time reduction</div>
-          <div style="font-family: var(--display); font-size: 28px; font-weight: 700;">76%</div>
-          <div style="font-size: 12px; margin-top: 2px; opacity: 0.6;">6 weeks &rarr; 10 days</div>
+        <div class="ui-card" style="background: var(--lavender-pale); border-radius: 14px; padding: 16px;">
+          <div style="height: 7px; width: 50px; background: rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 8px;"></div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="count-up" style="font-family: var(--display); font-size: 24px; font-weight: 700;" data-target="76" data-suffix="%">0</div>
+            <svg class="ui-donut" viewBox="0 0 36 36" style="width: 34px; height: 34px; transform: rotate(-90deg);"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(184,169,232,0.3)" stroke-width="5"/><circle cx="18" cy="18" r="15" fill="none" stroke="var(--lavender)" stroke-width="5" stroke-dasharray="71.6 22.8" stroke-linecap="round"/></svg>
+          </div>
         </div>
       </div>
     </div>
@@ -1223,11 +1243,12 @@
   slides.forEach(s => scrollObs.observe(s));
 
   // Count-up
+  function fmtNum(n, sep) { return sep ? n.toLocaleString() : String(n); }
   function countUp(el) {
-    const t=parseInt(el.dataset.target), p=el.dataset.prefix||'', s=el.dataset.suffix||'', dur=1200, start=performance.now();
+    const t=parseInt(el.dataset.target), p=el.dataset.prefix||'', s=el.dataset.suffix||'', sep=el.dataset.separator, dur=1200, start=performance.now();
     function tick(now) {
       const prog=Math.min((now-start)/dur,1), eased=1-Math.pow(1-prog,3);
-      el.textContent=p+Math.round(eased*t)+s;
+      el.textContent=p+fmtNum(Math.round(eased*t),sep)+s;
       if(prog<1)requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -1241,10 +1262,24 @@
   // Set final values for print
   window.addEventListener('beforeprint', () => {
     document.querySelectorAll('.count-up').forEach(el => {
-      const t=parseInt(el.dataset.target), p=el.dataset.prefix||'', s=el.dataset.suffix||'';
-      el.textContent = p + t + s;
+      const t=parseInt(el.dataset.target), p=el.dataset.prefix||'', s=el.dataset.suffix||'', sep=el.dataset.separator;
+      el.textContent = p + fmtNum(t,sep) + s;
     });
   });
+
+  // UI card stagger animation
+  const uiWrap = document.getElementById('uiCards');
+  if (uiWrap) {
+    const cards = uiWrap.querySelectorAll('.ui-card');
+    const uiObs = new IntersectionObserver(e => e.forEach(en => {
+      if (en.isIntersecting) {
+        cards.forEach((c, i) => setTimeout(() => c.classList.add('ui-visible'), i * 200));
+      } else {
+        cards.forEach(c => c.classList.remove('ui-visible'));
+      }
+    }), {threshold: 0.3});
+    uiObs.observe(uiWrap);
+  }
 
   // Workflow step-by-step animation
   const wfObs = new IntersectionObserver(e => e.forEach(en => {
