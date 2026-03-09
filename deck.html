@@ -128,6 +128,36 @@
     .slide-nav a.active .nav-label { opacity: 0.6; }
 
     /* ——— Download button ——— */
+    /* ——— Password gate ——— */
+    .pw-gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--charcoal);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 24px;
+    }
+    .pw-gate.pw-hidden { display: none; }
+    .pw-gate img { height: 32px; filter: brightness(0) invert(1); opacity: 0.7; }
+    .pw-form { display: flex; gap: 10px; }
+    .pw-form input {
+      font-family: var(--body); font-size: 15px;
+      padding: 12px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06); color: var(--white);
+      outline: none; width: 240px;
+      transition: border-color 0.2s;
+    }
+    .pw-form input:focus { border-color: var(--mint); }
+    .pw-form input.pw-error { border-color: #E85A5A; }
+    .pw-form button {
+      font-family: var(--display); font-size: 14px; font-weight: 600;
+      padding: 12px 24px; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--mint); color: var(--charcoal);
+      transition: all 0.2s;
+    }
+    .pw-form button:hover { background: #6ae090; }
+    .pw-hint { font-size: 13px; color: var(--mid-gray); }
+    .pw-error-msg { font-size: 13px; color: #E85A5A; height: 18px; }
+    body.pw-locked { overflow: hidden; }
+
     .dl-btn {
       position: fixed; top: 16px; right: 20px; z-index: 101;
       font-family: var(--display); font-size: 13px; font-weight: 600;
@@ -403,7 +433,7 @@
         width: 90% !important; padding: 40px 0 !important;
         opacity: 1 !important; transform: none !important; transition: none !important;
       }
-      .slide-nav, .dl-btn { display: none !important; }
+      .slide-nav, .dl-btn, .pw-gate { display: none !important; }
       body::after { display: none !important; }
       .orb { display: none !important; }
       .reveal, .reveal-left, .reveal-right, .reveal-blur, .reveal-scale, .reveal-rotate, .reveal-clip { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
@@ -426,8 +456,19 @@
     }
   </style>
 </head>
-<body>
+<body class="pw-locked">
 
+<div class="pw-gate" id="pwGate">
+  <img src="https://annwn.ai/annwn_transparent_white.png" alt="annwn">
+  <div class="pw-form">
+    <input type="password" id="pwInput" placeholder="Enter password" autocomplete="off">
+    <button id="pwBtn">Enter</button>
+  </div>
+  <p class="pw-error-msg" id="pwError"></p>
+</div>
+
+<div id="deckContainer">
+<!--PROTECTED_START-->
 <button class="dl-btn" onclick="window.print()">Download PDF</button>
 
 <nav class="slide-nav" id="slideNav">
@@ -1066,9 +1107,86 @@
   </div>
   <span class="slide-num" style="color:var(--sage);">14</span>
 </section>
+<!--PROTECTED_END-->
 
 
 <script>
+  // ——— Password gate with AES-256-GCM decryption ———
+  (function() {
+    const gate = document.getElementById('pwGate');
+    const input = document.getElementById('pwInput');
+    const btn = document.getElementById('pwBtn');
+    const err = document.getElementById('pwError');
+    const container = document.getElementById('deckContainer');
+
+    // Dev mode: no encrypted blob means source file is being viewed directly
+    if (typeof ENCRYPTED_DECK === 'undefined') {
+      gate.classList.add('pw-hidden');
+      document.body.classList.remove('pw-locked');
+      return;
+    }
+
+    // If already decrypted this session, use cached content
+    const cached = sessionStorage.getItem('pw-deck');
+    if (cached) {
+      container.innerHTML = cached;
+      gate.classList.add('pw-hidden');
+      document.body.classList.remove('pw-locked');
+      initDeck();
+    }
+
+    function b64toArr(b64) { return Uint8Array.from(atob(b64), c => c.charCodeAt(0)); }
+
+    async function decrypt(password) {
+      if (typeof ENCRYPTED_DECK === 'undefined') return null;
+      const enc = ENCRYPTED_DECK;
+      const salt = b64toArr(enc.s);
+      const iv = b64toArr(enc.i);
+      const tag = b64toArr(enc.t);
+      const data = b64toArr(enc.d);
+      // AES-GCM expects ciphertext + tag concatenated
+      const ciphertext = new Uint8Array(data.length + tag.length);
+      ciphertext.set(data);
+      ciphertext.set(tag, data.length);
+      try {
+        const keyMaterial = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+        const key = await crypto.subtle.deriveKey(
+          { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+          keyMaterial,
+          { name: 'AES-GCM', length: 256 },
+          false, ['decrypt']
+        );
+        const decrypted = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ciphertext);
+        return new TextDecoder().decode(decrypted);
+      } catch { return null; }
+    }
+
+    async function check() {
+      const pw = input.value;
+      btn.textContent = '...';
+      const html = await decrypt(pw);
+      btn.textContent = 'Enter';
+      if (html) {
+        sessionStorage.setItem('pw-deck', html);
+        container.innerHTML = html;
+        gate.classList.add('pw-hidden');
+        document.body.classList.remove('pw-locked');
+        initDeck();
+      } else {
+        input.classList.add('pw-error');
+        err.textContent = 'Incorrect password';
+        setTimeout(() => { input.classList.remove('pw-error'); err.textContent = ''; }, 2000);
+      }
+    }
+
+    btn.addEventListener('click', check);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+    input.focus();
+  })();
+
+  // ——— Deck initialization (called after content is decrypted/injected) ———
+  function initDeck() {
+
   // Reveal (toggles so animations replay when revisiting slides)
   const revealSel = '.reveal,.reveal-left,.reveal-right,.reveal-blur,.reveal-scale,.reveal-rotate,.reveal-clip';
   const obs = new IntersectionObserver(e => e.forEach(en => {
@@ -1195,6 +1313,11 @@
     }), {threshold:0.3});
     mObs.observe(mxSvg);
   }
+
+  } // end initDeck
+
+  // If content is already in DOM (dev/source mode, not encrypted), init immediately
+  if (document.querySelector('.slide')) initDeck();
 </script>
 
 </body>
